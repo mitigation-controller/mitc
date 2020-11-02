@@ -14,7 +14,8 @@ nsimulations=1000;
 T_pl=1466;
 
 %--- Load data from the spreadsheet -->
-Data1=xlsread('Case study');Data2=readcell('Case study');
+filename = '..\data\Case study.xlsx';
+Data1=xlsread(filename);Data2=readcell(filename);
 Data1(1:3,:)=[];Data2(1:3,:)=[];
 
 %--- Activities duration (optimisatic, most likely, and pessimitic) -->(d_i_all)
