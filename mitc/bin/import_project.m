@@ -1,4 +1,4 @@
-function [dataDouble, dataCell] = import_project(filename, debug)
+function [dataDouble, dataCell] = import_project(filename)
 % import_project - Import project data files
 %
 %
@@ -18,11 +18,6 @@ function [dataDouble, dataCell] = import_project(filename, debug)
 % 
 % 
 %------------- BEGIN CODE --------------
-
-%-- Debug mode
-if debug == 1
-    filename = '..\data\Case study.xlsx'; % default test file
-end
 
 %--- Check if file exists
 if isfile(filename)
