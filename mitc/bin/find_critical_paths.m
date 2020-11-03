@@ -1,4 +1,4 @@
-function [T_orig, P_cr_0] = find_critical_paths(inputs)
+function [T_orig, P_cr_0, K, A] = find_critical_paths(R_ii, N, d_i_all, d_r_all, E_ie)
     % FIND_CRITICAL_PATHS - 
     %
     % Inputs:
@@ -14,9 +14,9 @@ function [T_orig, P_cr_0] = find_critical_paths(inputs)
     %   A
 
     %--- Verify input
-    % Check that data is structure
-    % Check that required data exists
+    % Check that data exists and is of the correct type
        
+    %--- 
     [row,col] = find(R_ii); %find the interdependent activities
     A = [col,row]; %store the indices in a two-column matrix that shows which activity depends on which activity (link matrix)
     P_all = transpose(allpaths(A,1,N)); %use the function all path to find all possible paths from point 1 to point N
