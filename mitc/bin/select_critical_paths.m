@@ -1,4 +1,4 @@
-function [T_orig, P_cr_0, K, A] = find_critical_paths(R_ii, N, d_i_all, d_r_all, E_ie)
+function [T_orig, P_cr_0, K, A] = select_critical_paths(P_ki, d_i_all, d_r_all, E_ie)
     % FIND_CRITICAL_PATHS - 
     %
     % Inputs:
@@ -15,21 +15,8 @@ function [T_orig, P_cr_0, K, A] = find_critical_paths(R_ii, N, d_i_all, d_r_all,
 
     %--- Verify input
     % Check that data exists and is of the correct type
-       
-    %--- 
-    [row,col] = find(R_ii); %find the interdependent activities
-    A = [col,row]; %store the indices in a two-column matrix that shows which activity depends on which activity (link matrix)
-    P_all = transpose(allpaths(A,1,N)); %use the function all path to find all possible paths from point 1 to point N
-
-    P_ki=zeros(length(P_all),N); % create matrix P-K to store the paths
-
-    % for-loop to fill the P_ki matrix
-    for k=1:length(P_all)
-        for i=1:length(P_all{k})
-            P_ki(k,P_all{k}(i))=1;
-        end
-    end
-
+          
+    %--- Module #
     %store only the most/potential critical paths assuming 1) pessimistic durations of
     %activities and 2) maximum delay due to risk: 
     d_i_pess=d_i_all(:,3); % pessimitic durations for all activities
