@@ -10,9 +10,13 @@ filename = '..\data\Case study.xlsx';
 parsedData = parse_data(dataDouble, dataCell);
 
 %--- 3) Prepare data for simulation
-[T_orig, P_cr_0, K, A] = find_critical_paths(...
-                         parsedData.R_ii, ...
-                         parsedData.nActivities,...
+
+% 3a) Generate matrix with all paths
+[P_ki, A] = fill_path_matrix(parsedData.R_ii, parsedData.nActivities);
+
+% 3b) Select critical paths to reduce the simulation time
+[T_orig, P_cr_0, K] = select_critical_paths(...                         
+                         P_ki,...
                          parsedData.durationActivities,...
                          parsedData.riskEventsDuration,...
                          parsedData.E_ie);
@@ -26,7 +30,7 @@ parsedData = parse_data(dataDouble, dataCell);
 
 
 %--- 7) Generate plots
-% plot_network
+% plot_network(A, dataCell);
 % 
 
 %--- 8) Save data and plots
