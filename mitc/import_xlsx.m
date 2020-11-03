@@ -19,9 +19,8 @@ function out = import_xlsx
     % 
     %------------- BEGIN CODE --------------
     
-    
-    filename = '..\data\Case study.xlsx';
-    
+    %--- Import project file
+    filename = '..\data\Case study.xlsx';    
     dataDouble = xlsread(filename);
     dataCell = readcell(filename);
     
@@ -49,12 +48,17 @@ function out = import_xlsx
     R_ij = find_dependencies(R_ij, R_ij_col, out.nMitigations);  
     out.R_ij = R_ij'; %inverse the matrix
 
-    %--- Relation matrix indicating which activity i each risk event e effects (delays) -->(E_ie)
+    %--- Relation matrix indicating which activity i each risk event e effects (delays)
     E_ie = zeros(out.nRisks, out.nActivities); 
     E_ie_col = dataCell(:,22); 
     E_ie = find_dependencies(E_ie, E_ie_col, out.nRisks);  
-    out.E_ie=E_ie'; %inverse the matrix
+    out.E_ie = E_ie'; %inverse the matrix
     
+    %--- Relationship matrix between mitigation measures and activities
+    R_ii=zeros(out.nActivities, out.nActivities);
+    R_ii_col=dataCell(:,6); 
+    out.R_ii = find_dependencies(R_ii, R_ii_col, out.nActivitities);
+        
     function arrayOut = remove_nan(arrayIn)
         arrayIn(~any(~isnan(arrayIn), 2),:) = [];
         arrayOut = arrayIn;
