@@ -1,4 +1,4 @@
-function [dataDouble, dataCell, out] = import_xlsx
+function [dataDouble, dataCell, out] = import_project
     % import_xlsx - Import and parse .xlsx files
     %
     % Syntax: [output] = import_xlsx(filename)
@@ -20,7 +20,7 @@ function [dataDouble, dataCell, out] = import_xlsx
     %------------- BEGIN CODE --------------
     
     %--- Import project file
-    filename = '..\data\Case study.xlsx';    
+    filename = '..\data\Case study';    
     dataDouble = xlsread(filename);
     dataCell = readcell(filename);
     
