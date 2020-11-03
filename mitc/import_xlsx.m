@@ -45,13 +45,13 @@ function out = import_xlsx
     
     %--- Relation matrix indicating upon which activity i each mitigation measure j intervenes
     R_ij = zeros(out.nMitigations, out.nActivities); 
-    R_ij_col = dataCell(:,16); % load the cells related to relationships between mitigation measures and activities
+    R_ij_col = dataCell(:,16); 
     R_ij = find_dependencies(R_ij, R_ij_col, out.nMitigations);  
     out.R_ij = R_ij'; %inverse the matrix
 
     %--- Relation matrix indicating which activity i each risk event e effects (delays) -->(E_ie)
-    E_ie = zeros(out.nRisks, out.nActivities); %create SxN matrix: relationships between risk events and activities (the matrix is to be inversed later)
-    E_ie_col = dataCell(:,22); % load the cells related to relationships between risk events and activities
+    E_ie = zeros(out.nRisks, out.nActivities); 
+    E_ie_col = dataCell(:,22); 
     E_ie = find_dependencies(E_ie, E_ie_col, out.nRisks);  
     out.E_ie=E_ie'; %inverse the matrix
     
@@ -60,17 +60,6 @@ function out = import_xlsx
         arrayOut = arrayIn;
     end
 
-    function matrixOut = find_dependencies(matrixIn, relation, iterations)
-        for i = 1 : iterations
-            if relation{i} == 0 % If risk event does not not affect activity case, do nothing
-            elseif isa(relation{i},'double') == 1 % assign interdependency
-                matrixIn(i, relation{i}) = 1;
-            elseif isa(relation{i},'char') == 1
-                matrixIn(i, str2num(relation{i})) = 1;
-            end
-        end
-        matrixOut = matrixIn;
-    end
 end
 
 
