@@ -1,4 +1,4 @@
-function out = import_xlsx
+function [dataDouble, dataCell, out] = import_xlsx
     % import_xlsx - Import and parse .xlsx files
     %
     % Syntax: [output] = import_xlsx(filename)
