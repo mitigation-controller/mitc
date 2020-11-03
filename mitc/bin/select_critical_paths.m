@@ -1,4 +1,4 @@
-function [T_orig, P_cr_0, K, A] = select_critical_paths(P_ki, d_i_all, d_r_all, E_ie)
+function [T_orig, P_cr_0, K] = select_critical_paths(P_ki, d_i_all, d_r_all, E_ie)
     % FIND_CRITICAL_PATHS - 
     %
     % Inputs:

@@ -1,4 +1,4 @@
-function P_ki = fill_path_matrix(R_ii, N)
+function [P_ki, A] = fill_path_matrix(R_ii, N)
 %
 %
 %
