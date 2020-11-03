@@ -4,6 +4,7 @@ close all
 tic
 %diary Optimal_Diary
 rng('default') %For reproducibility
+addpath('bin')
 
 %% Definition of parameters and variables
 
