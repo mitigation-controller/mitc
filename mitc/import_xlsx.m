@@ -57,7 +57,7 @@ function out = import_xlsx
     %--- Relationship matrix between mitigation measures and activities
     R_ii=zeros(out.nActivities, out.nActivities);
     R_ii_col=dataCell(:,6); 
-    out.R_ii = find_dependencies(R_ii, R_ii_col, out.nActivitities);
+    out.R_ii = find_dependencies(R_ii, R_ii_col, out.nActivities);
         
     function arrayOut = remove_nan(arrayIn)
         arrayIn(~any(~isnan(arrayIn), 2),:) = [];
