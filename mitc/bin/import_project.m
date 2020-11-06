@@ -39,6 +39,11 @@ end
 dataDouble = xlsread(filename);
 dataCell = readcell(filename);
 
+%--- Remove headers
+dataDouble(1:3,:) = [];
+dataCell(1:3,:) = [];
+
+
 %--- Verify imported data
 
     
