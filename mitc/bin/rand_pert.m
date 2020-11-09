@@ -1,4 +1,4 @@
-function [x]=draw_random_pert(a,m,b)
+function [x]=rand_pert(a,m,b)
     % draw_random_pert - Draw a random number from the Beta-Pert
     % distribution
     %
