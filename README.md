@@ -8,6 +8,6 @@
 
 ## User instructions
 
-### User type 1
+### Student
 
-### User type 2
+### Developer
