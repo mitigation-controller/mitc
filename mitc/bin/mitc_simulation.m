@@ -1,4 +1,4 @@
-function CollectData = mitc_simulation(inputs)
+function collectData = mitc_simulation(simPa, nsimulations, T_pl)
 % MITC_SIMULATION
 %
 % Inputs:
@@ -9,6 +9,19 @@ function CollectData = mitc_simulation(inputs)
 %
 %
 
+%% VARIABLE RENAMING LIST (TEMPORARY)
+d_i_all = simPa.durationActivities;
+N = simPa.nActivities;
+m_j_all = simPa.mitigatedDuration;
+J = simPa.nMitigations;
+d_r_all = simPa.riskEventsDuration;
+S = simPa.nRisks;
+p_r = simPa.riskProbability;
+c_j_all = simPa.mitigationCost;
+R_ij = simPa.R_ij;
+E_ie = simPa.E_ie;
+P_ki = simPa.P_ki;
+K = simPa.K;
 
 
 %% Draw random numbers 
@@ -36,7 +49,7 @@ end
 %% Montecarlo simulation
 CP_0=[]; %start a counter for the critical paths for every monte carlo simulation with no mitigation in place
 CP_opt=[]; %start a counter for the critical paths for every monte carlo simulation with optimal mitigation in place in place
-CollectData=zeros(nsimulations,J+6); %allocate memory to the results matrix
+collectData=zeros(nsimulations,J+6); %allocate memory to the results matrix
    
 for iter= 1 : nsimulations 
     
@@ -101,12 +114,12 @@ for iter= 1 : nsimulations
 
     %--- (d) Save results
 
-    CollectData(iter,1:J)=x; %save the results of x
-    CollectData(iter,J+1)=T_opt; %save the results of T_opt
-    CollectData(iter,J+2)=c_opt; %save the results of c_opt
-    CollectData(iter,J+3)=T_all; %save the results of T_all
-    CollectData(iter,J+4)=c_all; %save the results of c_all
-    CollectData(iter,J+5)=T_0; %save the results of T_0
-    CollectData(iter,J+6)=c_0; %save the results of c_0
+    collectData(iter,1:J)=x; %save the results of x
+    collectData(iter,J+1)=T_opt; %save the results of T_opt
+    collectData(iter,J+2)=c_opt; %save the results of c_opt
+    collectData(iter,J+3)=T_all; %save the results of T_all
+    collectData(iter,J+4)=c_all; %save the results of c_all
+    collectData(iter,J+5)=T_0; %save the results of T_0
+    collectData(iter,J+6)=c_0; %save the results of c_0
 end
 
