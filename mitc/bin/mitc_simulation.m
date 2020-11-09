@@ -1,4 +1,4 @@
-function output = mitc_simulation(nSimulations, nActivities)
+function CollectData = mitc_simulation(inputs)
 % MITC_SIMULATION
 %
 % Inputs:
@@ -10,30 +10,41 @@ function output = mitc_simulation(nSimulations, nActivities)
 %
 
 
-% Montecarlo simulation
-CP_0=[]; %start a counter for the critical paths for every monte carlo simulation with no mitigation in place
-CP_opt=[]; %start a counter for the critical paths for every monte carlo simulation with optimal mitigation in place in place
-CollectData=zeros(nSimulations,J+6); %allocate memory to the results matrix
 
-% Pre-draw random numbers
-d_i = draw_random_numbers(d_i_all, nActivities, nSimulations);  % Activity duration
-m_j = draw_random_numbers(m_j_all, nMitigations, nSimulations); % Mitigated time
-d_r = draw_random_numbers(d_r_all, nRisks, nSimulations);       % Duration risk event
+%% Draw random numbers 
+% WOW, this is slow...
+% tic
+d_i_matrix = draw_random_numbers(d_i_all, N, nsimulations);    % Activity duration
+m_j_matrix = draw_random_numbers(m_j_all, J, nsimulations);    % Mitigated time
+d_r_matrix = draw_random_numbers(d_r_all, S, nsimulations);    % Duration risk event
+% toc
 
-% Choose the mitigation cost according to the mitigation duration
-costMitigation = zeros(nMitigations, 1); %allocate memory to the c_j vector
-    for j= 1 : nMitigations
+%% Choose the mitigation cost according to the mitigation duration
+c_j_matrix = zeros(J, nsimulations); %allocate memory to the c_j vector
+for i =  1 : nsimulations
+    for j= 1 : J
         if sum(m_j_all(j,3))-sum(m_j_all(j,2))>0 % this is to prevent zero in the denominator
-            costMitigation(j,1)=c_j_all(j,3)-((m_j_all(j,3)-m_j(j)).*(c_j_all(j,3)-c_j_all(j,1)))./(m_j_all(j,3)-m_j_all(j,1)); %interpolation equation to calculate the cost of mitigation measures
+            c_j_matrix(j,i)=c_j_all(j,3)-((m_j_all(j,3)-m_j_matrix(j,i)).*...
+                            (c_j_all(j,3)-c_j_all(j,1)))./(m_j_all(j,3)-m_j_all(j,1)); %interpolation equation to calculate the cost of mitigation measures
             %according to the chosen mitigation duration
         else
-            costMitigation(j,1) = c_j_all(j,2);
+            c_j_matrix(j,i) = c_j_all(j,2);
         end
     end
+end
 
-for iter= 1 : nSimulations 
-      
-
+%% Montecarlo simulation
+CP_0=[]; %start a counter for the critical paths for every monte carlo simulation with no mitigation in place
+CP_opt=[]; %start a counter for the critical paths for every monte carlo simulation with optimal mitigation in place in place
+CollectData=zeros(nsimulations,J+6); %allocate memory to the results matrix
+   
+for iter= 1 : nsimulations 
+    
+    d_i = d_i_matrix(:, iter); 
+    m_j = m_j_matrix(:, iter);
+    d_r = d_r_matrix(:, iter);
+    c_j = c_j_matrix(:, iter);
+    
     %--- (c) evaluate the duration of activities considering the probability of
     %occurence of the risk events and their durations
     r = binornd(1,p_r,[S,1]); %bernolli probabability of occurence: 10% equal to 1 (risk event occurs) and 90% equal to 0(risk event does not occur)
@@ -47,7 +58,6 @@ for iter= 1 : nSimulations
 
         %duration of all paths when mitigation measure j is implemented
     d_kj=P_ki*(d_i-R_ij*diag(m_j));  %Calculate the duration of every path considering ONLY mitigation measure j and store it in matrix d_kj as a column vector
-
 
     %--- (e) Evaluation of the delay of any path with respect to the planned duration T_pl -->(D_k0, D_kj)
     D_k0=max(d_k0-T_pl,0); % delay of all paths when no mitigation strategy is implemented
