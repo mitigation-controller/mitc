@@ -149,7 +149,7 @@ for iter=1:nsimulations % Starts monte carlo simulation
 d_i=zeros(N,1); %allocate memory to the d_i vector
 for i=1:N
     if d_i_all(i,3)-d_i_all(i,1)>0 %check if there is uncertainty
-            d_i(i,1)=round(rand_pert(d_i_all(i,1),d_i_all(i,2),d_i_all(i,3))); %choose a (rounded) random number according to the Beta-Pert distribution for the...
+            d_i(i,1)=round(RandPert(d_i_all(i,1),d_i_all(i,2),d_i_all(i,3))); %choose a (rounded) random number according to the Beta-Pert distribution for the...
                                                                         % ...duration of every activity
     else
         d_i(i,1)=d_i_all(i,2); %if there is no uncertainty, then apply the expected duration
@@ -159,7 +159,7 @@ end
 m_j=zeros(J,1); %allocate memory to the m_j vector
 for j=1:J
     if m_j_all(j,3)-m_j_all(j,1)>0  %check if there is uncertainty
-        m_j(j,1)=round(rand_pert(m_j_all(j,1),m_j_all(j,2),m_j_all(j,3))); %choose a (rounded) random number according to the Beta-Pert distribution for the...
+        m_j(j,1)=round(RandPert(m_j_all(j,1),m_j_all(j,2),m_j_all(j,3))); %choose a (rounded) random number according to the Beta-Pert distribution for the...
                                                                   % ...time mitigated by every measure
     else
         m_j(j,1)=m_j_all(j,3); %if there is no uncertainty, then apply the expected duration
@@ -169,7 +169,7 @@ end
 d_r=zeros(S,1); %allocate memory to the d_r vector
 for s=1:S
     if d_r_all(s,3)-d_r_all(s,1)>0 %check if there is uncertainty
-        d_r(s,1)=round(rand_pert(d_r_all(s,1),d_r_all(s,2),d_r_all(s,3))); %choose a (rounded) random number according to the Beta-Pert distribution for the...
+        d_r(s,1)=round(RandPert(d_r_all(s,1),d_r_all(s,2),d_r_all(s,3))); %choose a (rounded) random number according to the Beta-Pert distribution for the...
                                                                   % ...duration of every risk event
     else
         d_r(s,1)=d_r_all(s,2); %if there is no uncertainty, then apply the expected duration
