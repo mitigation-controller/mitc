@@ -1,6 +1,6 @@
 % Temporary file to test modular approach to mit_plan
 
-addpath('bin', 'plotting')
+addpath('bin', 'plotting', 'modules')
 
 
 %--- User input
@@ -35,7 +35,7 @@ collectData = mitc_simulation(parsedData, nsimulations, T_pl);
 
 %--- 6) Generate plots
 plot_network(A, dataCell);
-plot_freq_mitigation(collectData, nsimulations);
+plot_freq_mitigation(collectData, parsedData, nsimulations);
 % 
 
 %--- 7) Save data and plots
