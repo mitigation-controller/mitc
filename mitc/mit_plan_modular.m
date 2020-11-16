@@ -36,6 +36,7 @@ Data = parse_data(dataDouble, dataCell);
 %--- 6) Generate plots
 plot_network(A, dataCell);
 plot_freq_mitigation(Results, Data, Config.nsimulations);
-% 
+plot_freq_paths(CP_0, CP_opt, Data.K);
+
 
 %--- 7) Save data and plots
