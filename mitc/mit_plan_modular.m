@@ -39,5 +39,6 @@ plot_freq_mitigation(Results, Data, Config.nsimulations);
 plot_freq_paths(CP_0, CP_opt, Data.K);
 plot_freq_activity(CP_0, CP_opt, Data.K, Data.P_ki, Data.nActivities);
 plot_cdf(Results, Data.nMitigations, Data.T_orig, Config.T_pl, Config.nsimulations);
+plot_cdf_cost(Results, Data.nMitigations);
 
 %--- 7) Save data and plots
