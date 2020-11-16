@@ -28,7 +28,7 @@ Data = parse_data(dataDouble, dataCell);
                             Data.E_ie);
 
 %--- 4) Run simulation
-Results = mitc_simulation(Data, Config.nsimulations, Config.T_pl);
+[Results, CP_0, CP_opt] = mitc_simulation(Data, Config.nsimulations, Config.T_pl);
 
 %--- 5) Treat simulation results
 
