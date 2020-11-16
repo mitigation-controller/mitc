@@ -1,9 +1,15 @@
 function plot_network(A, dataCell)
-% plot_network
+%PLOT_NETWORK plots the network
+%
+% Syntax: plot_network(A, dataCell)
 %
 % Inputs: 
-%
-% Outputs: 
+%   A : double
+%       two-column matrix that shows which activity depends on which activity (link matrix)
+%       
+%   dataCell : cell
+%        cell of imported project data file
+%       
 
 
 %--- Compute weights for every edge: weight of an edge is equal to the duration
