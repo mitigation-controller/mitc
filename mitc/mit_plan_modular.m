@@ -30,10 +30,7 @@ Data = parse_data(dataDouble, dataCell);
 %--- 4) Run simulation
 [Results, CP_0, CP_opt] = mitc_simulation(Data, Config.nsimulations, Config.T_pl);
 
-%--- 5) Treat simulation results
-
-
-%--- 6) Generate plots
+%--- 5) Generate plots
 plot_network(A, dataCell);
 plot_freq_mitigation(Results, Data, Config.nsimulations);
 plot_freq_paths(CP_0, CP_opt, Data.K);
@@ -42,4 +39,4 @@ plot_cdf(Results, Data.nMitigations, Data.T_orig, Config.T_pl, Config.nsimulatio
 plot_cdf_cost(Results, Data.nMitigations);
 plot_pdf_cost(Results, Data.nMitigations);
 
-%--- 7) Save data and plots
+%--- 6) Save data and plots
