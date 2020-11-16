@@ -537,7 +537,7 @@ if strcmp(runMode, 'genRun')
                          clear('u1'); clear('u2');
                          w = min_ab*exp(v);
                          r = c*v-1.38629436112;
-                         clear('v');
+%                          clear('v');
                          s = min_ab+r-w;
                          if a == min_ab
                               out = w./(max_ab+w);
