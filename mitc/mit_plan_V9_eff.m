@@ -162,7 +162,7 @@ for j=1:J
         m_j(j,1)=round(RandPert(m_j_all(j,1),m_j_all(j,2),m_j_all(j,3))); %choose a (rounded) random number according to the Beta-Pert distribution for the...
                                                                   % ...time mitigated by every measure
     else
-        m_j(j,1)=m_j_all(j,3); %if there is no uncertainty, then apply the expected duration
+        m_j(j,1)=m_j_all(j,2); %if there is no uncertainty, then apply the expected duration
     end
 end
 
