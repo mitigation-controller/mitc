@@ -8,8 +8,17 @@ nsimulations=1000;
 T_pl=1466;
 
 %--- 1) Import project data
-filename = '..\data\Case study.xlsx';
-[dataDouble, dataCell] = import_project(filename);
+
+% 1a) Select file through UI
+inputFile = '..\data\Case study.xlsx';
+
+% 1b) Verify input file
+[status, message] = verify_input(inputFile);
+
+% 1b) Import data
+if status
+    [dataDouble, dataCell] = import_project(inputFile);
+end
 
 %--- 2) Parse data
 parsedData = parse_data(dataDouble, dataCell);
