@@ -10,8 +10,22 @@ Config.nsimulations = 500;
 Config.T_pl = 1466;
 
 %--- 1) Import project data
+<<<<<<< HEAD
+
+% 1a) Select file through UI
+inputFile = '..\data\Case study.xlsx';
+
+% 1b) Verify input file
+[status, message] = verify_input(inputFile);
+
+% 1b) Import data
+if status
+    [dataDouble, dataCell] = import_project(inputFile);
+end
+=======
 Config.filename = '..\data\Case study.xlsx';
 [dataDouble, dataCell] = import_project(Config.filename);
+>>>>>>> maurits/modular_plotting
 
 %--- 2) Parse data
 Data = parse_data(dataDouble, dataCell);
