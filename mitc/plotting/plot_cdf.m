@@ -1,4 +1,4 @@
-function plot_cdf(CollectData, J, T_orig, T_pl, nsimulations)
+function plot_cdf(CollectData, J, T_orig, T_pl, nsimulations, savefolder, savename)
 %PLOT_CDF plots the cumulative distribution function
 %
 % Inputs:
@@ -14,11 +14,20 @@ function plot_cdf(CollectData, J, T_orig, T_pl, nsimulations)
 %       number of run simulations
 
 
-figure
-
+h = figure;
+hold on
 y_opt=CollectData(:,J+1);
 y_all=CollectData(:,J+3);
 y_0=CollectData(:,J+5);
 y_0_nouncertainty=T_orig*ones(nsimulations,1);
 
 fitting(y_opt,y_all,y_0,y_0_nouncertainty,T_pl);
+hold off
+
+%--- Export figures
+file = [savefolder savename];
+saveas(h, file, 'png');
+saveas(h, file, 'fig');
+saveas(h, file, 'eps');
+
+end

@@ -9,8 +9,16 @@ addpath('bin', 'plotting', 'modules')
 Config.nsimulations = 500;
 Config.T_pl = 1466;
 
-%--- 1) Import project data
 Config.filename = '..\data\Case study.xlsx';
+ID = datestr(now, 'yyyy-mm-dd__HH-MM-SS');
+Config.savefolder = strcat('..\results\', ID, '\');
+
+% Create export directory
+if ~exist(Config.savefolder,'dir')
+    mkdir(Config.savefolder);
+end
+
+%--- 1) Import project data
 [dataDouble, dataCell] = import_project(Config.filename);
 
 %--- 2) Parse data
@@ -32,15 +40,29 @@ Data = parse_data(dataDouble, dataCell);
 %--- 4) Run simulation
 [Results, CP_0, CP_opt] = mitc_simulation(Data, Config.nsimulations, Config.T_pl);
 
-%--- 5) Generate plots
-plot_network(Data.linkedActivities, dataCell);
-plot_freq_mitigation(Results, Data, Config.nsimulations);
-plot_freq_paths(CP_0, CP_opt, Data.K);
-plot_freq_activity(CP_0, CP_opt, Data.K, Data.P_ki, Data.nActivities);
-plot_cdf(Results, Data.nMitigations, Data.T_orig, Config.T_pl, Config.nsimulations);
-plot_cdf_cost(Results, Data.nMitigations);
-plot_pdf_cost(Results, Data.nMitigations);
+%--- 5) Generate and export plots
+plot_network(Data.linkedActivities, dataCell,...
+             Config.savefolder, 'fig_1');
+         
+plot_freq_mitigation(Results, Data, Config.nsimulations,...
+                     Config.savefolder, 'fig_2');
+                 
+plot_freq_paths(CP_0, CP_opt, Data.K,...
+                Config.savefolder, 'fig_3');
+            
+plot_freq_activity(CP_0, CP_opt, Data.K, Data.P_ki, Data.nActivities,...
+                   Config.savefolder, 'fig_4');
+               
+plot_cdf(Results, Data.nMitigations, Data.T_orig, Config.T_pl, Config.nsimulations,...
+         Config.savefolder, 'fig_5');
+     
+plot_cdf_cost(Results, Data.nMitigations,...
+              Config.savefolder, 'fig_6');
+          
+plot_pdf_cost(Results, Data.nMitigations,...
+              Config.savefolder, 'fig_7');
 
-%--- 6) Save data and plots
+%--- 6) Save Config, Data, and Results structures in a single data file
+export_results(Config, Data, Results);
 
 toc

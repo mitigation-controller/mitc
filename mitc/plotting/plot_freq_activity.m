@@ -1,4 +1,4 @@
-function plot_freq_activity(CP_0, CP_opt, K, P_ki, N)
+function plot_freq_activity(CP_0, CP_opt, K, P_ki, N, savefolder, savename)
 % plot_freq_activity
 %
 %
@@ -25,16 +25,25 @@ freq_opt_i=sum(CP_opt_ki); %frequency of every activity being on a critical path
 freq_opt_i=([freq_opt_i;freq_opt_i/length(CP_opt)*100])';%percentage of every activity being on a critical path after optimization
 
 %     Bar chart for freq_0_i and freq_opt_i
-    figure
-    b=bar([freq_0_i(1:N-1,2),freq_opt_i(1:N-1,2)],'grouped','FaceColor','flat');
-    b(1).CData = [0 0 0];
-    b(2).CData = [0.7 0.7 0.7];
-    xlabel('Activity ID','FontSize',20);
-    ylabel('Percentage','FontSize',20);
-    legend('No Mit','Tentative');
-    bx = gca;
-    bx.FontSize = 16; 
-    bx.YGrid = 'on';
-    xticks(1 : N-1)
-    set(bx,'TickLength',[0, 0])
-    hold off
+h = figure;
+hold on
+bar([freq_0_i(1:N-1,2),freq_opt_i(1:N-1,2)],'grouped','FaceColor','flat');
+b(1).CData = [0 0 0];
+b(2).CData = [0.7 0.7 0.7];
+xlabel('Activity ID','FontSize',20);
+ylabel('Percentage','FontSize',20);
+legend('No Mit','Tentative');
+bx = gca;
+bx.FontSize = 16; 
+bx.YGrid = 'on';
+xticks(1 : N-1)
+set(bx,'TickLength',[0, 0])
+hold off
+    
+%--- Export figures
+file = [savefolder savename];
+saveas(h, file, 'png');
+saveas(h, file, 'fig');
+saveas(h, file, 'eps');
+
+end
