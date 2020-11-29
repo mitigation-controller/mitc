@@ -33,7 +33,7 @@ Data = parse_data(dataDouble, dataCell);
 [Results, CP_0, CP_opt] = mitc_simulation(Data, Config.nsimulations, Config.T_pl);
 
 %--- 5) Generate plots
-plot_network(Data.linkedActivities, dataCell, []);
+plot_network(Data.linkedActivities, dataCell);
 plot_freq_mitigation(Results, Data, Config.nsimulations);
 plot_freq_paths(CP_0, CP_opt, Data.K);
 plot_freq_activity(CP_0, CP_opt, Data.K, Data.P_ki, Data.nActivities);
