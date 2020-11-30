@@ -1,9 +1,11 @@
+function mit_plan_V10_penalty_P_notequal_I %in this version I am trying to implement an objective function that takes  penalty and incentive into account
 clc
 clear 
 close all
 tic
 %diary Optimal_Diary
 rng('default') %For reproducibility
+
 addpath('bin')
 
 %% Definition of parameters and variables
@@ -14,8 +16,13 @@ nsimulations=100;
 %--- Planned/target duration of the project -->(T_pl)
 T_pl=1466;
 
+%--- Penalty and incentive per day
+
+penalty=9000; %Penalty per day of delay
+incentive=5000; %Incentive per day of finishing early
+
 %--- Load data from the spreadsheet -->
-filename = '..\data\Case study.xlsx';
+filename = '..\data\Case study_penalty.xlsx';
 Data1=xlsread(filename);Data2=readcell(filename);
 Data1(1:3,:)=[];Data2(1:3,:)=[];
 
@@ -162,7 +169,7 @@ for j=1:J
         m_j(j,1)=round(RandPert(m_j_all(j,1),m_j_all(j,2),m_j_all(j,3))); %choose a (rounded) random number according to the Beta-Pert distribution for the...
                                                                   % ...time mitigated by every measure
     else
-        m_j(j,1)=m_j_all(j,2); %if there is no uncertainty, then apply the expected duration
+        m_j(j,1)=m_j_all(j,3); %if there is no uncertainty, then apply the expected duration
     end
 end
 
@@ -215,9 +222,19 @@ b_j=sum(delta_D_kj); % the time total benefit (on all paths) associated with imp
 eff_j=sum(delta_D_kj./c_j',1);
 
 %--- (h) Optimization problem
-[x]=opt_mit_lin(eff_j,J,K,T_pl,P_ki,R_ij,m_j,d_k0);
+[x]=opt_mit_lin(eff_j,J,K,T_pl,P_ki,R_ij,m_j,d_k0,c_j,penalty,incentive);
 
 %% Results and plots  
+delta1=x(J+1);
+delta2=x(J+2);
+%transforming delta1 and delta2
+
+e=min(delta1,delta2);
+delta1=delta1-e;
+delta2=delta2-e;
+
+
+
 x=x(1:J);
 %--- (a) Evaluation of the completion time of the project considering the 1)optimal mitigation
 %strategy, 2) no-measure mitigation strategy, and 3)all-measure mitigation
@@ -245,6 +262,7 @@ c_0=sum(zeros(J,1).*c_j); %this is not necessary as it is alway equal to zeros. 
 
 %--- (d) Save results
 
+
 CollectData(iter,1:J)=x; %save the results of x
 CollectData(iter,J+1)=T_opt; %save the results of T_opt
 CollectData(iter,J+2)=c_opt; %save the results of c_opt
@@ -252,10 +270,16 @@ CollectData(iter,J+3)=T_all; %save the results of T_all
 CollectData(iter,J+4)=c_all; %save the results of c_all
 CollectData(iter,J+5)=T_0; %save the results of T_0
 CollectData(iter,J+6)=c_0; %save the results of c_0
+CollectData(iter,J+7)=delta1; %save the delta
+CollectData(iter,J+8)=delta2; %save the delta
+
 end
 
-%--- (e) compute the average cost of the optimal mitigation strategies
+%--- (e) compute the average cost of the optimal mitigation strategies, and
+%the avg total cost including the penalty/incenetive
 avg_cost_opt=mean(CollectData(:,J+2));
+
+avg_cost_total=mean(CollectData(:,J+2)+CollectData(:,J+7)*penalty-CollectData(:,J+8)*incentive);
 
 %--- (f) frequency of mitigation measures
 freq_j=(sum(CollectData(:,1:J)))';freq_j=freq_j./nsimulations*100;
@@ -417,49 +441,40 @@ toc
 %save('OptimalSolution.mat')
 %diary off
 
+end
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Optimization problem definition
 
-function [x,fval, exitflag]=opt_mit_lin(eff_j,J,K,T_pl,P_ki,R_ij,m_j,d_k0)
+function [x,fval, exitflag]=opt_mit_lin(eff_j,J,K,T_pl,P_ki,R_ij,m_j,d_k0,c_j,penalty,incentive)
 %--- Input
-delta_1=1e-8; %a small value to give less weight to the second obejctive function term. 
-                                             %it is relative to the first term in the objective function
-delta_2=1e8; %a large value to give more weight to the third obejctive function term. 
-                                            %it is relative to the first term in the objective function
+
 
 %--- Definition of constrains
-A1=[diag(1./(exp(eff_j./(max(eff_j)+1e-8)))),zeros(J,1)]; % a consatraint to prevent zero effectiveness measures. 
+A1=[diag(1./(exp(eff_j./(max(eff_j)+1e-8)))),zeros(J,1),zeros(J,1)]; % a consatraint to prevent zero effectiveness measures. 
                                      %The additional zeros is to account for the
                                      %extra variable 
 b1=ones(J,1)-1e-8; %right hand side vector for A1 (1 e-8 is to consider < instead of <=)
 
-A2=-[(P_ki*R_ij*diag(m_j)'),ones(K,1)]; %the duration of every critical path should be less than or equal than the
-                                           %planned duration. The ones at
-                                           %the end are to account for the
-                                           %additional variable
+A2=-[(P_ki*R_ij*diag(m_j)'),ones(K,1),-ones(K,1)]; %orig -reduction <= Target+delta1-delta2
 b2=T_pl-d_k0; %right hand side vector for A2
 
 A=[A1;A2]; %Left hand side constraint matrix
 b=[b1;b2]; %Right hand side constraint vector
 
 %--- Boundary constraints
-lb = zeros(1,J+1); %Lower bound is 0 for all variables
-ub = [ones(1,J),1e6]; %Upper bound is 1 for all variables
-
+lb = [zeros(1,J),0,0]; %Lower bound is 0 for all variables
+ub = [ones(1,J),1000,1466]; %Upper bound is 1 for all variables except delta 1 and delta 2
+    %%%%%%correct boundary consditions of delta1
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %--- Objective function
-obj_fun=[(1./(exp(eff_j./(max(eff_j)+1e-8)))-delta_1*m_j'),delta_2]; %Objective function: the inverse of efficiency   
-%obj_fun=[(1./(exp(eff_j))),delta_2];                                                    %multiplied by the variables should
-                                                    %be minimum + a factor that chooses the
-                                                    %strategy that reduces the duration the most
-                                                    %in case of equal efficiency strategies.
-                                                    %+ a factor that optimize for the best
-                                                    %strategy possible if the first two
-                                                    %objectives cannot be attained
+
+obj_fun=[(c_j'),penalty,-incentive]; %objective function: summation of cost + penalty - Incentive
 
 %--- Options
-intcon=1:J+1; %defines which vvariables are integer (all variables)
+intcon=1:J+2; %defines which vvariables are integer (all variables)
 options = optimoptions('intlinprog','MaxTime',5);
 
 %--- Optimatization funcion

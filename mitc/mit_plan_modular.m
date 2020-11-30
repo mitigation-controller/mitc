@@ -1,13 +1,15 @@
 % Temporary file to test modular approach to mit_plan
 clear all
 
-tic
+
 addpath('bin', 'plotting', 'modules')
 
 
 %--- User input
-Config.nsimulations = 500;
+Config.nsimulations = 1000;
 Config.T_pl = 1466;
+Config.penalty=9000; %Penalty per day of delay
+Config.incentive=5000; %Incentive per day of finishing early
 
 Config.filename = '..\data\Case study.xlsx';
 ID = datestr(now, 'yyyy-mm-dd__HH-MM-SS');
@@ -38,8 +40,9 @@ Data = parse_data(dataDouble, dataCell);
                             Data.E_ie);
 
 %--- 4) Run simulation
-[Results, CP_0, CP_opt] = mitc_simulation(Data, Config.nsimulations, Config.T_pl);
+[Results, CP_0, CP_opt] = mitc_simulation(Data, Config.nsimulations, Config.T_pl, Config.penalty, Config.incentive);
 
+tic
 %--- 5) Generate and export plots
 plot_network(Data.linkedActivities, dataCell,...
              Config.savefolder, 'fig_1');
@@ -64,5 +67,5 @@ plot_pdf_cost(Results, Data.nMitigations,...
 
 %--- 6) Save Config, Data, and Results structures in a single data file
 export_results(Config, Data, Results);
-
 toc
+

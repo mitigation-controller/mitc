@@ -1,4 +1,4 @@
-function [collectData, CP_0, CP_opt] = mitc_simulation(simPa, nsimulations, T_pl)
+function [collectData, CP_0, CP_opt] = mitc_simulation(simPa, nsimulations, T_pl, penalty, incentive)
 % MITC_SIMULATION
 %
 % Inputs:
@@ -84,7 +84,7 @@ for iter= 1 : nsimulations
     eff_j=sum(delta_D_kj./c_j',1);
 
     %--- (h) Optimization problem
-    [x]=opt_mit_lin(eff_j,J,K,T_pl,P_ki,R_ij,m_j,d_k0);
+    [x]=opt_mit_lin(eff_j,J,K,T_pl,P_ki,R_ij,m_j,d_k0,c_j,penalty,incentive);
 
     %% Results and plots  
     x=x(1:J);
