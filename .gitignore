@@ -1,2 +1,5 @@
 # Matlab
 *.asv
+
+# Results subdirectories
+/Results/*/
