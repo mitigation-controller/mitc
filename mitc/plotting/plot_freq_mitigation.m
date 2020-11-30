@@ -1,14 +1,15 @@
-function plot_freq_mitigation(collectData, simPa, nsimulations)
+function plot_freq_mitigation(collectData, simPa, nsimulations, savefolder, savename)
 
 % TEMPORARY VARIABLE RENAMING
 N = simPa.nActivities;
 J = simPa.nMitigations;
 
-%--- (f) frequency of mitigation measures
+%--- frequency of mitigation measures
 freq_j=(sum(collectData(:,1:J)))';freq_j=freq_j./nsimulations*100;
 
 %Bar chart for freq_j
-figure
+h = figure;
+hold on
 b=bar(freq_j,'FaceColor','flat');
 b.CData = [0.7 0.7 0.7];
 xlabel('Mitigation measure ID','FontSize',20);
@@ -19,4 +20,10 @@ bx.YGrid = 'on';
 xticks(1 : N-1)
 set(bx,'TickLength',[0, 0])
 hold off
+
+%--- Export figures
+file = [savefolder savename];
+saveas(h, file, 'png');
+saveas(h, file, 'fig');
+saveas(h, file, 'eps');
 end
