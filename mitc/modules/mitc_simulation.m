@@ -1,4 +1,4 @@
-function collectData = mitc_simulation(simPa, nsimulations, T_pl)
+function [collectData, CP_0, CP_opt] = mitc_simulation(simPa, nsimulations, T_pl)
 % MITC_SIMULATION
 %
 % Inputs:
@@ -122,4 +122,3 @@ for iter= 1 : nsimulations
     collectData(iter,J+5)=T_0; %save the results of T_0
     collectData(iter,J+6)=c_0; %save the results of c_0
 end
-
