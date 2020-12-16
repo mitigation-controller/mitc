@@ -26,13 +26,6 @@ User does not have access to MATLAB:
 * Navigate to the installer directory and execute the installer `MitC setup`. The installer will download the MATLAB Runtime (~700 MB) and install the MitC application.
 * Run the installed application. 
 
-### Developer:
-Developers need access to MATLAB version 2019b or greater. 
-
-* Download the MitC repository from the terminal:
-`git clone https://github.com/mitigation-controller/mitc.git`
-* All source code can be found in the mitc directory.
-
 ## User documentation
 [User documentation](https://github.com/mitigation-controller/mitc/tree/main/doc)
 
