@@ -16,8 +16,8 @@ The source code was developed and tested with MATLAB R2019b.
 ### MATLAB installation:
 User has access to MATLAB version 2019b or greater. 
 
-* Run MATLAB and click `Install App` under the APPS tab. 
-* Locate the file `MitC_app' in the package directory to install the app.
+* Run MATLAB and click `Install App` under the `APPS` tab. 
+* Locate the file `MitC_app` in the package directory to install the app.
 * The app can now be run from the Apps menu in MATLAB.
 
 ### Stand-alone installation:
