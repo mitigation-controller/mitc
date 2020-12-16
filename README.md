@@ -38,7 +38,11 @@ Developers need access to MATLAB version 2019b or greater.
 Excellent, please let us by creating a new issue using the appropriate templates. 
 
 ## Contributing
-You are welcome to contribute to the code via pull requests. 
+You are welcome to contribute to the code via pull requests. Developers need access to MATLAB version 2019b or greater. 
+
+* Download the MitC repository from the terminal:
+`git clone https://github.com/mitigation-controller/mitc.git`
+* All source code can be found in the mitc directory.
 
 #### Necessary steps for making a new release
 * 
