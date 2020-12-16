@@ -1,4 +1,6 @@
-![](doc/MitC_logo.png)
+<p align="center">
+  <img width="500" src=doc/MitC_logo.png>
+</p>
 
 _The MitC software is currently under development and in a pre-release state._
 
