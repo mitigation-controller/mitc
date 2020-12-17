@@ -14,7 +14,7 @@ The source code was developed and tested with MATLAB R2019a.
 * Extract the zip archive on your computer.
 
 ### MATLAB installation:
-User has access to MATLAB version 2019a or greater. 
+User has access to MATLAB version 2019a or greater. The code requires the _Optimization Toolbox_ and the _Statistics and Machine Learning Toolbox_ to be installed.
 
 * Run MATLAB and click `Install App` under the `APPS` tab. 
 * Locate the file `MitC_app` in the package directory to install the app.
@@ -33,9 +33,13 @@ User does not have access to MATLAB:
 Excellent, please let us by creating a new issue using the appropriate templates. 
 
 ## Contributing
-You are welcome to contribute to the code via pull requests. Developers need access to MATLAB version 2019a or greater. 
+You are welcome to contribute as developer and to the code via pull requests. 
+#### Prerequisites:
+* MATLAB 2019a or greater
+* The _Optimization Toolbox_ , _Statistics and Machine Learning Toolbox_, and _Application Compiler_.
 
-* Download the MitC repository from the terminal:
+#### Installation
+* Download the MitC repository from via the terminal:
 `git clone https://github.com/mitigation-controller/mitc.git`
 * All source code can be found in the mitc directory.
 
