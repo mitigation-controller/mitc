@@ -6,7 +6,7 @@ _The MitC software is currently under development and in a pre-release state._
 
 The ongoing research deals with the development of an automated risk-mitigation tool for construction projects, namely the Mitigation Controller (MitC). MitC is a state-of-the-art tool that can assist project managers to have a full grip on the progress of their running construction projects. It takes as input a complete project schedule and returns several outputs that help the project manager take actions to prevent potential delays. 
 
-The source code was developed and tested with MATLAB R2019b.
+The source code was developed and tested with MATLAB R2019a.
 
 ## Installation
 
@@ -14,7 +14,7 @@ The source code was developed and tested with MATLAB R2019b.
 * Extract the zip archive on your computer.
 
 ### MATLAB installation:
-User has access to MATLAB version 2019b or greater. 
+User has access to MATLAB version 2019a or greater. 
 
 * Run MATLAB and click `Install App` under the `APPS` tab. 
 * Locate the file `MitC_app` in the package directory to install the app.
@@ -33,7 +33,7 @@ User does not have access to MATLAB:
 Excellent, please let us by creating a new issue using the appropriate templates. 
 
 ## Contributing
-You are welcome to contribute to the code via pull requests. Developers need access to MATLAB version 2019b or greater. 
+You are welcome to contribute to the code via pull requests. Developers need access to MATLAB version 2019a or greater. 
 
 * Download the MitC repository from the terminal:
 `git clone https://github.com/mitigation-controller/mitc.git`
