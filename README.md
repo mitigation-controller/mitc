@@ -39,18 +39,15 @@ User does not have access to MATLAB:
 Excellent, please let us by creating a new issue using the appropriate templates. 
 
 ## Contributing
-You are welcome to contribute as developer and to the code via pull requests. 
+You are welcome to contribute as developer to the code via pull requests. 
 #### Prerequisites:
-* MATLAB 2019a or higher
+* MATLAB 2019a or higher.
 * The _Optimization Toolbox_ , _Statistics and Machine Learning Toolbox_, and _Application Compiler_.
 
 #### Installation
 * Download the MitC repository from via the terminal:
 `git clone https://github.com/mitigation-controller/mitc.git`
 * All source code can be found in the mitc directory.
-
-#### Necessary steps for making a new release
-* 
 
 ## Licensing
 The source code and data of MitC are licensed under the Apache License, version 2.0. 
