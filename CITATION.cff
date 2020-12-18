@@ -8,16 +8,15 @@ authors:
     given-names: Omar
     orcid: "https://orcid.org/0000-0002-8859-061"
   -
-    affiliation: "TU Delft, ICT Innovation"
-    family-names: Kok
-    given-names: Maurits
-    orcid: "https://orcid.org/0000-0002-0564-2614"
-  -
     affiliation: "TU Delft, Department Materials, Mechanics, Management & Design"
     family-names: Nogal
     given-names: Maria
     orcid: "https://orcid.org/0000-0001-5405-0626"
-
+  -   
+    affiliation: "TU Delft, ICT Innovation"
+    family-names: Kok
+    given-names: Maurits
+    orcid: "https://orcid.org/0000-0002-0564-2614"
 
 cff-version: "1.1.0"
 keywords:
