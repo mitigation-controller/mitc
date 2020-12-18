@@ -8,6 +8,12 @@ The ongoing research deals with the development of an automated risk-mitigation 
 
 The source code was developed and tested with MATLAB R2019a.
 
+Work done by:
+
+* Omar Kammouh: 
+* Maurits Kok: GUI development
+* Maria Nogal Macho: 
+
 ## Installation
 
 * Download the reposity as a zip file. For the latest release, please check [releases page](https://github.com/mitigation-controller/mitc/releases) for available downloads.
