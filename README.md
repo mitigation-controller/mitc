@@ -10,9 +10,9 @@ The source code was developed and tested with MATLAB R2019a.
 
 Work done by:
 
-* Omar Kammouh: 
+* Omar Kammouh: Algorithm development
 * Maurits Kok: GUI development
-* Maria Nogal Macho: 
+* Maria Nogal Macho: Supervision and Software maintenance
 
 ## Installation
 
