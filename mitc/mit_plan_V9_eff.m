@@ -4,6 +4,7 @@ close all
 tic
 %diary Optimal_Diary
 rng('default') %For reproducibility
+addpath('bin')
 
 %% Definition of parameters and variables
 
@@ -14,7 +15,8 @@ nsimulations=1000;
 T_pl=1466;
 
 %--- Load data from the spreadsheet -->
-Data1=xlsread('Case study');Data2=readcell('Case study');
+filename = '..\data\Case study.xlsx';
+Data1=xlsread(filename);Data2=readcell(filename);
 Data1(1:3,:)=[];Data2(1:3,:)=[];
 
 %--- Activities duration (optimisatic, most likely, and pessimitic) -->(d_i_all)
@@ -160,7 +162,7 @@ for j=1:J
         m_j(j,1)=round(RandPert(m_j_all(j,1),m_j_all(j,2),m_j_all(j,3))); %choose a (rounded) random number according to the Beta-Pert distribution for the...
                                                                   % ...time mitigated by every measure
     else
-        m_j(j,1)=m_j_all(j,3); %if there is no uncertainty, then apply the expected duration
+        m_j(j,1)=m_j_all(j,2); %if there is no uncertainty, then apply the expected duration
     end
 end
 
