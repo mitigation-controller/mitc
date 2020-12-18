@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2020-12-18
 
 ## Added
+
 - MATLAB GUI 
 - MitC stand-alone installer 
 - MATLAB package 
@@ -25,5 +26,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - This is the initial version of mitc.
 
-[0.1.0]: 
+[0.1.0]: https://github.com/mitigation-controller/mitc/releases/tag/0.1.0
 [0.0.1]: https://github.com/mitigation-controller/mitc/releases/tag/0.0.1
