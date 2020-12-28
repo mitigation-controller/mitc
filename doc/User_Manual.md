@@ -10,7 +10,7 @@ The source code was developed and tested with MATLAB R2019a.
 
 The following is a step-by-step guide to help users get started with the MitC software. It includes two parts: 1) Installation and 2) Working with the software. 
 
-Work done by:
+#Work done by:
 
 * Omar Kammouh: Algorithm development
 * Maurits Kok: GUI development
