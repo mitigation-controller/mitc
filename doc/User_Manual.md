@@ -121,18 +121,29 @@ The results will be saved in the selected output folder.
 
 * Left: project network with nodes being the activities and links being the activities relationships. The number on the link represents the duration of the activity on the start edge of the link and the number on the node represents the activity's ID.
 
-* Right: the cumulative probability of project completion time for three cases: \
+* Right: the cumulative probability of project completion time for three cases:
 1) No Mit: simulaion result with NO mitigation measures included
 2) Permanent: simulation result with ALL mitigation measures included
-3)
+3) Tentative: simuation result with the OPTIMAL mitigation measures (the MitC)
 
 <p align="center">
   <img width="500" src=figures/Slide13.PNG>
 </p>
 
+* Left: probability density function (PDF) of the mitigation cost for two cases:
+1) Permanent: the distribution of mitigation cost when ALL mitigtion measures are included
+2) Tentative: the distribution of mitigation cost when only the OPTIMAL mitigation measures are included (the MitC)
+
+* Right: cumulative distribution function (CDF) of the mitigation cost for two cases above.
+
+
 <p align="center">
   <img width="500" src=figures/Slide14.PNG>
 </p>
+
+* Top left: Criticality Index of project activities-the criticality index expresses how often a particular activity was on the Critical Path during the Monte Carlo simulation (the ratio between the number of iterations where a given activity was on the critical path over the total number of iterations)
+* Top right: Criticality Index of project paths-the ratio between the number of iterations where a given path was a critical path over the total number of iterations
+* Botton: Criticality Index of mitigation measures-the ratio between the number of iterations where a given mitigation measure was included over the total number of iterations
 
 <p align="center">
   <img width="500" src=figures/Slide15.PNG>
