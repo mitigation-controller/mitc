@@ -18,7 +18,11 @@ Work done by:
 ### MATLAB installation:
 User has access to MATLAB version 2019a or higher. The code requires the _Optimization Toolbox_ and the _Statistics and Machine Learning Toolbox_ to be installed.
 
-* Run MATLAB and click `Install App` under the `APPS` tab. 
+* Run MATLAB and click `Install App` under the `APPS` tab.
+<p align="center">
+  <img width="500" src=Slide1.png>
+</p>
+
 * Locate the file `MitC_app` in the package directory to install the app.
 * The app can now be run from the Apps menu in MATLAB.
 
