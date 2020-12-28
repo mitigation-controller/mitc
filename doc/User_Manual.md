@@ -59,7 +59,7 @@ User does not have access to MATLAB:
 ## Working with the software
 
 ### Input data
-Data must be structured following a predefined spreadsheet form (.xls). A template is already provided in the package directory.
+Data must be structured following a predefined spreadsheet form (.xlsx). A template is already provided in the package directory.
 
 * Locate the data file `Case study` in the package directory
 * Insert data related to the project activities: activities' descriptions, activities' durations (three estimates for each: optimistic, most likely, and pessimistic), and activities' predecessors. A predecessor is an activity that precedes another activity – not in the chronological sense but according to their dependency to each others. You may insert more than one predecessor by separating them with a `space` or a comma `,`.
@@ -70,7 +70,7 @@ Data must be structured following a predefined spreadsheet form (.xls). A templa
 
 Mitigation measures are corrective activities that are implemented to reduce the durations of other activities, and thus the duration of the project. 
 
-Insert data related to the mitigation measures: measures' descriptions, measures' durations (three estimates for each: minimum, most likely, and maximum), measures' cost (three estimates for each: minimum, most likely, and maximum), and the relationships between the measures and the activities. One Mitigation measure can influence (i.e., reduce the time of) one or more activities. You may insert more than one activity by separating them with a `space` or a comma `,`.
+* Insert data related to the mitigation measures: measures' descriptions, measures' durations (three estimates for each: minimum, most likely, and maximum), measures' cost (three estimates for each: minimum, most likely, and maximum), and the relationships between the measures and the activities. One Mitigation measure can influence (i.e., reduce the time of) one or more activities. You may insert more than one activity by separating them with a `space` or a comma `,`.
 
 
 <p align="center">
@@ -79,25 +79,37 @@ Insert data related to the mitigation measures: measures' descriptions, measures
 
 Risk events are additional source of delay if they occur. Risk events have a probability of occurance. If they occur, they can negatively affect the durations of project activities.
 
-Insert data related to the risk events: risks' descriptions, risks durations (the delay induced by each risk; three estimates for each risk event: minimum, most likely, and maximum), and the relationships between the risk events and the activities. One risk event can influence (i.e., increase the time of) one or more activities. You may insert more than one activity by separating them with a `space` or a comma `,`.
+* Insert data related to the risk events: risks' descriptions, risks durations (the delay induced by each risk; three estimates for each risk event: minimum, most likely, and maximum), and the relationships between the risk events and the activities. One risk event can influence (i.e., increase the time of) one or more activities. You may insert more than one activity by separating them with a `space` or a comma `,`.
 
 <p align="center">
   <img width="500" src=figures/Slide8.PNG>
 </p>
 
 ### Analysis
+* Import your data using the `Load project data` button.
 
 <p align="center">
   <img width="500" src=figures/Slide9.PNG>
 </p>
 
+The MitC algorithm uses Monte Carlo simulation. Every Monte arlo iteration is a possible scenario. In every Monte Carlo iterataion, the MitC chooses random values for the projects durations, Mitigation measures durations, and risks durations using the defined durations ranges (mminimum, most ikely, and Maximum). In ever iteration, the MitC finds the most effective set of mitigations measures (i.e., mitigation strategy) that is best for that iteration (or scenario)
+
+* Select the number of Monte Carlo iterations (The minimum recommended value is 2000).
+* Select the taget duration of the project. This is the duration that you would like to finish your project within. 
+
 <p align="center">
   <img width="500" src=figures/Slide10.PNG>
 </p>
 
+* Select the folder where you want to save the results of the simulation. You may choose the `results` folder that already exists in the package directory
+
 <p align="center">
   <img width="500" src=figures/Slide11.PNG>
 </p>
+
+* Run the simulation
+* You can see the status of the MitC using the status indicator. You can also read the history of your actions using history box.
+* You may reset the MitC by clicking on the `Reset` button
 
 <p align="center">
   <img width="500" src=figures/Slide12.PNG>
