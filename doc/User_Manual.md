@@ -1,8 +1,14 @@
+<p align="center">
+  <img width="500" src=MitC_logo.png>
+</p>
+
 _The MitC software is currently under development and in a pre-release state._
 
-The ongoing research deals with the development of an automated risk-mitigation tool for construction projects, namely the Mitigation Controller (MitC). MitC is a state-of-the-art tool that can assist project managers to have a full grip on the progress of their running construction projects. It takes as input a complete project schedule and returns several outputs that help the project manager take actions to prevent potential delays. 
+The Nitigation Controller (MitC) deals with the development of an automated risk-mitigation tool for construction projects, namely the Mitigation Controller (MitC). MitC is a state-of-the-art tool that can assist project managers to have a full grip on the progress of their running construction projects. It takes as input a complete project schedule and returns several outputs that help the project manager take actions to prevent potential delays. 
 
 The source code was developed and tested with MATLAB R2019a.
+
+The following is a step-by-step guide to help users get started with the MitC software. It includes two parts: 1) Installation and 2) Working with the software. 
 
 Work done by:
 
