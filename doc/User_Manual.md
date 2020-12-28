@@ -91,3 +91,15 @@ User does not have access to MATLAB:
 </p>
 
 ### Output 
+
+<p align="center">
+  <img width="500" src=figures/Slide13.PNG>
+</p>
+
+<p align="center">
+  <img width="500" src=figures/Slide14.PNG>
+</p>
+
+<p align="center">
+  <img width="500" src=figures/Slide15.PNG>
+</p>
