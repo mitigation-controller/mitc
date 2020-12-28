@@ -20,7 +20,7 @@ User has access to MATLAB version 2019a or higher. The code requires the _Optimi
 
 * Run MATLAB and click `Install App` under the `APPS` tab.
 <p align="center">
-  <img width="500" src=Slide1.png>
+  <img width="500" src=figure/Slide1.png>
 </p>
 
 * Locate the file `MitC_app` in the package directory to install the app.
