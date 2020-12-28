@@ -116,6 +116,11 @@ The MitC algorithm uses Monte Carlo simulation. Every Monte arlo iteration is a 
 </p>
 
 ### Output 
+The results will be saved in the selected output folder.
+
+
+project network with nodes being the activities and links being the activities relationships. The number on the link represents the duration of the activity on the start edge of the link and the number on the node represents the activity's ID.
+
 
 <p align="center">
   <img width="500" src=figures/Slide13.PNG>
