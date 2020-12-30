@@ -88,7 +88,7 @@ Data must be structured following a predefined spreadsheet form (.xlsx). A templ
   <img width="500" src=figures/Slide9.PNG>
 </p>
 
-The MitC algorithm uses Monte Carlo simulation. Every Monte arlo iteration is a possible scenario. In every Monte Carlo iterataion, the MitC chooses random values for the projects durations, Mitigation measures durations, and risks durations using the defined durations ranges (mminimum, most ikely, and Maximum). In ever iteration, the MitC finds the most effective set of mitigations measures (i.e., mitigation strategy) that is best for that iteration (or scenario)
+The MitC algorithm uses Monte Carlo simulation. Every Monte Carlo iteration is a possible scenario. In every Monte Carlo iteration, the MitC chooses random values for the projects durations, Mitigation measures durations, and risks durations from the defined durations ranges (mminimum, most ikely, and Maximum). In ever iteration, the MitC finds the most effective set of mitigations measures (i.e., mitigation strategy) that is best for that iteration.
 
 * Select the number of Monte Carlo iterations (The minimum recommended value is 2000).
 * Select the taget duration of the project. This is the duration that you would like to finish your project within. 
@@ -114,17 +114,19 @@ The MitC algorithm uses Monte Carlo simulation. Every Monte arlo iteration is a 
 ### Output 
 The results will be saved in the selected output folder.
 
+Figure below:
+* Left figure: project network with nodes being the activities and links being the activities relationships. The number on the link represents the duration of the activity on the start edge of the link and the number on the node represents the activity's ID.
 
-* Left: project network with nodes being the activities and links being the activities relationships. The number on the link represents the duration of the activity on the start edge of the link and the number on the node represents the activity's ID.
-
-* Right: the cumulative probability of project completion time for three cases:
-1) No Mit: simulaion result with NO mitigation measures included
-2) Permanent: simulation result with ALL mitigation measures included
-3) Tentative: simuation result with the OPTIMAL mitigation measures (the MitC)
+* Right figure: the cumulative probability of project completion time for three cases:
+1) No Mit: simulation with NO mitigation measures included
+2) Permanent: simulation with ALL mitigation measures included
+3) Tentative: simuation with the OPTIMAL mitigation measures (the MitC)
 
 <p align="center">
   <img width="500" src=figures/Slide13.PNG>
 </p>
+
+Figure below:
 
 * Left: probability density function (PDF) of the mitigation cost for two cases:
 1) Permanent: the distribution of mitigation cost when ALL mitigtion measures are included
@@ -136,6 +138,8 @@ The results will be saved in the selected output folder.
 <p align="center">
   <img width="500" src=figures/Slide14.PNG>
 </p>
+
+Figure below:
 
 * Top left: Criticality Index of project activities-the criticality index expresses how often a particular activity was on the Critical Path during the Monte Carlo simulation (the ratio between the number of iterations where a given activity was on the critical path over the total number of iterations)
 * Top right: Criticality Index of project paths-the ratio between the number of iterations where a given path was a critical path over the total number of iterations
