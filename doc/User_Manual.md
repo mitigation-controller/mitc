@@ -4,7 +4,7 @@
 
 _The MitC software is currently under development and in a pre-release state._
 
-The Mitigation Controller (MitC) deals with the development of an automated risk-mitigation tool for construction projects, namely the Mitigation Controller (MitC). MitC is a state-of-the-art tool that can assist project managers to have a full grip on the progress of their running construction projects. It takes as input a complete project schedule and returns several outputs that help the project manager take actions to prevent potential delays. 
+The Mitigation Controller (MitC) deals with the development of an automated risk-mitigation tool for construction projects. The MitC is a state-of-the-art tool that can assist project managers to have a full grip on the progress of their running construction projects. It takes as input a complete project schedule and returns several outputs that help the project manager take actions to prevent potential delays. 
 
 The source code was developed and tested with MATLAB R2019a.
 
@@ -64,7 +64,7 @@ Data must be structured following a predefined spreadsheet form (.xlsx). A templ
   <img width="500" src=figures/Slide6.PNG>
 </p>
 
-Mitigation measures are corrective activities that are implemented to reduce the durations of other activities, and thus the duration of the project. 
+* Data related to the mitigation measures. Mitigation measures are corrective activities that are implemented to reduce the durations of other activities, and thus the duration of the project. 
 
 * Insert data related to the mitigation measures: measures' descriptions, measures' durations (three estimates for each: minimum, most likely, and maximum), measures' cost (three estimates for each: minimum, most likely, and maximum), and the relationships between the measures and the activities. One Mitigation measure can influence (i.e., reduce the time of) one or more activities. You may insert more than one activity by separating them with a `space` or a comma `,`.
 
@@ -73,7 +73,7 @@ Mitigation measures are corrective activities that are implemented to reduce the
   <img width="500" src=figures/Slide7.PNG>
 </p>
 
-Risk events are additional source of delay if they occur. Risk events have a probability of occurance. If they occur, they can negatively affect the durations of project activities.
+* Data related to the risk events. Risk events are additional source of delay if they occur. Risk events have a probability of occurance. If they occur, they can negatively affect the durations of project activities.
 
 * Insert data related to the risk events: risks' descriptions, risks durations (the delay induced by each risk; three estimates for each risk event: minimum, most likely, and maximum), and the relationships between the risk events and the activities. One risk event can influence (i.e., increase the time of) one or more activities. You may insert more than one activity by separating them with a `space` or a comma `,`.
 
