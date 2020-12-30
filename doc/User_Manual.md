@@ -118,9 +118,9 @@ Figure below:
 * Left figure: project network with nodes being the activities and links being the activities relationships. The number on the link represents the duration of the activity on the start edge of the link and the number on the node represents the activity's ID.
 
 * Right figure: the cumulative probability of project completion time for three cases:
-1) No Mit: simulation with NO mitigation measures included
-2) Permanent: simulation with ALL mitigation measures included
-3) Tentative: simuation with the OPTIMAL mitigation measures (the MitC)
+1) No Mit: simulation with NO mitigation measures included;
+2) Permanent: simulation with ALL mitigation measures included;
+3) Tentative: simuation with the OPTIMAL mitigation measures (the MitC).
 
 <p align="center">
   <img width="500" src=figures/Slide13.PNG>
@@ -129,8 +129,8 @@ Figure below:
 Figure below:
 
 * Left figure: probability density function (PDF) of the mitigation cost for two cases:
-1) Permanent: the distribution of mitigation cost when ALL mitigtion measures are included
-2) Tentative: the distribution of mitigation cost when only the OPTIMAL mitigation measures are included (the MitC)
+1) Permanent: the distribution of mitigation cost when ALL mitigtion measures are included;
+2) Tentative: the distribution of mitigation cost when only the OPTIMAL mitigation measures are included (the MitC).
 
 * Right figure: cumulative distribution function (CDF) of the mitigation cost for two cases above.
 
@@ -141,9 +141,9 @@ Figure below:
 
 Figure below:
 
-* Top left figure: Criticality Index of project activities-the criticality index expresses how often a particular activity was on the Critical Path during the Monte Carlo simulation (the ratio between the number of iterations where a given activity was on the critical path over the total number of iterations)
-* Top right figure: Criticality Index of project paths-the ratio between the number of iterations where a given path was a critical path over the total number of iterations
-* Botton figure: Criticality Index of mitigation measures-the ratio between the number of iterations where a given mitigation measure was included over the total number of iterations
+* Top left figure: Criticality Index of project activities-the criticality index expresses how often a particular activity was on the Critical Path during the Monte Carlo simulation (the ratio between the number of iterations where a given activity was on the critical path over the total number of iterations);
+* Top right figure: Criticality Index of project paths-the ratio between the number of iterations where a given path was a critical path over the total number of iterations;
+* Botton figure: Criticality Index of mitigation measures-the ratio between the number of iterations where a given mitigation measure was included in the mitigation strategy over the total number of iterations.
 
 <p align="center">
   <img width="500" src=figures/Slide15.PNG>
