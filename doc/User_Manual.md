@@ -128,11 +128,11 @@ Figure below:
 
 Figure below:
 
-* Left: probability density function (PDF) of the mitigation cost for two cases:
+* Left figure: probability density function (PDF) of the mitigation cost for two cases:
 1) Permanent: the distribution of mitigation cost when ALL mitigtion measures are included
 2) Tentative: the distribution of mitigation cost when only the OPTIMAL mitigation measures are included (the MitC)
 
-* Right: cumulative distribution function (CDF) of the mitigation cost for two cases above.
+* Right figure: cumulative distribution function (CDF) of the mitigation cost for two cases above.
 
 
 <p align="center">
@@ -141,9 +141,9 @@ Figure below:
 
 Figure below:
 
-* Top left: Criticality Index of project activities-the criticality index expresses how often a particular activity was on the Critical Path during the Monte Carlo simulation (the ratio between the number of iterations where a given activity was on the critical path over the total number of iterations)
-* Top right: Criticality Index of project paths-the ratio between the number of iterations where a given path was a critical path over the total number of iterations
-* Botton: Criticality Index of mitigation measures-the ratio between the number of iterations where a given mitigation measure was included over the total number of iterations
+* Top left figure: Criticality Index of project activities-the criticality index expresses how often a particular activity was on the Critical Path during the Monte Carlo simulation (the ratio between the number of iterations where a given activity was on the critical path over the total number of iterations)
+* Top right figure: Criticality Index of project paths-the ratio between the number of iterations where a given path was a critical path over the total number of iterations
+* Botton figure: Criticality Index of mitigation measures-the ratio between the number of iterations where a given mitigation measure was included over the total number of iterations
 
 <p align="center">
   <img width="500" src=figures/Slide15.PNG>
