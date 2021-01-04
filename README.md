@@ -33,7 +33,7 @@ User does not have access to MATLAB:
 * Run the installed application. 
 
 ## User documentation
-[User documentation](https://github.com/mitigation-controller/mitc/tree/main/doc)
+[User documentation](https://github.com/mitigation-controller/mitc/tree/main/doc/User_Manual.md)
 
 ## Did you find a bug or have a feature request?
 Excellent, please let us know by creating a new issue using the appropriate [templates](https://github.com/mitigation-controller/mitc/issues/new/choose). 
