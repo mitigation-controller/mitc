@@ -7,9 +7,10 @@ addpath('bin', 'plotting', 'modules')
 
 %--- User input
 Config.nsimulations = 500;
-Config.T_pl = 1466;
+Config.T_pl = 75;
 
-Config.filename = '..\data\Case study.xlsx';
+[filename, pathname] = uigetfile('..\data\*.xlsx', 'Select project data file');
+Config.filename = [pathname filename];
 ID = datestr(now, 'yyyy-mm-dd__HH-MM-SS');
 Config.savefolder = strcat('..\results\', ID, '\');
 
@@ -30,12 +31,13 @@ Data = parse_data(dataDouble, dataCell);
 [Data.P_ki, Data.linkedActivities] = fill_path_matrix(Data.R_ii, Data.nActivities);
 
 % 3b) Select critical paths to reduce the simulation time
-[Data.T_orig, Data.P_cr_0, Data.K] = ...
+[Data.T_orig, Data.P_cr_0, Data.K, Data.P_ki] = ...
                          select_critical_paths(...                         
                             Data.P_ki,...
                             Data.durationActivities,...
                             Data.riskEventsDuration,...
-                            Data.E_ie);
+                            Data.E_ie,...
+                            Config.T_pl);
 
 %--- 4) Run simulation
 [Results, CP_0, CP_opt] = mitc_simulation(Data, Config.nsimulations, Config.T_pl);
