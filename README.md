@@ -16,6 +16,8 @@ Work done by:
 * Omar Kammouh: Algorithm development
 * Maurits Kok: GUI development
 * Maria Nogal Macho: Supervision and Software maintenance
+* Rogier Wolfert: Concept development and supervision
+* Ruud Binnekamp: Concept development and supervision
 
 ## Installation
 
