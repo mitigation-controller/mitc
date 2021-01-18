@@ -28,7 +28,7 @@ set(hLine,'FaceColor','none','EdgeColor',[0 0 0],...
     'LineStyle','-', 'LineWidth',1);
 
 LegHandles(end+1) = hLine;
-LegText{end+1} = 'Tentative cost histogram';
+LegText{end+1} = 'MitC cost histogram';
 
 hold on
 
@@ -40,7 +40,7 @@ hLine = plot(XGrid,YPlot,'Color',[0 0 0],...
     'LineStyle','-', 'LineWidth',3,...
     'Marker','none', 'MarkerSize',6);
 LegHandles(end+1) = hLine;
-LegText{end+1} = 'Tentative cost PDF';
+LegText{end+1} = 'MitC cost PDF';
 
 hold on
 
@@ -63,7 +63,7 @@ set(hLine,'FaceColor','none','EdgeColor',[0.7 0.7 0.7],...
 xlabel('cost (Euros)','FontSize',20)
 ylabel('PDF','FontSize',20)
 LegHandles(end+1) = hLine;
-LegText{end+1} = 'Permanent cost histogram';
+LegText{end+1} = 'ALL Mit cost histogram';
 bx = gca;
 bx.FontSize = 20; 
 
@@ -79,7 +79,7 @@ hLine = plot(XGrid,YPlot,'Color',[0.7 0.7 0.7],...
     'LineStyle','-', 'LineWidth',2,...
     'Marker','none', 'MarkerSize',6);
 LegHandles(end+1) = hLine;
-LegText{end+1} = 'Permanent cost PDF';
+LegText{end+1} = 'ALL Mit cost PDF';
 
 % Adjust figure
 box on;

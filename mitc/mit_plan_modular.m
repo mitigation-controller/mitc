@@ -8,10 +8,10 @@ addpath('bin', 'plotting', 'modules')
 
 
 %--- User input
-Config.nsimulations = 1000;
+Config.nsimulations = 500;
 Config.T_pl = 1466;
-Config.penalty=100000000; %Penalty per day of delay
-Config.incentive=0; %Incentive per day of finishing early
+Config.penalty=10000; %Penalty per day of delay
+Config.incentive=10000; %Incentive per day of finishing early
 
 Config.filename = '..\data\Case study.xlsx';
 ID = datestr(now, 'yyyy-mm-dd__HH-MM-SS');
@@ -46,27 +46,30 @@ Data = parse_data(dataDouble, dataCell);
 toc
 
 tic
-% %--- 5) Generate and export plots
-% plot_network(Data.linkedActivities, dataCell,...
-%              Config.savefolder, 'fig_1');
-%          
-% plot_freq_mitigation(Results, Data, Config.nsimulations,...
-%                      Config.savefolder, 'fig_2');
-%                  
-% plot_freq_paths(CP_0, CP_opt, Data.K,...
-%                 Config.savefolder, 'fig_3');
-%             
-% plot_freq_activity(CP_0, CP_opt, Data.K, Data.P_ki, Data.nActivities,...
-%                    Config.savefolder, 'fig_4');
-%                
-% plot_cdf(Results, Data.nMitigations, Data.T_orig, Config.T_pl, Config.nsimulations,...
-%          Config.savefolder, 'fig_5');
-%      
-% plot_cdf_cost(Results, Data.nMitigations,...
-%               Config.savefolder, 'fig_6');
-%           
-% plot_pdf_cost(Results, Data.nMitigations,...
-%               Config.savefolder, 'fig_7');
+%--- 5) Generate and export plots
+plot_network(Data.linkedActivities, dataCell,...
+             Config.savefolder, 'fig_1');
+         
+plot_freq_mitigation(Results, Data, Config.nsimulations,...
+                     Config.savefolder, 'fig_2');
+                 
+plot_freq_paths(CP_0, CP_opt, Data.K,...
+                Config.savefolder, 'fig_3');
+            
+plot_freq_activity(CP_0, CP_opt, Data.K, Data.P_ki, Data.nActivities,...
+                   Config.savefolder, 'fig_4');
+               
+plot_cdf(Results, Data.nMitigations,Data.T_orig,...
+            Config.T_pl, Config.nsimulations,...
+             Config.savefolder, 'fig_5');
+     
+plot_cdf_cost(Results, Data.nMitigations,...
+            Config.T_pl, Config.penalty, Config.incentive,...
+              Config.savefolder, 'fig_6');
+          
+plot_pdf_cost(Results, Data.nMitigations,...
+            Config.T_pl, Config.penalty, Config.incentive,...
+              Config.savefolder, 'fig_7');
 
 %--- 6) Save Config, Data, and Results structures in a single data file
 export_results(Config, Data, Results);

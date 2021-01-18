@@ -11,7 +11,7 @@ b=T_pl-d_k0; %right hand side vector for A2
 
 %--- Boundary constraints
 lb = [zeros(1,J),0,0]; %Lower bound is 0 for all variables
-ub = [ones(1,J),1400,T_pl]; %Upper bound is 1 for all variables except the penalty and incentive
+ub = [ones(1,J),T_pl*10,T_pl]; %Upper bound is 1 for all variables except the penalty and incentive
 
 %--- Objective function
 

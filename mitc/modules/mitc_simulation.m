@@ -83,7 +83,7 @@ end
 %% Montecarlo simulation
 CP_0=[]; %start a counter for the critical paths for every monte carlo simulation with no mitigation in place
 CP_opt=[]; %start a counter for the critical paths for every monte carlo simulation with optimal mitigation in place in place
-collectData=zeros(nsimulations,J+6); %allocate memory to the results matrix
+collectData=zeros(nsimulations,J+8); %allocate memory to the results matrix
 durations = zeros (N,nsimulations); %to collect activities durations from every iteration
 
 for iter= 1 : nsimulations 
@@ -113,6 +113,16 @@ for iter= 1 : nsimulations
     [x]=opt_mit_lin(J,K,T_pl,P_ki,R_ij,m_j,d_k0,c_j,penalty,incentive);
 
     %% Results and plots  
+    
+    delta1=x(J+1);%delay
+    delta2=x(J+2);%early finish
+    
+    %transformation of delta1 and delta2 so that one of them is 0
+    
+    e=min(delta1,delta2);
+    delta1=delta1-e;
+    delta2=delta2-e;
+    
     x=x(1:J);
     %--- (a) Evaluation of the completion time of the project considering the 1)optimal mitigation
     %strategy, 2) no-measure mitigation strategy, and 3)all-measure mitigation
@@ -147,6 +157,10 @@ for iter= 1 : nsimulations
     collectData(iter,J+4)=c_all; %save the results of c_all
     collectData(iter,J+5)=T_0; %save the results of T_0
     collectData(iter,J+6)=c_0; %save the results of c_0
+    collectData(iter,J+7)=delta1; %save the delta
+    collectData(iter,J+8)=delta2; %save the delta
+    
+
 end
 
 %Compute the correlation matrix of the activities durations

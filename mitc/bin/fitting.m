@@ -61,7 +61,7 @@ CdfY=[b;CdfY;d];
 x=CdfX;
 xq2 = linspace(CdfX(1),CdfX(end),200);
 p2 = pchip(x,CdfY,xq2);
-plot(xq2,p2,'--','lineWidth',2, 'Color' , [0.7 0.7 0.7],'DisplayName','Permanent')
+plot(xq2,p2,'--','lineWidth',2, 'Color' , [0.7 0.7 0.7],'DisplayName','All Mit')
 hold on;
 
 %%
@@ -76,7 +76,7 @@ CdfY=[b;CdfY;d];
 x=CdfX;
 xq2 = linspace(CdfX(1),CdfX(end),200);
 p3 = pchip(x,CdfY,xq2);
-plot(xq2,p3,'lineWidth',2,'Color' , 'k','DisplayName','Tentative')
+plot(xq2,p3,'lineWidth',2,'Color' , 'k','DisplayName','MitC')
 
 hold on;
 
@@ -101,7 +101,7 @@ box on;
 hold off;
 
 % Create legend from accumulated handles and labels
-legend('Orig Dur','No Mit','Permanent','Tentative');
+legend('Orig Dur','No Mit','ALL Mit','MitC');
 hLegend = legend(LegHandles,LegText,'Orientation', 'vertical', 'FontSize', 18, 'Location', 'northeast');
 set(hLegend,'Interpreter','none');
 
