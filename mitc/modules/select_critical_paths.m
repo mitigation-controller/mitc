@@ -25,10 +25,10 @@ function [T_orig, P_cr_0, K, P_ki] = select_critical_paths(P_ki, d_i_all, d_r_al
 
     d_k0_pess=P_ki*d_i_pess_risk; % pessimitic durations for all paths
 
-    if length(P_ki(:,1))>30
-        [row]=find(d_k0_pess<T_pl); % find paths whose pessimitic durations are less than the project completion time 
-        P_ki(row,:)=[]; % exclude path whose durations are less than the project completion time
-    end
+%     if length(P_ki(:,1))>30
+%         [row]=find(d_k0_pess<T_pl); % find paths whose pessimitic durations are less than the project completion time 
+%         P_ki(row,:)=[]; % exclude path whose durations are less than the project completion time
+%     end
 
     K = length(P_ki(:,1)); %number of analyzed paths
 
