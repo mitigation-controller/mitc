@@ -8,10 +8,10 @@ addpath('bin', 'plotting', 'modules')
 
 
 %--- User input
-Config.nsimulations = 500;
+Config.nsimulations = 5000;
 Config.T_pl = 1466;
-Config.penalty=10000; %Penalty per day of delay
-Config.incentive=10000; %Incentive per day of finishing early
+Config.penalty=8500; %Penalty per day of delay
+Config.incentive=5000; %Incentive per day of finishing early
 
 Config.filename = '..\data\Case study.xlsx';
 ID = datestr(now, 'yyyy-mm-dd__HH-MM-SS');

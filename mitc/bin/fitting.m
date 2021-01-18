@@ -83,7 +83,7 @@ hold on;
 a=find(x>=T_pl);
 if length(a)>0
     a=a(1);
-    text(T_pl,CdfY(a)-0.05,1,strcat('Target duration=',num2str(T_pl)),'Color','red','FontSize',14);
+    text(T_pl,CdfY(a)-0.05,1,strcat('Planned duration=',num2str(T_pl)),'Color','red','FontSize',14);
     plot(T_pl+1,CdfY(a)+0.006,'o','Color','red','MarkerSize',10,'LineWidth',2,'DisplayName','Planned duration');
 end
 %%
