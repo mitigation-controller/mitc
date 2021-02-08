@@ -1,0 +1,34 @@
+{
+   "creators": [
+      {
+         "affiliation": "TU Delft, Department Materials, Mechanics, Management & Design", 
+         "name": "Kammouh, Omar", 
+         "orcid": "0000-0002-8859-061X"
+      }, 
+      {
+         "affiliation": "TU Delft, Digital Competence Center", 
+         "name": "Kok, Maurits", 
+         "orcid": "0000-0002-0564-2614"
+      },
+      {
+         "affiliation": "TU Delft, Department Materials, Mechanics, Management & Design", 
+         "name": "Nogal, Maria", 
+         "orcid": "0000-0001-5405-0626"
+      }
+   ], 
+   "description": "Mitigation Controller (MitC): an automated risk-mitigation tool for construction projects.", 
+   "keywords": [
+      "risk event", 
+       "uncertainty", 
+       "corrective measures", 
+       "control measures", 
+       "project scheduling", 
+       "mitigation", 
+       "time-cost optimization", 
+       "Monte Carlo simulation"
+   ], 
+   "license": {
+      "id": "Apache-2.0"
+   }, 
+   "title": "mitc"
+}
