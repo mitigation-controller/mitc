@@ -28,7 +28,7 @@ Data = parse_data(dataDouble, dataCell);
 %--- 3) Prepare data for simulation
 
 % 3a) Generate matrix with all paths
-[Data.P_ki, Data.linkedActivities] = fill_path_matrix(Data.R_ii, Data.nActivities);
+[Data.P_ki, Data.linkedActivities] = generate_paths(Data.R_ii, Data.nActivities);
 
 % 3b) Select critical paths to reduce the simulation time
 [Data.T_orig, Data.P_cr_0, Data.K, Data.P_ki] = ...
