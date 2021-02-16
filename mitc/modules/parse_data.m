@@ -45,26 +45,31 @@ Data.nMitigations = size(Data.mitigatedDuration, 1);
 Data.mitigationCost = remove_nan(dataDouble(:,13:15)); 
 
 %--- Relation matrix indicating upon which activity i each mitigation measure j intervenes
-R_ij = zeros(Data.nMitigations, Data.nActivities); 
-R_ij_col = dataCell(:,16); 
-R_ij = find_dependencies(R_ij, R_ij_col, Data.nMitigations);  
+R_ij_relation = remove_missing(dataCell(:,16)); 
+R_ij = find_dependencies(Data.nMitigations, Data.nActivities, R_ij_relation);  
 Data.R_ij = transpose(R_ij);
 
 %--- Relation matrix indicating which activity i each risk event e affects (delays)
-E_ie = zeros(Data.nRisks, Data.nActivities); 
-E_ie_col = dataCell(:,22); 
-E_ie = find_dependencies(E_ie, E_ie_col, Data.nRisks);  
+E_ie_relation = remove_missing(dataCell(:,22));
+E_ie = find_dependencies(Data.nRisks, Data.nActivities, E_ie_relation);
 Data.E_ie = transpose(E_ie);
 
 %--- Relationship matrix between mitigation measures and activities
-R_ii=zeros(Data.nActivities, Data.nActivities);
-R_ii_col=dataCell(:,6); 
-Data.R_ii = find_dependencies(R_ii, R_ii_col, Data.nActivities);
+R_ii_relation = dataCell(:,6);
+Data.R_ii = find_dependencies(Data.nActivities, Data.nActivities, R_ii_relation);
 
-% Helper functions
+
+%--- Helper functions
 function arrayOut = remove_nan(arrayIn)
     arrayIn(~any(~isnan(arrayIn), 2),:) = [];
     arrayOut = arrayIn;
 end
+
+function cellOut = remove_missing(cellIn)
+    mask = cellfun(@ismissing, cellIn);
+    cellIn(mask) = [];
+    cellOut = cellIn;
+end
+
 
 end

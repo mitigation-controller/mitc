@@ -7,7 +7,7 @@ addpath('bin', 'plotting', 'modules')
 
 %--- User input
 Config.nsimulations = 500;
-Config.T_pl = 75;
+Config.T_pl = 1475;
 
 [filename, pathname] = uigetfile('..\data\*.xlsx', 'Select project data file');
 Config.filename = [pathname filename];

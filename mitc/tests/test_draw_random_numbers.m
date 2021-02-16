@@ -51,7 +51,7 @@ function assertWithRelTol(actVal,expVal,varargin)
 % Helper function to assert equality within a relative tolerance.
 % Takes two values and an optional message and compares
 % them within a relative tolerance of 5%.
-relTol = 0.05;
+relTol = 0.1;
 tf = abs(expVal - actVal) <= relTol.*abs(expVal);
 assert(tf, varargin{:});
 end
