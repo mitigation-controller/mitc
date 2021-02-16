@@ -1,21 +1,18 @@
 function [dataDouble, dataCell] = import_project(filename)
-% import_project - Import project data files
+%IMPORT_PROJECT - Import project data file
 %
 %
 % Inputs:
 %   filename : string
-%       filename of the project file to be imported 
+%       filename of the single project file to be imported 
 %       supported extensions: .xlsx
-%   debug : BOOLEAN
 %
 % Outputs:
-%   dataDouble : structure
-%   data Cell
-%       
-% Example:
+%   dataDouble : double 
+%       Array of imported project data
+%   dataCell : cell
+%       Array of imported project data
 %
-% License:
-% 
 % 
 %------------- BEGIN CODE --------------
 
