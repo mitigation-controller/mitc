@@ -20,8 +20,8 @@ p_r = simPa.riskProbability;
 c_j_all = simPa.mitigationCost;
 R_ij = simPa.R_ij;
 E_ie = simPa.E_ie;
-P_ki = simPa.P_ki;
-K = simPa.K;
+P_ki = simPa.nodesInPath;
+K = simPa.nPaths;
 
 
 %% Draw random numbers 

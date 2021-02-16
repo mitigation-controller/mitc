@@ -1,4 +1,4 @@
-function [nodesInPath, linkedActivities] = generate_paths(R_ii, nActivities)
+function [nodesInPath, linkedActivities, nPaths] = generate_paths(R_ii, nActivities)
 % GENERATE_PATHS - Find all paths and accompanying nodes (activities)
 %
 % Syntax:
