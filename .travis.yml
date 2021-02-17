@@ -1,4 +1,4 @@
 language: matlab
 matlab:
   - R2020b
-script: matlab -batch 'results - runtests('IncludeSubfolders',true); assertSuccess(results)
+script: matlab -batch "results = runtests('IncludeSubfolders',true); assertSuccess(results);""
