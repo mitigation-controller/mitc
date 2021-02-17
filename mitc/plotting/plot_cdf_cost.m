@@ -1,4 +1,14 @@
 function plot_cdf_cost(CollectData, J, savefolder, savename)
+% PLOT_CDF_COST - 
+%
+% Syntax:
+% plot_cdf_cost(CollectData, J, savefolder, savename)
+%
+% Inputs:
+%   CollectData :
+%   J :
+%   savefolder :
+%   savename :
 
 %--- (m) Cost distribution
 c_opt=CollectData(:,J+2);
@@ -11,7 +21,5 @@ hold off
 
 %--- Export figures
 file = [savefolder savename];
-saveas(h, file, 'png');
-saveas(h, file, 'fig');
-saveas(h, file, 'eps');
+export_fig(h, file)
 end

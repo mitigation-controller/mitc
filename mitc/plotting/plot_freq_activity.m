@@ -1,8 +1,8 @@
 function plot_freq_activity(CP_0, CP_opt, K, P_ki, N, savefolder, savename)
-% plot_freq_activity
+% PLOT_FREQ_ACTIVITY - 
 %
-%
-%
+% Syntax: 
+% plot_freq_activity(CP_0, CP_opt, K, P_ki, N, savefolder, savename)
 %
 
 %--- (k)Critical path-activities criticality analysis
@@ -42,8 +42,6 @@ hold off
     
 %--- Export figures
 file = [savefolder savename];
-saveas(h, file, 'png');
-saveas(h, file, 'fig');
-saveas(h, file, 'eps');
+export_fig(h, file)
 
 end

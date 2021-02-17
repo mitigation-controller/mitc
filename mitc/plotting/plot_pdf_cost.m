@@ -11,7 +11,5 @@ hold off
 
 %--- Export figures
 file = [savefolder savename];
-saveas(h, file, 'png');
-saveas(h, file, 'fig');
-saveas(h, file, 'eps');
+export_fig(h, file)
 end
