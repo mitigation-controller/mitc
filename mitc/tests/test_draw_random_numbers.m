@@ -1,57 +1,73 @@
-% test conditions
-num = 5000;
-property = [0 10 100];
-PertBeta = draw_random_numbers(property, size(property,1), num);
+% TEST DRAW_RANDOM_NUMBERS
+classdef test_draw_random_numbers < matlab.unittest.TestCase
 
+    properties (TestParameter)
+        N = {5000};
+        args = {[0 10 100]};
+        PertBeta = {draw_random_numbers(...
+            test_draw_random_numbers.args{1},...
+            size(test_draw_random_numbers.args{1},1),...
+            test_draw_random_numbers.N{1})};
+    end
+    
 
-%% Test: Output size
-exp = [1, 5000];
-assert(isequal(size(PertBeta), exp), 'Expected a different matrix size')
-
-
-%% Test: Outliers
-assert(min(PertBeta) >= property(1), 'Expected a different minimum value in the distribution')
-assert(max(PertBeta) <= property(3), 'Expected a different maximum value in the distribution')
-
-
-%% Test: Mean of drawn distribution
-expMean = (property(1) + 4*property(2) + property(3))/6;
-assertWithRelTol(mean(PertBeta), expMean, 'Expected different mean value')
-
-
-%% Test: Median of drawn distribution
-expMedian = (property(1) + 6*property(2) + property(3))/8;
-assertWithAbsTol(median(PertBeta), expMedian, 'Expected different median value')
-
-
-%% Test: Variance of drawn distribution
-expMean = (property(1) + 4*property(2) + property(3))/6;
-exp_variance = (expMean - property(1))*(property(3) - expMean)/7;
-assertWithRelTol(var(PertBeta), exp_variance, 'Expected different variance value')
-
-
-%% Test: No variability in property
-propertyConst = [10 10 10];
-PertBetaConst = draw_random_numbers(propertyConst, size(propertyConst,1), 10);
-
-exp_sum = 100;
-assert(isequal(sum(PertBetaConst), exp_sum), 'Expected constant values')
-
-
-function assertWithAbsTol(actVal,expVal,varargin)
-% Helper function to assert equality within an absolute tolerance.
-% Takes two values and an optional message and compares
-% them within an absolute tolerance of 1e-3.
-tol = 1e-2;
-tf = abs(actVal - expVal) <= tol;
-assert(tf, varargin{:});
+    % Test Method Block
+    methods (Test)
+    
+        function testOutputSize(testCase, N, PertBeta)    
+            expSize = [1, N];
+            actSize = size(PertBeta);
+            testCase.verifyEqual(actSize, expSize,...
+                'Expected a different distribution size')
+        end
+                
+        function testOutlierRange(testCase, PertBeta, args)
+            % Test min outlier
+            expMin = args(1);
+            actMin = min(PertBeta);                        
+            testCase.verifyGreaterThanOrEqual(actMin, expMin,...
+                'Expected a different minimum value in the distribution')   
+            % Test max outlier
+            expMax = args(3);
+            actMax = max(PertBeta);     
+            testCase.verifyLessThanOrEqual(actMax, expMax,...
+                'Expected a different maximum value in the distribution')
+        end
+        
+        function testMeanDistribution(testCase, PertBeta, args)            
+            expMean = (args(1) + 4*args(2) + args(3))/6;
+            actMean = mean(PertBeta);
+            testCase.verifyEqual(actMean, expMean,...
+                'RelTol', 0.1,... 
+                'Expected different mean value')
+        end
+        
+        function testMedianDistribution(testCase, PertBeta, args)
+           expMedian = (args(1) + 6*args(2) + args(3))/8;
+           actMedian = median(PertBeta);
+           testCase.verifyEqual(actMedian, expMedian, ...
+               'RelTol', 0.05,...
+               'Expected different median value') 
+        end
+        
+        function testVarianceDistribution(testCase, PertBeta, args)
+           expMean = (args(1) + 4*args(2) + args(3))/6;
+           expVar =  (expMean - args(1))*(args(3) - expMean)/7;
+           actVar = var(PertBeta);
+           testCase.verifyEqual(actVar, expVar,...
+               'RelTol', 0.1,...
+               'Expected different variance value')
+        end
+                
+        function testNoVariance(testCase)
+            propertyConst = [10 10 10];
+            PertBetaConst = draw_random_numbers(propertyConst, size(propertyConst,1), 10);
+            expSum = 100;
+            actSum = sum(PertBetaConst);
+            testCase.verifyEqual(actSum, expSum,...
+                'Expected constant values')            
+        end
+        
+    end
 end
 
-function assertWithRelTol(actVal,expVal,varargin)
-% Helper function to assert equality within a relative tolerance.
-% Takes two values and an optional message and compares
-% them within a relative tolerance of 5%.
-relTol = 0.1;
-tf = abs(expVal - actVal) <= relTol.*abs(expVal);
-assert(tf, varargin{:});
-end
