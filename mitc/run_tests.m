@@ -12,15 +12,14 @@ import matlab.unittest.plugins.CodeCoveragePlugin
 import matlab.unittest.plugins.codecoverage.CoverageReport
 import matlab.unittest.plugins.codecoverage.CoberturaFormat
 
-% Add current folder plus all subfolders to the path.
-% folder = fileparts(which(mfilename)); 
-addpath(genpath(pwd));
-
 % Set test folder
 here = pwd;
 idx = strfind(here, filesep);
 there = here(1:idx(end)-1);
 testFolder = strcat(there, '\tests');
+
+% Add source folder plus all subfolders to the path.
+addpath(genpath(there));
 
 % Create test suite
 suite = TestSuite.fromFolder(testFolder);
