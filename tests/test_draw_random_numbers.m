@@ -5,29 +5,38 @@ classdef test_draw_random_numbers < matlab.unittest.TestCase
     properties (TestParameter)
         N = {5000};
         args = {[0 10 100]};
-        PertBeta = {draw_random_numbers(...
-            test_draw_random_numbers.args{1},...
-            size(test_draw_random_numbers.args{1},1),...
-            test_draw_random_numbers.N{1})};
     end
     
 
     % Test Method Block
     methods (Test)
     
-        function testOutputSize(testCase, N, PertBeta)    
+        function testOutputSizeSingle(testCase, N, args)
             expSize = [1, N];
+            PertBeta = draw_random_numbers(args, size(args,1), N);
+            actSize = size(PertBeta);
+            testCase.verifyEqual(actSize, expSize,...
+                'Expected a different distribution size')
+        end
+        
+        function testOutputSizeMultiple(testCase, N)
+            param = [0 10 100; 0 10 100; 0 10 100];
+            expSize = [size(param,1), N];
+            PertBeta = draw_random_numbers(param, size(param,1), N);
             actSize = size(PertBeta);
             testCase.verifyEqual(actSize, expSize,...
                 'Expected a different distribution size')
         end
                 
-        function testOutlierRange(testCase, PertBeta, args)
+        function testOutlierRange(testCase, N, args)
+            PertBeta = draw_random_numbers(args, size(args,1), N);
+            
             % Test min outlier
             expMin = args(1);
             actMin = min(PertBeta);                        
             testCase.verifyGreaterThanOrEqual(actMin, expMin,...
-                'Expected a different minimum value in the distribution')   
+                'Expected a different minimum value in the distribution')
+            
             % Test max outlier
             expMax = args(3);
             actMax = max(PertBeta);     
@@ -35,15 +44,17 @@ classdef test_draw_random_numbers < matlab.unittest.TestCase
                 'Expected a different maximum value in the distribution')
         end
         
-        function testMeanDistribution(testCase, PertBeta, args)            
-            expMean = (args(1) + 4*args(2) + args(3))/6;
+        function testMeanDistribution(testCase, N, args)            
+            PertBeta = draw_random_numbers(args, size(args,1), N);
+            expMean = (args(1) + 4*args(2) + args(3))/6;            
             actMean = mean(PertBeta);
             testCase.verifyEqual(actMean, expMean,...
                 'RelTol', 0.1,... 
                 'Expected different mean value')
         end
         
-        function testMedianDistribution(testCase, PertBeta, args)
+        function testMedianDistribution(testCase, N, args)
+           PertBeta = draw_random_numbers(args, size(args,1), N);
            expMedian = (args(1) + 6*args(2) + args(3))/8;
            actMedian = median(PertBeta);
            testCase.verifyEqual(actMedian, expMedian, ...
@@ -51,7 +62,8 @@ classdef test_draw_random_numbers < matlab.unittest.TestCase
                'Expected different median value') 
         end
         
-        function testVarianceDistribution(testCase, PertBeta, args)
+        function testVarianceDistribution(testCase, N, args)
+           PertBeta = draw_random_numbers(args, size(args,1), N);
            expMean = (args(1) + 4*args(2) + args(3))/6;
            expVar =  (expMean - args(1))*(args(3) - expMean)/7;
            actVar = var(PertBeta);
