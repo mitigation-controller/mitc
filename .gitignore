@@ -3,3 +3,6 @@
 
 # Results subdirectories
 /Results/*/
+
+# Code coverage results
+mitc/tests/Reports/

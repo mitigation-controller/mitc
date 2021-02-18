@@ -1,4 +1,5 @@
-% TEST DRAW_RANDOM_NUMBERS
+% TEST_DRAW_RANDOM_NUMBERS
+%
 classdef test_draw_random_numbers < matlab.unittest.TestCase
 
     properties (TestParameter)
