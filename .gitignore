@@ -5,4 +5,4 @@
 /Results/*/
 
 # Code coverage results
-mitc/tests/Reports/
+/tests/Reports/

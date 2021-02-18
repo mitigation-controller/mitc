@@ -1,10 +1,10 @@
 function result = run_tests
-%RUNTESTS
+%RUNTESTS - Run all tests and produce coverage report
 %
 %
 % Resources:
 % https://nl.mathworks.com/help/matlab/ref/matlab.unittest.plugins.codecoverageplugin-class.html
-
+%
 
 import matlab.unittest.TestSuite
 import matlab.unittest.TestRunner
@@ -12,20 +12,23 @@ import matlab.unittest.plugins.CodeCoveragePlugin
 import matlab.unittest.plugins.codecoverage.CoverageReport
 import matlab.unittest.plugins.codecoverage.CoberturaFormat
 
-
 % Add current folder plus all subfolders to the path.
 % folder = fileparts(which(mfilename)); 
 addpath(genpath(pwd));
 
+% Set test folder
+here = pwd;
+idx = strfind(here, filesep);
+there = here(1:idx(end)-1);
+testFolder = strcat(there, '\tests');
+
 % Create test suite
-testFolder = strcat(pwd, '\tests');
 suite = TestSuite.fromFolder(testFolder);
 runner = TestRunner.withTextOutput;
 reportFolder = strcat(testFolder, '\Reports\');
 if ~exist(reportFolder, 'dir')
     mkdir(reportFolder)
 end
-
 
 % Prepare HTML format output
 reportFileHTML = 'CoverageResults.html';
