@@ -33,7 +33,7 @@ classdef test_find_dependencies < matlab.unittest.TestCase
                'Expected an exchange matrix')          
         end
        
-        function testOnesMatrix(testCase, dim)
+        function testOnesMatrixDouble(testCase, dim)
             relation = cell(1,dim);
             for i = 1 : dim
                 relation{i} = linspace(1,5,5);
@@ -42,6 +42,17 @@ classdef test_find_dependencies < matlab.unittest.TestCase
             actArray = find_dependencies(dim, dim, relation);
             testCase.verifyEqual(actArray, expArray,...
                'Expected a matrix of ones')                    
-        end       
+        end
+        
+        function testOnesMatrixChar(testCase, dim)
+            relation = cell(1,dim);
+            for i = 1 : dim
+                relation{i} = '1,2,3,4,5';
+            end
+            expArray = ones(dim); % Matrix of ones
+            actArray = find_dependencies(dim, dim, relation);
+            testCase.verifyEqual(actArray, expArray,...
+               'Expected a matrix of ones')      
+        end
    end        
 end
