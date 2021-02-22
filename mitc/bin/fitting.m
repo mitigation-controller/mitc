@@ -61,7 +61,7 @@ CdfY=[b;CdfY;d];
 x=CdfX;
 xq2 = linspace(CdfX(1),CdfX(end),200);
 p2 = pchip(x,CdfY,xq2);
-plot(xq2,p2,'--','lineWidth',2, 'Color' , [0.7 0.7 0.7],'DisplayName','Permanent')
+plot(xq2,p2,'--','lineWidth',2, 'Color' , [0.7 0.7 0.7],'DisplayName','All Mit')
 hold on;
 
 %%
@@ -76,14 +76,14 @@ CdfY=[b;CdfY;d];
 x=CdfX;
 xq2 = linspace(CdfX(1),CdfX(end),200);
 p3 = pchip(x,CdfY,xq2);
-plot(xq2,p3,'lineWidth',2,'Color' , 'k','DisplayName','Tentative')
+plot(xq2,p3,'lineWidth',2,'Color' , 'k','DisplayName','MitC')
 
 hold on;
 
 a=find(x>=T_pl);
 if length(a)>0
     a=a(1);
-    text(T_pl,CdfY(a)-0.05,1,strcat('Target duration=',num2str(T_pl)),'Color','red','FontSize',14);
+    text(T_pl,CdfY(a)-0.05,1,strcat('Planned duration=',num2str(T_pl)),'Color','red','FontSize',14);
     plot(T_pl+1,CdfY(a)+0.006,'o','Color','red','MarkerSize',10,'LineWidth',2,'DisplayName','Planned duration');
 end
 %%
@@ -101,7 +101,7 @@ box on;
 hold off;
 
 % Create legend from accumulated handles and labels
-legend('Orig Dur','No Mit','Permanent','Tentative');
+legend('Orig Dur','No Mit','ALL Mit','MitC');
 hLegend = legend(LegHandles,LegText,'Orientation', 'vertical', 'FontSize', 18, 'Location', 'northeast');
 set(hLegend,'Interpreter','none');
 
