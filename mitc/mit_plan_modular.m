@@ -13,7 +13,8 @@ Config.T_pl = 1466;
 Config.penalty=8500; %Penalty per day of delay
 Config.incentive=5000; %Incentive per day of finishing early
 
-Config.filename = '..\data\Case study.xlsx';
+[filename, pathname] = uigetfile('..\data\*.xlsx', 'Select project data file');
+Config.filename = [pathname filename];
 ID = datestr(now, 'yyyy-mm-dd__HH-MM-SS');
 Config.savefolder = strcat('..\results\', ID, '\');
 
@@ -34,12 +35,13 @@ Data = parse_data(dataDouble, dataCell);
 [Data.P_ki, Data.linkedActivities] = fill_path_matrix(Data.R_ii, Data.nActivities);
 
 % 3b) Select critical paths to reduce the simulation time
-[Data.T_orig, Data.P_cr_0, Data.K] = ...
+[Data.T_orig, Data.P_cr_0, Data.K, Data.P_ki] = ...
                          select_critical_paths(...                         
                             Data.P_ki,...
                             Data.durationActivitiesTotal,...
                             Data.riskEventsDuration,...
-                            Data.E_ie);
+                            Data.E_ie,...
+                            Config.T_pl);
 
 %--- 4) Run simulation
 [Results, CP_0, CP_opt, Corr_ii] = mitc_simulation(Data, Config.nsimulations, Config.T_pl, Config.penalty, Config.incentive);
