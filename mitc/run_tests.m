@@ -16,7 +16,7 @@ import matlab.unittest.plugins.codecoverage.CoberturaFormat
 here = pwd;
 idx = strfind(here, filesep);
 there = here(1:idx(end)-1);
-testFolder = strcat(there, '\tests');
+testFolder = strcat(there, filesep, 'tests');
 
 % Add source folder plus all subfolders to the path.
 addpath(genpath(there));
@@ -24,7 +24,7 @@ addpath(genpath(there));
 % Create test suite
 suite = TestSuite.fromFolder(testFolder);
 runner = TestRunner.withTextOutput;
-reportFolder = strcat(testFolder, '\Reports\');
+reportFolder = strcat(testFolder, filesep, 'Reports', filesep);
 if ~exist(reportFolder, 'dir')
     mkdir(reportFolder)
 end
@@ -45,5 +45,4 @@ pluginXML = CodeCoveragePlugin.forFolder(pwd,...
 runner.addPlugin(pluginXML);
 
 result = runner.run(suite);
-% open(strcat(reportFolder, reportFileHTML))
 end

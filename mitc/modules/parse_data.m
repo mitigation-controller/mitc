@@ -15,7 +15,7 @@ function Data = parse_data(dataDouble, dataCell)
 %       Structure containing fields with parsed data:
 %       - durationActivities
 %       - nActivities
-%       - riskProbability
+%       - riskEventsProbability
 %       - nRisks
 %       - mitigatedDuration
 %       - nMitigations

@@ -3,12 +3,29 @@
 classdef test_parse_data < matlab.unittest.TestCase
     
    properties (TestParameter)
-       dataCell = load(strcat(pwd, '\dataCell'));
-       dataDouble = load(strcat(pwd, '\dataDouble'));
+       dataCell = load(strcat(pwd, filesep, 'dataCell'));
+       dataDouble = load(strcat(pwd, filesep, 'dataDouble'));
    end
    
-   methods (Test)
-              
+   methods (Test)         
+       
+       function testVariableNames(testCase, dataDouble, dataCell)           
+           Data = parse_data(dataDouble, dataCell);
+           expVars = {'durationActivities', 'nActivities',...
+               'riskEventsDuration', 'riskProbability',...
+               'nRisks', 'mitigatedDuration', ...
+               'nMitigations', 'mitigationCost',...
+               'R_ij', 'E_ie', 'R_ii'};
+           actVars = fieldnames(Data);           
+           
+           % Check whether any expected variable names are missing
+           testCase.verifyTrue(all(ismember(actVars, expVars)),...
+               'One or more expected variable names are missing');
+           % Check whether all variable names are processed
+           testCase.verifyTrue(all(ismember(expVars, actVars)),...
+               'One or more variable names are not parsed');
+       end
+       
        function testActivities(testCase, dataDouble, dataCell)
            Data = parse_data(dataDouble, dataCell);
            expNumAct = 38;
