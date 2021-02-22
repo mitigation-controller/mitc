@@ -74,4 +74,3 @@ plot_pdf_cost(Results, Data.nMitigations,...
 %--- 6) Save Config, Data, and Results structures in a single data file
 export_results(Config, Data, Results);
 toc
-
