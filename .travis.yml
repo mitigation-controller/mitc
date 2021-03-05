@@ -1,4 +1,5 @@
 language: matlab
 matlab:
+  - R2019a
   - R2020b
 script: matlab -batch "addpath(genpath(pwd)); results = runtests('IncludeSubfolders',true); assertSuccess(results);"
