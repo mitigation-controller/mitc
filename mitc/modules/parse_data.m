@@ -13,7 +13,7 @@ function Data = parse_data(dataDouble, dataCell)
 % Outputs:
 %   Data : structure
 %       Structure containing fields with parsed data:
-%       - durationActivities
+%       - durationActivitiesTotal
 %       - nActivities
 %       - riskEventsProbability
 %       - nRisks
@@ -23,6 +23,8 @@ function Data = parse_data(dataDouble, dataCell)
 %       - R_ij (relation between mitigation measures and activities)
 %       - E_ie (relation between risk events and activities)
 %       - R_ii (dependency of activities on predeceding activities)
+%       - U_is (Relation matrix indicating which activity i shares a shared
+%       activity s)
 %
 
 
@@ -35,7 +37,7 @@ Data.sharedActivityDurations = remove_nan(dataDouble(:,26:28));
 Data.nSharedActivities = size(Data.sharedActivityDurations,1);
 
 %--- Relation matrix indicating which activity i shares a shared activity s -->(U_is)
-U_is_relation = remove_missing(dataCell(: , 29)); 
+U_is_relation = remove_missing(dataCell(:,29)); 
 U_is = find_dependencies(Data.nSharedActivities, Data.nActivities, U_is_relation);
 Data.U_is = transpose(U_is);
 
@@ -74,6 +76,7 @@ Data.E_ie = transpose(E_ie);
 R_ii_relation = dataCell(:,6);
 Data.R_ii = find_dependencies(Data.nActivities, Data.nActivities, R_ii_relation);
 
+end
 
 %--- Helper functions
 function arrayOut = remove_nan(arrayIn)
@@ -82,10 +85,7 @@ function arrayOut = remove_nan(arrayIn)
 end
 
 function cellOut = remove_missing(cellIn)
-    mask = cellfun(@ismissing, cellIn);
+    mask = cellfun(@(x) strcmp(class(x), 'missing'), cellIn, 'UniformOutput', true);
     cellIn(mask) = [];
     cellOut = cellIn;
-end
-
-
 end

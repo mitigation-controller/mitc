@@ -10,8 +10,8 @@ addpath('bin', 'plotting', 'modules')
 %--- User input
 Config.nsimulations = 5000;
 Config.T_pl = 1466;
-Config.penalty=8500; %Penalty per day of delay
-Config.incentive=5000; %Incentive per day of finishing early
+Config.penalty = 8500; %Penalty per day of delay
+Config.incentive = 5000; %Incentive per day of finishing early
 
 [filename, pathname] = uigetfile('..\data\*.xlsx', 'Select project data file');
 Config.filename = [pathname filename];
@@ -37,7 +37,7 @@ Data = parse_data(dataDouble, dataCell);
 % 3b) Select critical paths to reduce the simulation time
 [Data.T_orig, Data.P_cr_0] = select_critical_paths(...                         
                                     Data.nodesInPath,...
-                                    Data.durationActivitiesTo);                        
+                                    Data.durationActivitiesTotal);                        
                         
 
 %--- 4) Run simulation
