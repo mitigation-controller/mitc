@@ -1,4 +1,4 @@
-function [collectData, CP_0, CP_opt,Corr_ii] = mitc_simulation(simPa, nsimulations, T_pl, penalty, incentive)
+function [collectData, CP_0, CP_opt,Corr_ii] = mitc_simulation(Data, nsimulations, T_pl, penalty, incentive)
 % MITC_SIMULATIONa
 %
 % Inputs:
@@ -10,26 +10,26 @@ function [collectData, CP_0, CP_opt,Corr_ii] = mitc_simulation(simPa, nsimulatio
 %
 
 %% VARIABLE RENAMING LIST (TEMPORARY)
-d_i_total_all = simPa.durationActivitiesTotal;
-d_i_noCorrelation_all = simPa.durationActivitiesNoCorrelation;
-d_i_correlation_all = simPa.durationActivitiesCorrelation;
-N = simPa.nActivities;
-d_s_all = simPa.sharedActivityDurations;
-S = simPa.nSharedActivities;
-m_j_all = simPa.mitigatedDuration;
-J = simPa.nMitigations;
-d_r_all = simPa.riskEventsDuration;
-R = simPa.nRisks;
-p_r = simPa.riskProbability;
-c_j_all = simPa.mitigationCost;
-R_ij = simPa.R_ij;
-E_ie = simPa.E_ie;
-P_ki = simPa.P_ki;
-U_is = simPa.U_is;
-K = simPa.K;
+d_i_total_all = Data.durationActivitiesTotal;
+d_i_noCorrelation_all = Data.durationActivitiesNoCorrelation;
+d_i_correlation_all = Data.durationActivitiesCorrelation;
+N = Data.nActivities;
+d_s_all = Data.sharedActivityDurations;
+S = Data.nSharedActivities;
+m_j_all = Data.mitigatedDuration;
+J = Data.nMitigations;
+d_r_all = Data.riskEventsDuration;
+R = Data.nRisks;
+p_r = Data.riskProbability;
+c_j_all = Data.mitigationCost;
+R_ij = Data.R_ij;
+E_ie = Data.E_ie;
+P_ki = Data.nodesInPath;
+K = Data.nPaths;
+U_is = Data.U_is;
+
 
 %% Draw random numbers 
-% WOW, this is slow...
 % tic
 %parameters of d_i_noCorrelation distribution obtained from other
 %distributions

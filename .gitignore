@@ -3,3 +3,6 @@
 
 # Results subdirectories
 /Results/*/
+
+# Code coverage results
+/tests/Reports/

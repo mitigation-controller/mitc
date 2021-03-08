@@ -1,7 +1,8 @@
 function randomNumbers = draw_random_numbers(property, rows, columns)
-% DRAW_RANDOM
+% DRAW_RANDOM_NUMBERS - Draw a set of random numbers from the Pert-Beta
+% distribution
 %
-% Input: 
+% Inputs: 
 %   rows : int
 %       number of rows of the matrix    
 %   columns : int
@@ -49,9 +50,5 @@ end
 
 % Determine whether property has uncertainty
 function out = exist_uncertainty(input)
-    if input(3) - input(1) ~= 0
-        out = true;
-    else
-        out = false;
-    end
+    out = input(3) - input(1) ~= 0;
 end
