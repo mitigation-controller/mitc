@@ -21,9 +21,7 @@ classdef test_app < matlab.uitest.TestCase
            expColor = [1 0.5 0];
            testCase.verifyEqual(testCase.App.Lamp.Color, expColor,...
                'AbsTol', 0.01,...
-               'Expected orange as initialization color')
-           testCase.verifyEqual(testCase.App.RunsimulationButton.Enable, 'off',...
-               'Expected the run simulation button to be disabled')                             
+               'Expected orange as initialization color')                         
        end
        
    end
