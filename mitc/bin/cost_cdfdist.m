@@ -28,7 +28,7 @@ hLine = plot(XGrid,YPlot1,'Color',[0 0 0],...
     'LineStyle','-', 'LineWidth',2,...
     'Marker','none', 'MarkerSize',6);
 LegHandles(end+1) = hLine;
-LegText{end+1} = 'Tentative cost CDF';
+LegText{end+1} = 'MitC cost CDF';
 
 hold on
 
@@ -65,7 +65,7 @@ hLine = plot(XGrid,YPlot2,'Color',[0.7 0.7 0.7],...
     'LineStyle','-', 'LineWidth',2,...
     'Marker','none', 'MarkerSize',6);
 LegHandles(end+1) = hLine;
-LegText{end+1} = 'Permanent cost CDF';
+LegText{end+1} = 'ALL Mit cost CDF';
 % Adjust figure
 box on;
 grid on;

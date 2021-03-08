@@ -22,7 +22,6 @@ Work done by:
 * Ruud Binnekamp: Concept development and supervision
 
 ## Installation
-
 * Download the reposity as a zip file. For the latest release, please check [releases page](https://github.com/mitigation-controller/mitc/releases) for available downloads.
 * Extract the zip archive on your computer.
 

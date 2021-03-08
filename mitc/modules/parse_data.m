@@ -26,9 +26,25 @@ function Data = parse_data(dataDouble, dataCell)
 %
 
 
-%--- Activities duration (optimistic, most likely, and pessimitic) 
-Data.durationActivities = remove_nan(dataDouble(:,3:5));
-Data.nActivities = size(Data.durationActivities, 1);
+%--- Activities total duration (optimistic, most likely, and pessimitic) 
+Data.durationActivitiesTotal = remove_nan(dataDouble(:,3:5));
+Data.nActivities = size(Data.durationActivitiesTotal, 1);
+
+%--- durations of shared activities  (optimistic, most likely, and pessimitic)
+Data.sharedActivityDurations = remove_nan(dataDouble(:,26:28));
+Data.nSharedActivities = size(Data.sharedActivityDurations,1);
+
+%--- Relation matrix indicating which activity i shares a shared activity s -->(U_is)
+U_is_relation = remove_missing(dataCell(: , 29)); 
+U_is = find_dependencies(Data.nSharedActivities, Data.nActivities, U_is_relation);
+Data.U_is = transpose(U_is);
+
+%--- Activities shared durations (only the shared part; the part of the duration that is causing correlation)
+Data.durationActivitiesCorrelation = Data.U_is * Data.sharedActivityDurations;
+
+%--- Activities duration without correlation with other activities (removing the shared durations)
+Data.durationActivitiesNoCorrelation = Data.durationActivitiesTotal - ...
+                                    Data.durationActivitiesCorrelation ;
 
 %--- Risk events duration (optimistic, most likely, and pessimitic)
 Data.riskEventsDuration = remove_nan(dataDouble(:,19:21));
