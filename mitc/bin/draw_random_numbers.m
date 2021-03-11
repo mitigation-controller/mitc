@@ -28,35 +28,6 @@ for i = 1 : rows
     end
 end
 
-
-% if size(property,2) == 3 % then use rand_pert_1
-%     for i = 1 : rows
-%         if exist_uncertainty(property(i,:))
-%             % Draw a random number from rand_pert_1
-%             randomNumbers(i,:) = round(rand_pert_1(property(i,1),...
-%                 property(i,2),...
-%                 property(i,3),...
-%                 columns));
-%         else
-%             randomNumbers(i,:) = property(i,2);
-%         end
-%     end
-%     
-% else % then use rand_pert_2
-%     for i = 1 : rows
-%         if exist_uncertainty(property(i,:))
-%             % Draw a random number from Pert-Beta distribution
-%             randomNumbers(i,:) = round(rand_pert_2(property(i,1),...
-%                 property(i,2),...
-%                 property(i,3),...
-%                 property(i,4),...
-%                 columns));
-%         else
-%             randomNumbers(i,:) = property(i,2);
-%         end
-%     end
-% end
-
 end
 
 % Determine whether property has uncertainty
