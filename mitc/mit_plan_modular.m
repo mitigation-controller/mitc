@@ -3,12 +3,11 @@ clear
 close all
 rng('default') %For reproducibility
 
-tic
 addpath('bin', 'plotting', 'modules')
 
 
 %--- User input
-Config.nsimulations = 5000;
+Config.nSimulations = 1000;
 Config.T_pl = 1466;
 Config.penalty = 8500; %Penalty per day of delay
 Config.incentive = 5000; %Incentive per day of finishing early
@@ -30,7 +29,6 @@ end
 Data = parse_data(dataDouble, dataCell);
 
 %--- 3) Prepare data for simulation
-
 % 3a) Generate matrix with all paths
 [Data.nodesInPath, Data.linkedActivities, Data.nPaths] = generate_paths(Data.R_ii, Data.nActivities);
 
@@ -39,17 +37,14 @@ Data = parse_data(dataDouble, dataCell);
                                     Data.nodesInPath,...
                                     Data.durationActivitiesTotal);                        
                         
-
 %--- 4) Run simulation
-[Results, CP_0, CP_opt, Corr_ii] = mitc_simulation(Data, Config.nsimulations, Config.T_pl, Config.penalty, Config.incentive);
-toc
+[Results, CP_0, CP_opt, Corr_ii] = mitc_simulation(Data, Config);
 
-tic
 %--- 5) Generate and export plots
 plot_network(Data.linkedActivities, dataCell,...
              Config.savefolder, 'fig_1');
          
-plot_freq_mitigation(Results, Data, Config.nsimulations,...
+plot_freq_mitigation(Results, Data, Config.nSimulations,...
                      Config.savefolder, 'fig_2');
                  
 plot_freq_paths(CP_0, CP_opt, Data.nPaths,...
@@ -59,7 +54,7 @@ plot_freq_activity(CP_0, CP_opt, Data.nPaths, Data.nodesInPath, Data.nActivities
                    Config.savefolder, 'fig_4');
                
 plot_cdf(Results, Data.nMitigations,Data.T_orig,...
-            Config.T_pl, Config.nsimulations,...
+            Config.T_pl, Config.nSimulations,...
              Config.savefolder, 'fig_5');
      
 plot_cdf_cost(Results, Data.nMitigations,...
@@ -72,4 +67,3 @@ plot_pdf_cost(Results, Data.nMitigations,...
 
 %--- 6) Save Config, Data, and Results structures in a single data file
 export_results(Config, Data, Results);
-toc
