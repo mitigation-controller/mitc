@@ -1,4 +1,4 @@
-function [Results, CP_0, CP_opt, Corr_ii] = mitc_simulation(Data, Config)
+function [Results, CP_0, CP_opt, Corr_ii, cancelSimulation] = mitc_simulation(Data, Config)
 % MITC_SIMULATION
 %
 % Inputs:
@@ -65,10 +65,14 @@ f = waitbar(0, 'Please wait...', ...
             'Name', 'Simulating mitigation measures',...
             'CreateCancelBtn','setappdata(gcbf,''canceling'',1)');
 
+% Status of whether the simulation was aborted
+cancelSimulation = 0;
+      
 for iter = 1 : nSimulations 
     
     %--- Check for clicked Cancel button
     if getappdata(f, 'canceling')
+        cancelSimulation = 1;
         break
     end
     
