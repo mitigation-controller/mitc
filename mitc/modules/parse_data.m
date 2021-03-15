@@ -72,7 +72,7 @@ E_ie_relation = remove_missing(dataCell(:,22));
 E_ie = find_dependencies(Data.nRisks, Data.nActivities, E_ie_relation);
 Data.E_ie = transpose(E_ie);
 
-%--- Relationship matrix between mitigation measures and activities
+%--- Relationship matrix between activities and activities
 R_ii_relation = dataCell(:,6);
 Data.R_ii = find_dependencies(Data.nActivities, Data.nActivities, R_ii_relation);
 
