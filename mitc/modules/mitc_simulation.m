@@ -1,4 +1,4 @@
-function [Results, CP_0, CP_opt, Corr_ii] = mitc_simulation(Data, Config)
+function [Results, CP_0, CP_opt, Corr_ii, cancelSimulation] = mitc_simulation(Data, Config)
 % MITC_SIMULATION
 %
 % Inputs:
@@ -47,8 +47,8 @@ d_i_noCorrelation_parameters = calculate_no_correlation(d_i_total_matrix,...
                                 d_i_correlation_matrix, d_i_noCorrelation_all);
 
 d_i_noCorrelation_matrix = draw_random_numbers(d_i_noCorrelation_parameters,...
-                                                N,...
-                                                nSimulations);    
+                                               N,...
+                                               nSimulations);    
 
 %% --- Monte Carlo simulation
 % Start a counter for the critical paths for every Monte Carlo simulation with no mitigation in place
@@ -60,8 +60,25 @@ CP_opt=[];
 Results = zeros(nSimulations, J+8); 
 durations = zeros (N, nSimulations); 
 
+% Initialize progress bar
+f = waitbar(0, 'Please wait...', ...
+            'Name', 'Simulating mitigation measures',...
+            'CreateCancelBtn','setappdata(gcbf,''canceling'',1)');
+
+% Status of whether the simulation was aborted
+cancelSimulation = 0;
+      
 for iter = 1 : nSimulations 
     
+    %--- Check for clicked Cancel button
+    if getappdata(f, 'canceling')
+        cancelSimulation = 1;
+        break
+    end
+    
+    %--- Update progress bar
+    waitbar(iter/nSimulations)
+        
     %--- Select new random numbers for each run
     d_i_noCorrelation = d_i_noCorrelation_matrix(:, iter); 
     m_j = m_j_matrix(:, iter);
@@ -140,7 +157,11 @@ for iter = 1 : nSimulations
     Results(iter,J+8)=delta2; %save the delta   
 end
 
-%Compute the correlation matrix of the activities durations
+%--- Close progress bar
+delete(f)
+
+
+%--- Compute the correlation matrix of the activities durations
 Corr_ii = corrcoef(durations'+0.0001);
 for i = 1 : length(Corr_ii)
     for j = 1 : length(Corr_ii)
