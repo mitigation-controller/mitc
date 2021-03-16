@@ -32,8 +32,8 @@ Data = parse_data(dataDouble, dataCell);
 % 3a) Generate matrix with all paths
 [Data.nodesInPath, Data.linkedActivities, Data.nPaths] = generate_paths(Data.R_ii, Data.nActivities);
 
-% 3b) Select critical paths to reduce the simulation time
-[Data.T_orig, Data.P_cr_0] = select_critical_paths(...                         
+% 3b) Find the critical path
+[Data.T_orig, Data.P_cr_0] = find_critical_path(...                         
                                     Data.nodesInPath,...
                                     Data.durationActivitiesTotal);                        
                         

@@ -1,4 +1,4 @@
-function [plannedProjectDuration, criticalPaths] = select_critical_paths(paths, durationActivities)
+function [plannedProjectDuration, criticalPaths] = find_critical_path(paths, durationActivities)
 % FIND_CRITICAL_PATHS - Reduce number of possible paths from a
 % deterministic analysis
 %
