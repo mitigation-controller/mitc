@@ -1,27 +1,35 @@
-function [plannedProjectDuration, criticalPaths] = find_critical_path(paths, durationActivities)
+function Data = find_critical_path(Data)
 % FIND_CRITICAL_PATHS - Reduce number of possible paths from a
 % deterministic analysis
 %
 % Syntax:
-% [plannedProjectDuration, criticalPaths] = select_critical_paths(
-%                                           paths, 
-%                                           durationActivities)
+% Data = select_critical_paths(Data)
 %
 % Inputs:
-%   paths : double
-%
-%   durationActivities : double
+%   Data : structure
+%       Required inputs:
+%       - nodesInPath
+%       - durationActivitiesTotal
 %
 % Outputs:
-%   plannedProjectDuration : double
-%       Original project duration
-%   criticalPaths : double
-%       Selected paths on the basis of a deterministic analysis
+%   Data : structure
+%       Added fields
+%       - T_orig (Original project duration)
+%       - initialCriticalPath
 %
 
-meanDurationActivities = durationActivities(:,2); 
-meanPathDuration = paths * meanDurationActivities;
 
-[plannedProjectDuration, criticalPaths] = max(meanPathDuration);
+% Check whether requires structure fields exist
+expFieldNames = {'nodesInPath', 'durationActivitiesTotal'};
+verify_fieldnames(Data, expFieldNames);
+
+meanDurationActivities = Data.durationActivitiesTotal(:,2); 
+meanPathDuration = Data.nodesInPath * meanDurationActivities;
+
+[T_orig, initialCriticalPath] = max(meanPathDuration);
+
+% Update Data structure
+Data.T_orig = T_orig;
+Data.initialCriticalPath = initialCriticalPath;
 
 end
