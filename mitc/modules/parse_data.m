@@ -26,6 +26,9 @@ function Data = parse_data(dataDouble, dataCell)
 %       - U_is (Relation matrix indicating which activity i shares a shared
 %       activity s)
 %
+% For more information on variable naming, see: 
+% https://github.com/mitigation-controller/mitc/wiki/Variable-Names
+%
 
 
 %--- Activities total duration (optimistic, most likely, and pessimitic) 
@@ -33,16 +36,16 @@ Data.durationActivitiesTotal = remove_nan(dataDouble(:,3:5));
 Data.nActivities = size(Data.durationActivitiesTotal, 1);
 
 %--- durations of shared activities  (optimistic, most likely, and pessimitic)
-Data.sharedActivityDurations = remove_nan(dataDouble(:,26:28));
-Data.nSharedActivities = size(Data.sharedActivityDurations,1);
+Data.sharedUncertainties = remove_nan(dataDouble(:,26:28));
+Data.nSharedUncertainties = size(Data.sharedUncertainties,1);
 
 %--- Relation matrix indicating which activity i shares a shared activity s -->(U_is)
 U_is_relation = remove_missing(dataCell(:,29)); 
-U_is = find_dependencies(Data.nSharedActivities, Data.nActivities, U_is_relation);
-Data.U_is = transpose(U_is);
+U_is = find_dependencies(Data.nSharedUncertainties, Data.nActivities, U_is_relation);
+Data.relActivitiesUncertainties = transpose(U_is);
 
 %--- Activities shared durations (only the shared part; the part of the duration that is causing correlation)
-Data.durationActivitiesCorrelation = Data.U_is * Data.sharedActivityDurations;
+Data.durationActivitiesCorrelation = Data.relActivitiesUncertainties * Data.sharedUncertainties;
 
 %--- Activities duration without correlation with other activities (removing the shared durations)
 Data.durationActivitiesNoCorrelation = Data.durationActivitiesTotal - ...
@@ -65,16 +68,16 @@ Data.mitigationCost = remove_nan(dataDouble(:,13:15));
 %--- Relation matrix indicating upon which activity i each mitigation measure j intervenes
 R_ij_relation = remove_missing(dataCell(:,16)); 
 R_ij = find_dependencies(Data.nMitigations, Data.nActivities, R_ij_relation);  
-Data.R_ij = transpose(R_ij);
+Data.relActivitiesMitigations = transpose(R_ij);
 
 %--- Relation matrix indicating which activity i each risk event e affects (delays)
 E_ie_relation = remove_missing(dataCell(:,22));
 E_ie = find_dependencies(Data.nRisks, Data.nActivities, E_ie_relation);
-Data.E_ie = transpose(E_ie);
+Data.relActivitiesRisks = transpose(E_ie);
 
 %--- Relationship matrix between activities and activities
 R_ii_relation = dataCell(:,6);
-Data.R_ii = find_dependencies(Data.nActivities, Data.nActivities, R_ii_relation);
+Data.relActivities = find_dependencies(Data.nActivities, Data.nActivities, R_ii_relation);
 
 end
 
