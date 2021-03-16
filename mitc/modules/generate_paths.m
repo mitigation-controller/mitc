@@ -20,12 +20,7 @@ function Data = generate_paths(Data)
 
 % Check whether requires structure fields exist
 expFieldNames = {'relActivities', 'nActivities'};
-for i = 1 : length(expFieldNames)
-    if ~isfield(Data, expFieldNames{i})
-        warningString = strcat(expFieldNames{i}, ' does not exist');
-        warning(warningString)
-    end
-end
+verify_fieldnames(Data, expFieldNames);
 
 % Find the interdependent activities
 [row,col] = find(Data.relActivities); 
