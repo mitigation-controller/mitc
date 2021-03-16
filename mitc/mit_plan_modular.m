@@ -8,7 +8,7 @@ addpath('bin', 'plotting', 'modules')
 
 %--- User input
 Config.nSimulations = 1000;
-Config.T_pl = 1466;
+Config.T_target = 1466;
 Config.penalty = 8500; %Penalty per day of delay
 Config.incentive = 5000; %Incentive per day of finishing early
 
@@ -28,19 +28,16 @@ end
 %--- 2) Parse data
 Data = parse_data(dataDouble, dataCell);
 
-%--- 3) Prepare data for simulation
-% 3a) Generate matrix with all paths
-[Data.nodesInPath, Data.linkedActivities, Data.nPaths] = generate_paths(Data.R_ii, Data.nActivities);
+%--- 3) Generate matrix with all paths
+Data = generate_paths(Data);
 
-% 3b) Find the critical path
-[Data.T_orig, Data.P_cr_0] = find_critical_path(...                         
-                                    Data.nodesInPath,...
-                                    Data.durationActivitiesTotal);                        
+%--- 4) Find the critical path
+Data = find_critical_path(Data);                                            
                         
-%--- 4) Run simulation
+%--- 5) Run simulation
 [Results, CP_0, CP_opt, Corr_ii, cancelSimulation] = mitc_simulation(Data, Config);
 
-%--- 5) Generate and export plots
+%--- 6) Generate and export plots
 if cancelSimulation == 0
     plot_network(Data.linkedActivities, dataCell,...
                  Config.savefolder, 'fig_1');
@@ -55,19 +52,19 @@ if cancelSimulation == 0
                        Config.savefolder, 'fig_4');
 
     plot_cdf(Results, Data.nMitigations,Data.T_orig,...
-                Config.T_pl, Config.nSimulations,...
+                Config.T_target, Config.nSimulations,...
                  Config.savefolder, 'fig_5');
 
     plot_cdf_cost(Results, Data.nMitigations,...
-                Config.T_pl, Config.penalty, Config.incentive,...
+                Config.T_target, Config.penalty, Config.incentive,...
                   Config.savefolder, 'fig_6');
 
     plot_pdf_cost(Results, Data.nMitigations,...
-                Config.T_pl, Config.penalty, Config.incentive,...
+                Config.T_target, Config.penalty, Config.incentive,...
                   Config.savefolder, 'fig_7');
 end
 
-%--- 6) Save Config, Data, and Results structures in a single data file
+%--- 7) Save Config, Data, and Results structures in a single data file
 if cancelSimulation == 0
     export_results(Config, Data, Results);
 end
