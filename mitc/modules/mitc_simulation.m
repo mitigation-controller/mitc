@@ -8,10 +8,15 @@ function [Results, CP_0, CP_opt, Corr_ii, cancelSimulation] = mitc_simulation(Da
 %       Structure that contains user input
 %
 % Outputs:
-%
+%   Results : double
+%       For info, check: https://github.com/mitigation-controller/mitc/wiki/Variable-Names
+%   CP_0
+%   CP_opt
+%   Corr_ii
+%   cancelSimulation : boolean
+%       Signal whether the simulation was aborted        
 %
 % License: Apache 2.0
-%
 %
 
 %% Check whether required structure fields exist
