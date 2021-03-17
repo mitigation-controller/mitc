@@ -1,4 +1,4 @@
-function [warningStatus, message] = verify_raw_data(dataDouble, dataCell)
+function [warningStatus, warningMessage] = verify_raw_data(dataDouble, dataCell)
 % VERIFY_RAW_DATA - 
 %
 % Inputs:
@@ -14,7 +14,7 @@ function [warningStatus, message] = verify_raw_data(dataDouble, dataCell)
 
 % Initialize outputs
 warningStatus = false;
-message = [];
+warningMessage = {};
 
 %% --- 1) Verify properties ID lists for
 % - data type
@@ -25,28 +25,33 @@ message = [];
 columns = {1, 7, 17, 24};
 
 for i = 1 : length(columns)
-    listID = dataDouble(:, columns{i});
+    listCell = dataCell(:, columns{i});
+    listDouble = dataDouble(:, columns{i});
     
-    % Check datatype
-    if ~isa(listID, 'double')
-        message = strcat('Data in column ', columns{i}, ' is not of type <double>');
+    % Find all data types  
+    dataTypes = cellfun(@(x) class(x), listCell, 'UniformOutput', false);
+    
+    % Check for presence of datatype <char>
+    if any(contains(dataTypes, 'char'))
+        warningMessage{end+1,1} = "Warning: Column " + num2str(columns{i}) +...
+                                  " contains data that is of type <char>. " +...
+                                  "Expected type <double>";
         warningStatus = true;
     end
     
-    % Check that NaN values are only present as a terminal sequence
-    listNan = find(isnan(listID));
-    if ~isempty(listNan)
-        % Verify that last index is same as length listID and monotonity of
-        % NaN values
-        if listNan(end) ~= length(listID) || ~all(diff(listNan))
-            message = strcat('Encountered missing values in column ', columns{i});
-            warningStatus = true;
-        end        
+    % Check for missing values not at the end of the list
+    if ~issorted(contains(dataTypes, 'missing'))
+        warningMessage{end+1,1} = "Warning: Column " + num2str(columns{i}) +...
+                                  " contains missing or invalid data";
+        warningStatus = true;
     end
+        
     
+    cleanList = remove_nan(listDouble);
     % Verify monotonity of IDs
-    if listID(1) ~= 1 || ~issorted(listID)
-        message = strcat('IDs in column ', columns{i}, ' are not monotonically increasing');
+    if cleanList(1) ~= 1 || ~issorted(cleanList, 1, 'strictascend')
+        warningMessage{end+1,1} = "Warning: IDs in column " + num2str(columns{i}) +...
+                                  " are not monotonically ascending";       
         warningStatus = true;        
     end
 end
@@ -57,7 +62,7 @@ end
 % - non-descending order
 
 % Columns that contain the values
-columns = {[3, 4, 5],...       % Activity duration
+columns = {[3, 4, 5],...        % Activity duration
             [9, 10, 11],...     % Mitigation duration
             [13, 14, 15],...    % Mitigation costs
             [19, 20, 21],...    % Risk event duration
@@ -68,7 +73,7 @@ for i = 1 : length(columns)
     
     % Check datatype
     if ~isa(values, 'double')
-        message = strcat('Data in columns ', columns{i}, ' is not of type <double>');
+        warningMessage = strcat('Data in columns ', columns{i}, ' is not of type <double>');
         warningStatus = true;
     end
     
@@ -78,14 +83,14 @@ for i = 1 : length(columns)
         % Verify that last index is same as length listID and monotonity of
         % NaN values
         if listNan(end) ~= length(values) || ~all(diff(listNan))
-            message = strcat('Encountered missing values in columns ', columns{i});
+            warningMessage = strcat('Encountered missing values in columns ', columns{i});
             warningStatus = true;
         end        
     end
     
     % Verify ascending order of values
     if ~issorted(values, 2, 'ascend')
-        message = strcat('Found values in columns ', columns{i}, ' that are descending');
+        warningMessage = strcat('Found values in columns ', columns{i}, ' that are descending');
         warningStatus = true;        
     end    
     
@@ -115,9 +120,9 @@ for i = 1 : length(columns)
     
     
     for j = 1 : length(list)
-        type = class(list{j});       
-        if ~stcmp(type, {'double', 'char', 'missing'})
-           message = strcat('Encountered datatype ', type, ' in column ',...
+        dataTypes = class(list{j});       
+        if ~strcmp(dataTypes, {'double', 'char', 'missing'})
+           warningMessage = strcat('Encountered datatype ', dataTypes, ' in column ',...
                             num2str(columns{i}), '. Allowed types are <double> and <char>.');
            warningStatus = true;
         end        
@@ -138,16 +143,17 @@ for i = 1 : length(relActivityMitigation)
    if ~isempty(relActivityMitigation{i})
        % Check duration
        if maxMitigation > minActivity 
-          message = strcat('Maximum of mitigation ', num2str(i),...
+          warningMessage = strcat('Maximum of mitigation ', num2str(i),...
                     ' is greater than minimum of activity ',...
                     num2str(relActivityMitigation(i))); 
           warningStatus = true;             
        end
    else
-        message = strcat('Encountered missing values in column 16');
+        warningMessage = strcat('Encountered missing values in column 16');
         warningStatus = true;       
    end    
 end
+
 end
 
 %% --- Helper functions
