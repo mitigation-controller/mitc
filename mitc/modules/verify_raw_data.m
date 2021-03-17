@@ -126,7 +126,6 @@ end
 
 
 %% --- 4) Verify that mitigation max duration < min duration of affected activity
-% (Column[3] < Column[11] for column[16]==column[1])
 
 durationActivity = dataDouble(:,3);
 durationMitigation = remove_nan(dataDouble(:, 11));
@@ -149,7 +148,7 @@ for i = 1 : length(relActivityMitigation)
         warningStatus = true;       
    end    
 end
-
+end
 
 %% --- Helper functions
 function arrayOut = remove_nan(arrayIn)
