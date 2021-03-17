@@ -1,10 +1,18 @@
-function [status, message] = verify_input(file)
-%VERIFY_INPUT 
+function [status, message] = verify_filepath(file)
+%VERIFY_INPUT - Check the selected file
 %
-%
-%
+% Input:
+%   file : string
+%       absolute filepath of the project data
+% 
+% Outputs:
+%   status : boolean
+%       Report the status of filepath
+%   message : string
+%       Output message
 %
 
+% Initialize outputs
 status = false;
 message = [];
 
