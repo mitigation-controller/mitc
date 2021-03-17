@@ -1,4 +1,4 @@
-function [warningStatus, warningMessage] = verify_raw_data(dataDouble, dataCell)
+function warningMessage = verify_raw_data(dataDouble, dataCell)
 % VERIFY_RAW_DATA - 
 %
 % Inputs:
@@ -6,19 +6,34 @@ function [warningStatus, warningMessage] = verify_raw_data(dataDouble, dataCell)
 %   dataCell : matrix of cells
 %
 % Outputs:
-%   warningStatus : boolean
-%       Report on status of imported data (true = warning)
-%   message : string
-%       Message to report on the data verification
+%   warningMessage : cell
+%       Messages that report on the data verification
 %
 
-% Initialize outputs
-warningStatus = false;
+% Initialize output
 warningMessage = {};
 
+
+%% --- 1) Verify data types
+% Columns that require data of type <double>
+columns = {1, 3, 4, 5,...
+           7, 9, 10, 11,...
+           13, 14, 15, 17,...
+           19, 20, 21, 23,...
+           24, 26, 27, 28}; 
+
+for i = 1 : length(columns)
+   % Get imported column data
+   listCell = dataCell(:, columns{i});
+   % Get all datatypes in the data column
+   dataTypes = cellfun(@(x) class(x), listCell, 'UniformOutput', false);
+   % Generate warning messages
+   warningMessage = [warningMessage; type_warning(dataTypes, columns{i}, 'char')];
+    
+end
+
 %% --- 1) Verify properties ID lists for
-% - data type
-% - containing NaN values
+% - containing NaN values within the sequence
 % - monotonically increasing sequence starting at 1
 
 % Columns that contain the IDs
@@ -29,30 +44,19 @@ for i = 1 : length(columns)
     listDouble = dataDouble(:, columns{i});
     
     % Find all data types  
-    dataTypes = cellfun(@(x) class(x), listCell, 'UniformOutput', false);
-    
-    % Check for presence of datatype <char>
-    if any(contains(dataTypes, 'char'))
-        warningMessage{end+1,1} = "Warning: Column " + num2str(columns{i}) +...
-                                  " contains data that is of type <char>. " +...
-                                  "Expected type <double>";
-        warningStatus = true;
-    end
+    dataTypes = cellfun(@(x) class(x), listCell, 'UniformOutput', false);          
     
     % Check for missing values not at the end of the list
     if ~issorted(contains(dataTypes, 'missing'))
         warningMessage{end+1,1} = "Warning: Column " + num2str(columns{i}) +...
                                   " contains missing or invalid data";
-        warningStatus = true;
     end
-        
     
-    cleanList = remove_nan(listDouble);
     % Verify monotonity of IDs
+    cleanList = remove_nan(listDouble);
     if cleanList(1) ~= 1 || ~issorted(cleanList, 1, 'strictascend')
         warningMessage{end+1,1} = "Warning: IDs in column " + num2str(columns{i}) +...
-                                  " are not monotonically ascending";       
-        warningStatus = true;        
+                                  " are not monotonically ascending";            
     end
 end
 
@@ -69,30 +73,33 @@ columns = {[3, 4, 5],...        % Activity duration
             [26, 27, 28]};      % Duration of shared activities
 
 for i = 1 : length(columns)
-    values = dataDouble(:, columns{i});
+    listDouble = dataDouble(:, columns{i});
+%     listCell = dataCell(:, columns{i});
     
-    % Check datatype
-    if ~isa(values, 'double')
-        warningMessage = strcat('Data in columns ', columns{i}, ' is not of type <double>');
-        warningStatus = true;
-    end
+    % Find all data types  
+%     dataTypes = cellfun(@(x) class(x), listCell, 'UniformOutput', false);
+      
     
     % Check that NaN values are only present as a terminal sequence
-    [listNan, ~] = find(isnan(values));
+    [listNan, ~] = find(isnan(listDouble));
     if ~isempty(listNan)
         % Verify that last index is same as length listID and monotonity of
         % NaN values
-        if listNan(end) ~= length(values) || ~all(diff(listNan))
-            warningMessage = strcat('Encountered missing values in columns ', columns{i});
-            warningStatus = true;
+        if listNan(end) ~= length(listDouble) || ~all(diff(listNan))
+            warningMessage{end+1,1} = "Encountered missing values in columns [" +...
+                                      num2str(columns{i}) + "].";
         end        
     end
     
     % Verify ascending order of values
-    if ~issorted(values, 2, 'ascend')
-        warningMessage = strcat('Found values in columns ', columns{i}, ' that are descending');
-        warningStatus = true;        
-    end    
+    for j = 1 : size(listDouble,1)        
+        if ~issorted(listDouble(j,:), 2, 'ascend')
+            % Account for index shift due to header removal
+            row = j + 3;
+            warningMessage{end+1,1} = "Warning: Row " + num2str(row) + " in column series [" ...
+                                      + num2str(columns{i}) + "] is descending.";   
+        end
+    end  
     
 end
 
@@ -122,9 +129,8 @@ for i = 1 : length(columns)
     for j = 1 : length(list)
         dataTypes = class(list{j});       
         if ~strcmp(dataTypes, {'double', 'char', 'missing'})
-           warningMessage = strcat('Encountered datatype ', dataTypes, ' in column ',...
+           warningMessage{end+1,1} = strcat('Encountered datatype ', dataTypes, ' in column ',...
                             num2str(columns{i}), '. Allowed types are <double> and <char>.');
-           warningStatus = true;
         end        
     end   
 end
@@ -132,27 +138,30 @@ end
 
 %% --- 4) Verify that mitigation max duration < min duration of affected activity
 
-durationActivity = dataDouble(:,3);
-durationMitigation = remove_nan(dataDouble(:, 11));
-relActivityMitigation = remove_missing(dataCell(:, 16));
+% durationActivity = dataDouble(:,3);
+% durationMitigation = remove_nan(dataDouble(:, 11));
+% relActivityMitigation = remove_missing(dataCell(:, 16));
+% 
+% for i = 1 : length(relActivityMitigation)
+%    minActivity = durationActivity(relActivityMitigation{i});
+%    maxMitigation = durationMitigation(i);
+%    
+%    if ~isempty(relActivityMitigation{i})
+%        % Check duration
+%        if maxMitigation > minActivity 
+%           warningMessage{end+1,1} = strcat('Maximum of mitigation ', num2str(i),...
+%                     ' is greater than minimum of activity ',...
+%                     num2str(relActivityMitigation(i)));             
+%        end
+%    else
+%         warningMessage{end+1,1} = strcat('Encountered missing values in column 16');
+%       
+%    end    
+% end
 
-for i = 1 : length(relActivityMitigation)
-   minActivity = durationActivity(relActivityMitigation{i});
-   maxMitigation = durationMitigation(i);
-   
-   if ~isempty(relActivityMitigation{i})
-       % Check duration
-       if maxMitigation > minActivity 
-          warningMessage = strcat('Maximum of mitigation ', num2str(i),...
-                    ' is greater than minimum of activity ',...
-                    num2str(relActivityMitigation(i))); 
-          warningStatus = true;             
-       end
-   else
-        warningMessage = strcat('Encountered missing values in column 16');
-        warningStatus = true;       
-   end    
-end
+%% Remove empty messages
+warningMessage = warningMessage(~cellfun('isempty', warningMessage));
+
 
 end
 
@@ -167,4 +176,3 @@ function cellOut = remove_missing(cellIn)
     cellIn(mask) = [];
     cellOut = cellIn;
 end
-
