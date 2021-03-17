@@ -9,8 +9,16 @@ addpath('bin', 'plotting', 'modules')
 %--- User input
 Config.nSimulations = 1000;
 Config.T_target = 1466;
-Config.penalty = 8500; %Penalty per day of delay
-Config.incentive = 5000; %Incentive per day of finishing early
+Config.parameterMode = 'Advanced';
+
+switch Config.parameterMode
+    case 'Basic'
+        Config.penalty = 9999999; %Penalty per day of delay
+        Config.incentive = 0; %Incentive per day of finishing early
+    case 'Advanced'
+        Config.penalty = 8500; %Penalty per day of delay
+        Config.incentive = 5000; %Incentive per day of finishing early
+end
 
 [filename, pathname] = uigetfile('..\data\*.xlsx', 'Select project data file');
 Config.filename = [pathname filename];
@@ -54,14 +62,9 @@ if cancelSimulation == 0
     plot_cdf(Results, Data.nMitigations,Data.T_orig,...
                 Config.T_target, Config.nSimulations,...
                  Config.savefolder, 'fig_5');
-
-    plot_cdf_cost(Results, Data.nMitigations,...
-                Config.T_target, Config.penalty, Config.incentive,...
-                  Config.savefolder, 'fig_6');
-
-    plot_pdf_cost(Results, Data.nMitigations,...
-                Config.T_target, Config.penalty, Config.incentive,...
-                  Config.savefolder, 'fig_7');
+              
+    plot_cost_distribution('cdf', Results, Data, Config, 'fig_6');
+    plot_cost_distribution('pdf', Results, Data, Config, 'fig_7');
 end
 
 %--- 7) Save Config, Data, and Results structures in a single data file
