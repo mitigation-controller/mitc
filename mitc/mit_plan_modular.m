@@ -1,7 +1,7 @@
 % Temporary file to test modular approach to mit_plan
 clear
 close all
-rng('default') %For reproducibility
+rng('default') % To ensure reproducibility
 
 addpath('bin', 'plotting', 'modules')
 
@@ -13,11 +13,11 @@ Config.parameterMode = 'Advanced';
 
 switch Config.parameterMode
     case 'Basic'
-        Config.penalty = 9999999; %Penalty per day of delay
-        Config.incentive = 0; %Incentive per day of finishing early
+        Config.penalty = 9999999; % Penalty per day of delay
+        Config.incentive = 0; % Incentive per day of finishing early
     case 'Advanced'
-        Config.penalty = 8500; %Penalty per day of delay
-        Config.incentive = 5000; %Incentive per day of finishing early
+        Config.penalty = 8500; % Penalty per day of delay
+        Config.incentive = 5000; % Incentive per day of finishing early
 end
 
 [filename, pathname] = uigetfile('..\data\*.xlsx', 'Select project data file');
@@ -37,7 +37,7 @@ end
 [status, warning] = verify_raw_data(dataDouble, dataCell);
 
 %--- 2) Parse data
-Data = parse_data(dataDouble, dataCell);
+[Data, dataCell] = parse_data(dataDouble, dataCell);
 
 %--- 3) Generate matrix with all paths
 Data = generate_paths(Data);

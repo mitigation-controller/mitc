@@ -1,4 +1,4 @@
-function Data = parse_data(dataDouble, dataCell)
+function [Data, dataCell] = parse_data(dataDouble, dataCell)
 % PARSE_DATA - Parse imported project data
 %
 % Syntax:
@@ -25,6 +25,8 @@ function Data = parse_data(dataDouble, dataCell)
 %       - R_ii (dependency of activities on predeceding activities)
 %       - U_is (Relation matrix indicating which activity i shares a shared
 %       activity s)
+%   dataCell : cell
+%       Updated project data
 %
 % For more information on variable naming, see: 
 % https://github.com/mitigation-controller/mitc/wiki/Variable-Names
@@ -74,6 +76,9 @@ Data.relActivitiesMitigations = transpose(R_ij);
 E_ie_relation = remove_missing(dataCell(:,22));
 E_ie = find_dependencies(Data.nRisks, Data.nActivities, E_ie_relation);
 Data.relActivitiesRisks = transpose(E_ie);
+
+%--- Add missing predecessors as final activity
+[dataCell, Data.nActivities] = add_missing_predecessors(dataCell, Data.nActivities);
 
 %--- Relationship matrix between activities and activities
 R_ii_relation = dataCell(:,6);
