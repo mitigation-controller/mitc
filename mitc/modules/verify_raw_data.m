@@ -131,26 +131,24 @@ end
 
 %% --- 4) Verify that mitigation max duration < min duration of affected activity
 
-% durationActivity = dataDouble(:,3);
-% durationMitigation = remove_nan(dataDouble(:, 11));
-% relActivityMitigation = remove_missing(dataCell(:, 16));
-% 
-% for i = 1 : length(relActivityMitigation)
-%    minActivity = durationActivity(relActivityMitigation{i});
-%    maxMitigation = durationMitigation(i);
-%    
-%    if ~isempty(relActivityMitigation{i})
-%        % Check duration
-%        if maxMitigation > minActivity 
-%           warningMessage{end+1,1} = strcat('Maximum of mitigation ', num2str(i),...
-%                     ' is greater than minimum of activity ',...
-%                     num2str(relActivityMitigation(i)));             
-%        end
-%    else
-%         warningMessage{end+1,1} = strcat('Encountered missing values in column 16');
-%       
-%    end    
-% end
+durationActivity = remove_nan(dataDouble(:,3));
+durationMitigation = remove_nan(dataDouble(:, 11));
+isNotMissingIndex = find(~cellfun(@(x) isa(x, 'missing'), dataCell(:, 16)) == 1);
+mitigationID = dataDouble(isNotMissingIndex,7);
+relActivityMitigation = remove_missing(dataCell(:, 16));
+
+for i = 1 : length(relActivityMitigation)
+   minActivity = durationActivity(relActivityMitigation{i});
+   maxMitigation = durationMitigation(i);
+   
+   % Compare min and max durations
+   if maxMitigation > minActivity 
+      warningMessage{end+1,1} ="Warning: Maximum of Mitigation ID " +...
+          num2str(mitigationID(i)) + " is greater than minimum of Activity ID " + ...
+                num2str(relActivityMitigation{i});             
+   end
+
+end
 
 %% Remove empty messages
 warningMessage = warningMessage(~cellfun('isempty', warningMessage));
