@@ -23,18 +23,47 @@ columns = {1, 3, 4, 5,...
            24, 26, 27, 28}; 
 
 for i = 1 : length(columns)
-   % Get imported column data
-   listCell = dataCell(:, columns{i});
-   % Get all datatypes in the data column
-   dataTypes = cellfun(@(x) class(x), listCell, 'UniformOutput', false);
-   % Generate warning messages
-   warningMessage = [warningMessage; type_warning(dataTypes, columns{i}, 'char')];
+    % Get imported column data
+    listCell = dataCell(:, columns{i});
+    % Get all datatypes in the data column
+    dataTypes = cellfun(@(x) class(x), listCell, 'UniformOutput', false);
+    % Generate warning messages
+    warningMessage = [warningMessage; type_warning(dataTypes, columns{i}, 'char', 'double')];
     
 end
 
+% Columns that contain data of type <char> that need to be converted to
+% <double>
+columns = {6, 16, 22, 29};
+for i = 1 : length(columns)
+    % Get imported column data
+    listCell = dataCell(:, columns{i});
+    % Get all datatypes in the data column
+    dataTypes = cellfun(@(x) class(x), listCell, 'UniformOutput', false);
+    
+    % Find all data of type <char>
+    isChar = contains(dataTypes, 'char');
+    rowsChar = find(isChar == 1);
+    dataChar = listCell(isChar);
+        
+    for j = 1 : length(dataChar)
+        isConvertable = str2num(dataChar{j});
+        if isempty(isConvertable) || ~isa(isConvertable, 'double')
+            row = rowsChar(j);
+            col = columns{i};
+            warningMessage{end+1, 1} = "Warning: Excel index [" + num2str(row(j)) +...
+                           ";" + num2str(col) + "] cannot be converted into a number";             
+        end        
+    end
+end
+
+%% --- 2) Check for missing values
+
+
+
 %% --- 1) Verify properties ID lists for
 % - containing NaN values within the sequence
-% - monotonically increasing sequence starting at 1
+% - monotonically increasing sequence, starting from 1
 
 % Columns that contain the IDs
 columns = {1, 7, 17, 24};

@@ -1,4 +1,4 @@
-function message = type_warning(dataTypes, column, type)
+function message = type_warning(dataTypes, column, type, expType)
 % TYPE_WARNING - Verify data type and generate message
 %
 % Syntax: 
@@ -27,8 +27,11 @@ if any(any(contains(dataTypes, type)))
     % Generate a warning message for all found indeces
     for j = 1 : length(row)
         message{end+1,1} = "Warning: Excel index [" + num2str(row(j)) +...
-                           " " + num2str(column) +"] contains data that is of type <" +...
-                           type + ">." + " Expected type <double>.";     
+                           ";" + num2str(column) +"] contains data that is of type " +...
+                           type + ". Expected type " + expType + ".";
+%         message{end+1,1} = "Warning: Excel index [" + num2str(row(j)) +...
+%                            " " + num2str(column) +"] contains data that is of type <" +...
+%                            type + ">." + " Expected type <double>.";     
     end    
 else
     message = [];
