@@ -15,9 +15,6 @@ classdef test_app < matlab.uitest.TestCase
    
    methods (Test)
        function testInitialization(testCase)           
-           expSubString = 'Version';
-           testCase.verifySubstring(testCase.App.MessageWindow.Value{1}, expSubString,...
-               'Expected different initialization message')
            expColor = [1 0.5 0];
            testCase.verifyEqual(testCase.App.Lamp.Color, expColor,...
                'AbsTol', 0.01,...
