@@ -54,7 +54,7 @@ for i = 1 : length(columns)
             row = rowsChar(j) + shift;
             col = columns{i};
             message{end+1, 1} = "Error: Cell(" + num2str(row(j)) +...
-                           ", " + num2str(col) + ") cannot be converted into a number";             
+                           ", " + num2str(col) + ") cannot be converted into a number.";             
         end        
     end
 end
@@ -76,14 +76,14 @@ for i = 1 : length(columns)
     % Check for missing values not at the end of the list
     if ~issorted(contains(dataTypes, 'missing'))
         message{end+1,1} = "Error: Column " + num2str(columns{i}) +...
-                                  " contains missing or invalid data";
+                                  " contains missing or invalid data.";
     end
     
     % Verify monotonity of IDs
     cleanList = remove_nan(listDouble);
     if cleanList(1) ~= 1 || ~issorted(cleanList, 1, 'strictascend')
         message{end+1,1} = "Error: IDs in column " + num2str(columns{i}) +...
-                                  " are not monotonically ascending";            
+                                  " are not monotonically ascending.";            
     end
 end
 
@@ -146,7 +146,7 @@ for i = 1 : length(relActivityMitigation)
    if maxMitigation > minActivity 
       message{end+1,1} = "Error: Maximum duration of Mitigation ID " +...
           num2str(mitigationID(i)) + " is greater than minimum duration of Activity ID " + ...
-                num2str(relActivityMitigation{i});             
+                num2str(relActivityMitigation{i}) + ".";             
    end
 
 end
@@ -156,7 +156,7 @@ message = message(~cellfun('isempty', message));
 
 %% Message if all data is OK
 if isempty(message)
-    message{end+1,1} = "Project data verification completed";
+    message{end+1,1} = "Project data verification completed.";
     status = 1;
 end
 

@@ -1,4 +1,4 @@
-function [Data, dataCell] = parse_data(dataDouble, dataCell)
+function [Data, dataDouble, dataCell] = parse_data(dataDouble, dataCell)
 % PARSE_DATA - Parse imported project data
 %
 % Syntax:
@@ -33,9 +33,13 @@ function [Data, dataCell] = parse_data(dataDouble, dataCell)
 %
 
 
+%--- Add missing predecessors
+Data.nActivities = size(remove_nan(dataDouble(:,1)),1);
+[dataCell, dataDouble, Data.nActivities] = find_missing_predecessors(...
+    dataCell, dataDouble, Data.nActivities);
+
 %--- Activities total duration (optimistic, most likely, and pessimitic) 
 Data.durationActivitiesTotal = remove_nan(dataDouble(:,3:5));
-Data.nActivities = size(Data.durationActivitiesTotal, 1);
 
 %--- durations of shared activities  (optimistic, most likely, and pessimitic)
 Data.sharedUncertainties = remove_nan(dataDouble(:,26:28));
@@ -77,23 +81,7 @@ E_ie_relation = remove_missing(dataCell(:,22));
 E_ie = find_dependencies(Data.nRisks, Data.nActivities, E_ie_relation);
 Data.relActivitiesRisks = transpose(E_ie);
 
-%--- Add missing predecessors as final activity
-[dataCell, Data.nActivities] = add_missing_predecessors(dataCell, Data.nActivities);
-
 %--- Relationship matrix between activities and activities
 R_ii_relation = dataCell(:,6);
 Data.relActivities = find_dependencies(Data.nActivities, Data.nActivities, R_ii_relation);
-
-end
-
-%--- Helper functions
-function arrayOut = remove_nan(arrayIn)
-    arrayIn(~any(~isnan(arrayIn), 2),:) = [];
-    arrayOut = arrayIn;
-end
-
-function cellOut = remove_missing(cellIn)
-    mask = cellfun(@(x) strcmp(class(x), 'missing'), cellIn, 'UniformOutput', true);
-    cellIn(mask) = [];
-    cellOut = cellIn;
 end

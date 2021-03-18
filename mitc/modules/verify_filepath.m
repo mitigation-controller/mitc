@@ -13,34 +13,36 @@ function [status, message] = verify_filepath(file)
 %
 
 % Initialize outputs
-status = false;
-message = [];
+status = true;
 
 % Check whether file is empty
 if isempty(file)
-    message = 'Input is empty';
+    message = "Input is empty.";
+    status = false;
     return 
 end
 
 % Check whether the file is a string
 if ~ischar(file)
-    message = 'File selection aborted...';
+    message = "File selection aborted...";
+    status = false;
     return
 end
 
 % Check whether the file exists
 if ~isfile(file)
-    message = 'File is not found';
+    message = "File is not found.";
+    status = false;
     return
 end
 
 % Check file extension
 [~,~,extension] = fileparts(file);
 switch lower(extension)
-    case '.xlsx'        
-        status = true;        
+    case '.xlsx'   
+        message = file + " is selected." ;
     otherwise
-        message = ['File type (', extension, ') is not supported'];
+        message = "File type (" + extension + ") is not supported.";
         status = false;
         return
 end

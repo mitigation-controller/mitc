@@ -34,10 +34,10 @@ end
 [dataDouble, dataCell] = import_project(Config.filename);
 
 % Verify raw data
-[status, warning] = verify_raw_data(dataDouble, dataCell);
+[status, message] = verify_raw_data(dataDouble, dataCell);
 
 %--- 2) Parse data
-[Data, dataCell] = parse_data(dataDouble, dataCell);
+[Data, dataDouble, dataCell] = parse_data(dataDouble, dataCell);
 
 %--- 3) Generate matrix with all paths
 Data = generate_paths(Data);
