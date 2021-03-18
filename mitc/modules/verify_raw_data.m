@@ -12,7 +12,8 @@ function warningMessage = verify_raw_data(dataDouble, dataCell)
 
 % Initialize output
 warningMessage = {};
-
+% Correct row shift due to removal of header
+shift = 3;
 
 %% --- 1) Verify data types
 % Columns that require data of type <double>
@@ -49,19 +50,15 @@ for i = 1 : length(columns)
     for j = 1 : length(dataChar)
         isConvertable = str2num(dataChar{j});
         if isempty(isConvertable) || ~isa(isConvertable, 'double')
-            row = rowsChar(j);
+            row = rowsChar(j) + shift;
             col = columns{i};
-            warningMessage{end+1, 1} = "Warning: Excel index [" + num2str(row(j)) +...
-                           ";" + num2str(col) + "] cannot be converted into a number";             
+            warningMessage{end+1, 1} = "Warning: Cell(" + num2str(row(j)) +...
+                           ", " + num2str(col) + ") cannot be converted into a number";             
         end        
     end
 end
 
-%% --- 2) Check for missing values
-
-
-
-%% --- 1) Verify properties ID lists for
+%% --- 2) Verify properties ID lists for
 % - containing NaN values within the sequence
 % - monotonically increasing sequence, starting from 1
 
@@ -89,7 +86,7 @@ for i = 1 : length(columns)
     end
 end
 
-%% --- 2) Verify properties of min --> optimal --> max values for
+%% --- 3) Verify properties of min --> optimal --> max values for
 % - data type
 % - containing NaN values
 % - non-descending order
@@ -102,66 +99,33 @@ columns = {[3, 4, 5],...        % Activity duration
             [26, 27, 28]};      % Duration of shared activities
 
 for i = 1 : length(columns)
-    listDouble = dataDouble(:, columns{i});
-%     listCell = dataCell(:, columns{i});
+    listDouble = dataDouble(:, columns{i});        
     
-    % Find all data types  
-%     dataTypes = cellfun(@(x) class(x), listCell, 'UniformOutput', false);
-      
-    
-    % Check that NaN values are only present as a terminal sequence
-    [listNan, ~] = find(isnan(listDouble));
+     % Verify ascending order of values
+    for j = 1 : size(listDouble,1)
+        row = j + shift;
+        col = columns{i};
+        
+        if any(isnan(listDouble(j,:))) && ~all(isnan(listDouble(j,:)))
+            warningMessage{end+1,1} = "Warning: Row " + num2str(row) + " in columns [" ...
+                                          + num2str(columns{i}) + "] contains missing or invalid data.";        
+        elseif ~issorted(listDouble(j,:), 2, 'ascend')
+            warningMessage{end+1,1} = "Warning: Row " + num2str(row) + " in columns [" ...
+                                      + num2str(columns{i}) + "] is descending.";            
+        end
+    end  
+        
+    % Check that rows of all NaN values are only present as a terminal sequence
+    [row, ~] = find(isnan(listDouble));
+    listNan = unique(row);
     if ~isempty(listNan)
         % Verify that last index is same as length listID and monotonity of
         % NaN values
-        if listNan(end) ~= length(listDouble) || ~all(diff(listNan))
-            warningMessage{end+1,1} = "Encountered missing values in columns [" +...
+        if listNan(end) ~= length(listDouble) || ~issorted(listNan, 'strictmonotonic')
+            warningMessage{end+1,1} = "Warning: Encountered missing values in columns [" +...
                                       num2str(columns{i}) + "].";
         end        
-    end
-    
-    % Verify ascending order of values
-    for j = 1 : size(listDouble,1)        
-        if ~issorted(listDouble(j,:), 2, 'ascend')
-            % Account for index shift due to header removal
-            row = j + 3;
-            warningMessage{end+1,1} = "Warning: Row " + num2str(row) + " in column series [" ...
-                                      + num2str(columns{i}) + "] is descending.";   
-        end
-    end  
-    
-end
-
-%% --- 3) Verify cells with multiple inputs for
-% - data type
-% - missing values
-
-% Columns that can contain cells with multiple values
-columns = {6, 16, 22, 29};
-
-for i = 1 : length(columns)
-    list = dataCell(:, columns{i});
-    
-%     % Check that NaN values are only present as a terminal sequence
-%     [listNan, ~] = find(isnan(list));
-%     if ~isempty(listNan)
-%         % Verify that last index is same as length listID and monotonity of
-%         % NaN values
-%         if listNan(end) ~= length(values) || ~all(diff(listNan))
-%             message = strcat('Encountered missing values in columns ', columns{i});
-%             warningStatus = true;
-%         end        
-%     end
-    
-    
-    
-    for j = 1 : length(list)
-        dataTypes = class(list{j});       
-        if ~strcmp(dataTypes, {'double', 'char', 'missing'})
-           warningMessage{end+1,1} = strcat('Encountered datatype ', dataTypes, ' in column ',...
-                            num2str(columns{i}), '. Allowed types are <double> and <char>.');
-        end        
-    end   
+    end           
 end
 
 
