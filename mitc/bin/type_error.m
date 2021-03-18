@@ -1,4 +1,4 @@
-function message = type_warning(dataTypes, column, type, expType)
+function message = type_error(dataTypes, column, type, expType)
 % TYPE_WARNING - Verify data type and generate message
 %
 % Syntax: 

@@ -1,4 +1,4 @@
-function warningMessage = verify_raw_data(dataDouble, dataCell)
+function [status, message] = verify_raw_data(dataDouble, dataCell)
 % VERIFY_RAW_DATA - 
 %
 % Inputs:
@@ -11,7 +11,8 @@ function warningMessage = verify_raw_data(dataDouble, dataCell)
 %
 
 % Initialize output
-warningMessage = {};
+message = {};
+status = 0;
 % Correct row shift due to removal of header
 shift = 3;
 
@@ -29,7 +30,7 @@ for i = 1 : length(columns)
     % Get all datatypes in the data column
     dataTypes = cellfun(@(x) class(x), listCell, 'UniformOutput', false);
     % Generate warning messages
-    warningMessage = [warningMessage; type_warning(dataTypes, columns{i}, 'char', 'double')];
+    message = [message; type_error(dataTypes, columns{i}, 'char', 'double')];
     
 end
 
@@ -52,7 +53,7 @@ for i = 1 : length(columns)
         if isempty(isConvertable) || ~isa(isConvertable, 'double')
             row = rowsChar(j) + shift;
             col = columns{i};
-            warningMessage{end+1, 1} = "Warning: Cell(" + num2str(row(j)) +...
+            message{end+1, 1} = "Error: Cell(" + num2str(row(j)) +...
                            ", " + num2str(col) + ") cannot be converted into a number";             
         end        
     end
@@ -74,14 +75,14 @@ for i = 1 : length(columns)
     
     % Check for missing values not at the end of the list
     if ~issorted(contains(dataTypes, 'missing'))
-        warningMessage{end+1,1} = "Warning: Column " + num2str(columns{i}) +...
+        message{end+1,1} = "Error: Column " + num2str(columns{i}) +...
                                   " contains missing or invalid data";
     end
     
     % Verify monotonity of IDs
     cleanList = remove_nan(listDouble);
     if cleanList(1) ~= 1 || ~issorted(cleanList, 1, 'strictascend')
-        warningMessage{end+1,1} = "Warning: IDs in column " + num2str(columns{i}) +...
+        message{end+1,1} = "Error: IDs in column " + num2str(columns{i}) +...
                                   " are not monotonically ascending";            
     end
 end
@@ -107,10 +108,10 @@ for i = 1 : length(columns)
         col = columns{i};
         
         if any(isnan(listDouble(j,:))) && ~all(isnan(listDouble(j,:)))
-            warningMessage{end+1,1} = "Warning: Row " + num2str(row) + " in columns [" ...
+            message{end+1,1} = "Error: Row " + num2str(row) + " in columns [" ...
                                           + num2str(columns{i}) + "] contains missing or invalid data.";        
         elseif ~issorted(listDouble(j,:), 2, 'ascend')
-            warningMessage{end+1,1} = "Warning: Row " + num2str(row) + " in columns [" ...
+            message{end+1,1} = "Error: Row " + num2str(row) + " in columns [" ...
                                       + num2str(columns{i}) + "] is descending.";            
         end
     end  
@@ -122,7 +123,7 @@ for i = 1 : length(columns)
         % Verify that last index is same as length listID and monotonity of
         % NaN values
         if listNan(end) ~= length(listDouble) || ~issorted(listNan, 'strictmonotonic')
-            warningMessage{end+1,1} = "Warning: Encountered missing values in columns [" +...
+            message{end+1,1} = "Error: Encountered missing values in columns [" +...
                                       num2str(columns{i}) + "].";
         end        
     end           
@@ -143,18 +144,24 @@ for i = 1 : length(relActivityMitigation)
    
    % Compare min and max durations
    if maxMitigation > minActivity 
-      warningMessage{end+1,1} ="Warning: Maximum of Mitigation ID " +...
-          num2str(mitigationID(i)) + " is greater than minimum of Activity ID " + ...
+      message{end+1,1} = "Error: Maximum duration of Mitigation ID " +...
+          num2str(mitigationID(i)) + " is greater than minimum duration of Activity ID " + ...
                 num2str(relActivityMitigation{i});             
    end
 
 end
 
 %% Remove empty messages
-warningMessage = warningMessage(~cellfun('isempty', warningMessage));
+message = message(~cellfun('isempty', message));
 
+%% Message if all data is OK
+if isempty(message)
+    message{end+1,1} = "Project data verification completed";
+    status = 1;
+end
 
 end
+
 
 %% --- Helper functions
 function arrayOut = remove_nan(arrayIn)

@@ -34,7 +34,7 @@ end
 [dataDouble, dataCell] = import_project(Config.filename);
 
 % Verify raw data
-warning = verify_raw_data(dataDouble, dataCell);
+[status, warning] = verify_raw_data(dataDouble, dataCell);
 
 %--- 2) Parse data
 Data = parse_data(dataDouble, dataCell);
