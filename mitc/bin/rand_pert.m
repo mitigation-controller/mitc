@@ -1,5 +1,5 @@
 function dist = rand_pert(property, N)
-    % DRAW_RANDOM_PERT - Draw a random number from the Beta-Pert
+    % RAND_PERT - Draw a random number from the Beta-Pert
     % distribution
     %
     % Syntax: [x] = rand_pert(property, nsimulations)

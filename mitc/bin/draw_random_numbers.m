@@ -7,8 +7,9 @@ function randomNumbers = draw_random_numbers(property, rows, columns)
 %       number of rows of the matrix    
 %   columns : int
 %       number of rows of the matrix  
-%   property : array [1,3]
+%   property : array [1,3] or [1,4]
 %       3 values: optimisitic, most likely, and pessimitic expectation
+%       4 values: 
 %
 % Outputs:
 %   randomNumbers : 2D matrix

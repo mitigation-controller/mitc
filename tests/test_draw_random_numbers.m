@@ -19,6 +19,41 @@ classdef test_draw_random_numbers < matlab.unittest.TestCase
                 'Expected a different distribution size')
         end
         
+        function testAlternativeParameters(testCase, N)
+             param = [0 100 23 17];
+             PertBeta = draw_random_numbers(param, size(param,1), N);
+             expSize = [size(param,1), N];
+             actSize = size(PertBeta);
+             testCase.verifyEqual(actSize, expSize,...
+                'Expected a different distribution size')
+             expMean = 23;
+             actMean = mean(PertBeta);
+             testCase.verifyEqual(actMean, expMean,...
+                'RelTol', 0.1,... 
+                'Expected different mean value')
+        end
+        
+        function testAlternativeParametersHighMean(testCase, N)
+             param = [0 100 110 17];
+             PertBeta = draw_random_numbers(param, size(param,1), N);
+             expMean = 50;
+             actMean = mean(PertBeta);
+             testCase.verifyEqual(actMean, expMean,...
+                'RelTol', 0.1,... 
+                'Expected different mean value')
+        end
+        
+        function testAlternativeParametersHighStd(testCase, N)
+             param = [0 100 23 100];
+             PertBeta = draw_random_numbers(param, size(param,1), N);
+             expStd = 23;
+             actStd = mean(PertBeta);
+             testCase.verifyEqual(actStd, expStd,...
+                'RelTol', 0.2,... 
+                'Expected different std value')
+        end
+        
+        
         function testOutputSizeMultiple(testCase, N)
             param = [0 10 100; 0 10 100; 0 10 100];
             expSize = [size(param,1), N];
@@ -26,6 +61,7 @@ classdef test_draw_random_numbers < matlab.unittest.TestCase
             actSize = size(PertBeta);
             testCase.verifyEqual(actSize, expSize,...
                 'Expected a different distribution size')
+            
         end
                 
         function testOutlierRange(testCase, N, args)
