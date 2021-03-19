@@ -151,6 +151,31 @@ for i = 1 : length(relActivityMitigation)
 
 end
 
+%% --- 5) Verify presence of Activity IDs
+
+activityIDs = remove_nan(dataDouble(:,1));
+
+columns = {6, 16, 22, 29};
+
+for i = 1 : length(columns)
+    listID = dataCell(:, columns{i});
+    
+    % Get unique values 
+    listDoubles = unique_doubles_from_cell(listID);
+    
+    % Find missing activity IDs
+    isMissing = ~ismember(listDoubles, activityIDs);
+    missingActivities = listDoubles(isMissing);
+    
+    
+    % Generate error if acitivities are missing
+    if ~isempty(missingActivities)        
+        message{end+1,1} = "Error: The requested Activity ID(s) " + num2str(missingActivities) +...
+            " in column " + num2str(columns{i}) + " was not found.";
+    end        
+end
+
+
 %% Remove empty messages
 message = message(~cellfun('isempty', message));
 
