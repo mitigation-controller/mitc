@@ -14,17 +14,8 @@ function [dataCell, dataDouble, nActivities] = find_missing_predecessors(dataCel
 %   nActivities : double
 %
 
-% Check data type
-isChar = cellfun(@(x) isa(x, 'char'), dataCell(:,6));
-isDouble = cellfun(@(x) isa(x, 'double'), dataCell(:,6));
-
-% Get data
-doubleValues = cell2mat(dataCell(isDouble, 6));
-charValues = dataCell(isChar, 6);
-charToDouble = cellfun(@(x) str2num(x), charValues, 'UniformOutput', false);
-
-% Collect all unique predecessor values
-uniquePredecessors = unique([doubleValues; [charToDouble{:}]']);
+% Get unique values from cell
+uniquePredecessors = unique_doubles_from_cell(dataCell(:,6));
 
 % List of all activity ID's
 activities = linspace(1, nActivities, nActivities);
