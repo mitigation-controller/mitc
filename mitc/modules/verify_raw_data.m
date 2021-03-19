@@ -27,10 +27,8 @@ columns = {1, 3, 4, 5,...
 for i = 1 : length(columns)
     % Get imported column data
     listCell = dataCell(:, columns{i});
-    % Get all datatypes in the data column
-    dataTypes = cellfun(@(x) class(x), listCell, 'UniformOutput', false);
-    % Generate warning messages
-    message = [message; type_error(dataTypes, columns{i}, 'char', 'double')];
+    % Generate warning messages for type error
+    message = [message; type_error(listCell, columns{i}, 'char', 'double')];
     
 end
 
