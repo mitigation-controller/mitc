@@ -19,10 +19,11 @@ isDouble = cellfun(@(x) isa(x, 'double'), data);
 
 % Get data
 doubleValues = cell2mat(data(isDouble));
+doubleValues = reshape(doubleValues, [], 1);
 charValues = data(isChar);
 charToDouble = cellfun(@(x) str2num(x), charValues, 'UniformOutput', false);
+charToDouble = reshape([charToDouble{:}], [], 1);
 
 % Collect all unique predecessor values
-listDoubles = unique([doubleValues; [charToDouble{:}]']);
-
+listDoubles = unique([doubleValues; charToDouble]);
 end
