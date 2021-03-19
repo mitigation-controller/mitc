@@ -50,6 +50,7 @@ To create release you need write permission on the repository.
 1. Check author list in `citation.cff` and `.zenodo.json` files
 1. Follow the compiling and packaging steps described [here](https://github.com/mitigation-controller/mitc/wiki/Compile-and-package)
 1. Update the `CHANGELOG.md` to include changes made
+1. Follow the steps [here](https://github.com/mitigation-controller/mitc/wiki/Compile-and-package) to package and compile the application.
 1. Goto [GitHub release page](https://github.com/mitigation-controller/mitc/releases)
 1. Press draft a new release button
 1. Fill version, title and description field
