@@ -38,7 +38,7 @@ function dist = rand_pert(property, N)
 
             % Verify standard deviation
             if sd >= mean-a || sd >= b-mean
-                sd = min(mean-a, b-mean);
+                sd = min((mean-a)/2, (b-mean)/2);
             end                          
     end
     

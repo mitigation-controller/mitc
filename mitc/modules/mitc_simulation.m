@@ -80,7 +80,8 @@ c_j_matrix = mitigation_cost(Data.nMitigations,...
                              m_j_matrix); 
                          
 d_i_noCorrelation_parameters = calculate_no_correlation(d_i_total_matrix,...
-                                d_i_correlation_matrix, Data.durationActivitiesNoCorrelation);
+                                d_i_correlation_matrix,...
+                                Data.durationActivitiesNoCorrelation);
 
 d_i_noCorrelation_matrix = draw_random_numbers(d_i_noCorrelation_parameters,...
                                                Data.nActivities,...
@@ -238,6 +239,8 @@ function d_i_noCorrelation_parameters = calculate_no_correlation(d_i_total_matri
                                 transpose(std_d_i_noCorrelation_matrix)];
     
 end
+
+
 
 function c_j_matrix = mitigation_cost(nMitigations, nSimulations, m_j_all, c_j_all, m_j_matrix)
     

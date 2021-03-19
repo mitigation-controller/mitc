@@ -32,7 +32,7 @@ b(1).CData = [0 0 0];
 b(2).CData = [0.7 0.7 0.7];
 xlabel('Activity ID','FontSize',20);
 ylabel('Percentage','FontSize',20);
-legend('No Mit','MitC');
+legend('Original (No Mit)','Tentative (MitC)');
 bx = gca;
 bx.FontSize = 16; 
 bx.YGrid = 'on';
