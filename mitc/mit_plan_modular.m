@@ -7,7 +7,7 @@ addpath('bin', 'plotting', 'modules')
 
 
 %--- User input
-Config.nSimulations = 1000;
+Config.nSimulations = 3000;
 Config.T_target = 1466;
 Config.parameterMode = 'Advanced';
 
@@ -16,8 +16,8 @@ switch Config.parameterMode
         Config.penalty = 9999999; %Penalty per day of delay
         Config.incentive = 0; %Incentive per day of finishing early
     case 'Advanced'
-        Config.penalty = 8500; %Penalty per day of delay
-        Config.incentive = 5000; %Incentive per day of finishing early
+        Config.penalty = 3000; %Penalty per day of delay
+        Config.incentive = 3000; %Incentive per day of finishing early
 end
 
 [filename, pathname] = uigetfile('..\data\*.xlsx', 'Select project data file');
