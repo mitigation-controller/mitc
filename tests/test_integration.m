@@ -1,4 +1,4 @@
-% TEST_MIT_PLAN_MODULAR
+% TEST_INTEGRATION
 %
 classdef test_integration < matlab.unittest.TestCase
     
@@ -42,7 +42,7 @@ classdef test_integration < matlab.unittest.TestCase
         
         function testSimulation(testCase, dataDouble, dataCell)
             % Initialize Config structure
-            Config.nSimulations = 500;
+            Config.nSimulations = 100;
             Config.T_target = 1466;
             Config.penalty = 8500; 
             Config.incentive = 5000;
@@ -68,6 +68,61 @@ classdef test_integration < matlab.unittest.TestCase
                 'AbsTol', 100,...
                 'Expected different mean duration for all measures');
             
+        end
+        
+        function testPlotting(testCase, dataDouble, dataCell)
+            % Initialize Config structure
+            Config.nSimulations = 100;
+            Config.T_target = 1466;
+            Config.penalty = 8500; 
+            Config.incentive = 5000;
+            Config.parameterMode = 'Advanced';
+            Config.savefolder = '';
+            
+            % Parse data
+            [Data, ~, dataCell] = parse_data(dataDouble, dataCell);
+
+            % Generate matrix with all paths
+            Data = generate_paths(Data);
+
+            % Find the critical path
+            Data = find_critical_path(Data);                                            
+
+            % Run simulation
+            [Results, CP_0, CP_opt, ~, ~] = mitc_simulation(Data, Config);
+            fig_1 = plot_network(Data.linkedActivities, dataCell, [], []);
+
+            fig_2 = plot_freq_mitigation(Results, Data, Config.nSimulations, [], []);
+
+            fig_3 = plot_freq_paths(CP_0, CP_opt, Data.nPaths, [], []);                            
+
+            fig_4 =  plot_freq_activity(CP_0, CP_opt, Data.nPaths,...
+                                        Data.nodesInPath, Data.nActivities,...
+                                        [], []);
+
+            fig_5 = plot_cdf(Results, Data.nMitigations,Data.T_orig,...
+                        Config.T_target, Config.nSimulations, [], []);
+
+            fig_6 = plot_cost_distribution('cdf', Results, Data, Config, []);
+            fig_7 = plot_cost_distribution('pdf', Results, Data, Config, []);
+            
+            % Verify handles
+            testCase.verifyTrue(exist('fig_1') && ishandle(fig_1),...
+                'Expected figure 1')
+            testCase.verifyTrue(exist('fig_2') && ishandle(fig_2),...
+                'Expected figure 2')
+            testCase.verifyTrue(exist('fig_3') && ishandle(fig_3),...
+                'Expected figure 3')
+            testCase.verifyTrue(exist('fig_4') && ishandle(fig_4),...
+                'Expected figure 4')
+            testCase.verifyTrue(exist('fig_5') && ishandle(fig_5),...
+                'Expected figure 5')
+            testCase.verifyTrue(exist('fig_6') && ishandle(fig_6),...
+                'Expected figure 6')
+            testCase.verifyTrue(exist('fig_7') && ishandle(fig_7),...
+                'Expected figure 7')
+            
+            close all
         end
         
     end    

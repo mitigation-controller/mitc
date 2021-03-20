@@ -1,4 +1,4 @@
-function plot_freq_activity(CP_0, CP_opt, K, P_ki, N, savefolder, savename)
+function h = plot_freq_activity(CP_0, CP_opt, K, P_ki, N, savefolder, savename)
 % PLOT_FREQ_ACTIVITY - 
 %
 % Syntax: 
@@ -41,7 +41,8 @@ set(bx,'TickLength',[0, 0])
 hold off
     
 %--- Export figures
-file = [savefolder savename];
-export_fig(h, file)
-
+if ~isempty(savename) && ~isempty(savefolder)
+    file = [savefolder savename];
+    export_fig(h, file)
+end
 end

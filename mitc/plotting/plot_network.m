@@ -1,4 +1,4 @@
-function plot_network(linkedActivities, dataCell, savefolder, savename)
+function h = plot_network(linkedActivities, dataCell, savefolder, savename)
 %PLOT_NETWORK plots and exports the network
 %
 % Syntax: plot_network(A, dataCell)

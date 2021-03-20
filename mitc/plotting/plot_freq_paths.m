@@ -1,4 +1,4 @@
-function plot_freq_paths(CP_0, CP_opt, K, savefolder, savename)
+function h = plot_freq_paths(CP_0, CP_opt, K, savefolder, savename)
 
 
 %--- frequency of critical paths with no mitigation measures
@@ -26,6 +26,8 @@ set(bx,'TickLength',[0, 0])
 hold off
 
 %--- Export figures
-file = [savefolder savename];
-export_fig(h, file)
+if ~isempty(savename) && ~isempty(savefolder)
+    file = [savefolder savename];
+    export_fig(h, file)
+end
 end

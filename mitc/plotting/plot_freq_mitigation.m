@@ -1,4 +1,4 @@
-function plot_freq_mitigation(collectData, simPa, nsimulations, savefolder, savename)
+function h = plot_freq_mitigation(collectData, simPa, nsimulations, savefolder, savename)
 
 % TEMPORARY VARIABLE RENAMING
 N = simPa.nActivities;
@@ -22,6 +22,8 @@ set(bx,'TickLength',[0, 0])
 hold off
 
 %--- Export figures
-file = [savefolder savename];
-export_fig(h, file)
+if ~isempty(savename) && ~isempty(savefolder)
+    file = [savefolder savename];
+    export_fig(h, file)
+end
 end
