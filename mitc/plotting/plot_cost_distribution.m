@@ -65,7 +65,7 @@ end
 hold off
 
 %--- Export figures
-if ~isempty(savename) && ~isempty(savefolder)
+if ~isempty(savename) && ~isempty(Config.savefolder)
     file = [Config.savefolder savename];
     export_fig(h, file)
 end
