@@ -1,5 +1,5 @@
 function [status, message] = verify_filepath(file)
-%VERIFY_INPUT - Check the selected file
+%VERIFY_FILEPATH - Check the selected file
 %
 % Input:
 %   file : string

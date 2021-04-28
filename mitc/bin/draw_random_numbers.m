@@ -3,13 +3,13 @@ function randomNumbers = draw_random_numbers(property, rows, columns)
 % distribution
 %
 % Inputs: 
+%   property : array [1,3] or [1,4]
+%       3 values: [a, m, b]
+%       4 values: [a, b, mean, sd]
 %   rows : int
 %       number of rows of the matrix    
 %   columns : int
 %       number of rows of the matrix  
-%   property : array [1,3] or [1,4]
-%       3 values: optimisitic, most likely, and pessimitic expectation
-%       4 values: 
 %
 % Outputs:
 %   randomNumbers : 2D matrix
