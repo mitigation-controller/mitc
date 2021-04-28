@@ -25,7 +25,7 @@ end
 % Config.filename = [pathname filename];
 [filepath,~,~] = fileparts(mfilename('fullpath'));
 mainDir = fileparts(filepath);
-Config.filename = fullfile(mainDir, 'data','Case study.xlsx');
+Config.filename = fullfile(mainDir, 'data','Case study 1.xlsx');
 
 ID = datestr(now, 'yyyy-mm-dd__HH-MM-SS');
 Config.savefolder = strcat('..\results\', ID, '\');
