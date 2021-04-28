@@ -62,7 +62,7 @@ end
 % - monotonically increasing sequence, starting from 1
 
 % Columns that contain the IDs
-columns = {1, 7, 17, 24};
+columns = {1};
 
 for i = 1 : length(columns)
     listCell = dataCell(:, columns{i});
