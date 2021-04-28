@@ -1,4 +1,4 @@
-function Data = parse_data(dataDouble, dataCell)
+function [Data, dataDouble, dataCell] = parse_data(dataDouble, dataCell)
 % PARSE_DATA - Parse imported project data
 %
 % Syntax:
@@ -25,15 +25,21 @@ function Data = parse_data(dataDouble, dataCell)
 %       - R_ii (dependency of activities on predeceding activities)
 %       - U_is (Relation matrix indicating which activity i shares a shared
 %       activity s)
+%   dataCell : cell
+%       Updated project data
 %
 % For more information on variable naming, see: 
 % https://github.com/mitigation-controller/mitc/wiki/Variable-Names
 %
 
 
+%--- Add missing predecessors
+Data.nActivities = size(remove_nan(dataDouble(:,1)),1);
+[dataCell, dataDouble, Data.nActivities] = find_missing_predecessors(...
+    dataCell, dataDouble, Data.nActivities);
+
 %--- Activities total duration (optimistic, most likely, and pessimitic) 
 Data.durationActivitiesTotal = remove_nan(dataDouble(:,3:5));
-Data.nActivities = size(Data.durationActivitiesTotal, 1);
 
 %--- durations of shared activities  (optimistic, most likely, and pessimitic)
 Data.sharedUncertainties = remove_nan(dataDouble(:,26:28));
@@ -78,17 +84,4 @@ Data.relActivitiesRisks = transpose(E_ie);
 %--- Relationship matrix between activities and activities
 R_ii_relation = dataCell(:,6);
 Data.relActivities = find_dependencies(Data.nActivities, Data.nActivities, R_ii_relation);
-
-end
-
-%--- Helper functions
-function arrayOut = remove_nan(arrayIn)
-    arrayIn(~any(~isnan(arrayIn), 2),:) = [];
-    arrayOut = arrayIn;
-end
-
-function cellOut = remove_missing(cellIn)
-    mask = cellfun(@(x) strcmp(class(x), 'missing'), cellIn, 'UniformOutput', true);
-    cellIn(mask) = [];
-    cellOut = cellIn;
 end

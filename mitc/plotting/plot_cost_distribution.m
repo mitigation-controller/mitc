@@ -1,4 +1,4 @@
-function plot_cost_distribution(distributionType, Results, Data, Config, savename)
+function h = plot_cost_distribution(distributionType, Results, Data, Config, savename)
 % PLOT_PDF_COST - Plot the distribution of the costs
 %
 % Syntax:
@@ -65,6 +65,8 @@ end
 hold off
 
 %--- Export figures
-file = [Config.savefolder savename];
-export_fig(h, file)
+if ~isempty(savename) && ~isempty(Config.savefolder)
+    file = [Config.savefolder savename];
+    export_fig(h, file)
+end
 end

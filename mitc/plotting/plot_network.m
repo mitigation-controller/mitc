@@ -1,10 +1,10 @@
-function plot_network(A, dataCell, savefolder, savename)
+function h = plot_network(linkedActivities, dataCell, savefolder, savename)
 %PLOT_NETWORK plots and exports the network
 %
 % Syntax: plot_network(A, dataCell)
 %
 % Inputs: 
-%   A : double
+%   linkedActivities : double
 %       two-column matrix that shows which activity depends on which activity (link matrix)     
 %   dataCell : cell
 %        cell of imported project data file
@@ -16,12 +16,12 @@ function plot_network(A, dataCell, savefolder, savename)
 
 %--- Compute weights for every edge: weight of an edge is equal to the duration
 %of the precedent node/activity
-for k=1:length(A)
-    w(k)=dataCell(A(k,1),3);
+for k = 1 : length(linkedActivities)
+    w(k) = dataCell(linkedActivities(k,1),3);
 end
-w=cell2mat(w);
+w = cell2mat(w);
 
-G = digraph(A(:,1),A(:,2),w);
+G = digraph(linkedActivities(:,1), linkedActivities(:,2),w);
 
 %--- Create the graph
 h = figure;
@@ -30,6 +30,8 @@ plot(G,'Layout','layered','Direction','right','AssignLayers','asap','EdgeLabel',
 hold off
 
 %--- Export figures
-file = [savefolder savename];
-export_fig(h, file)
+if ~isempty(savename) && ~isempty(savefolder)
+    file = [savefolder savename];
+    export_fig(h, file)
+end
 end

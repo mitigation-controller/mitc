@@ -2,12 +2,12 @@ function verify_fieldnames(structure, fieldNames)
 % VERIFY_FIELDNAMES - Check whether structure.field exists
 %
 % Syntax:
-%   verify_fieldnames({'field1', 'field2'})
+%  verify_fieldnames(structure, {'field1', 'field2'})
 %
 % Inputs:
 %   structure : structure
 %       Structure to be verified    
-%   dict : cell
+%   fieldNames : cell
 %       Cell containing fieldnames
 %
 % Outputs:
@@ -16,8 +16,8 @@ function verify_fieldnames(structure, fieldNames)
 
 for i = 1 : length(fieldNames)
     if ~isfield(structure, fieldNames{i})
-        errorString = strcat('The fieldname ',  fieldNames{i}, ' does not exist');
-        error(errorString)
+        errorString = "The fieldname " + fieldNames{i} + " does not exist";
+        error('verify_fieldnames:FieldnameDoesNotExist', errorString)
     end
 end
 

@@ -29,19 +29,29 @@ if ~exist(reportFolder, 'dir')
     mkdir(reportFolder)
 end
 
+% Setup files to test
+dirOut = dir(fullfile(pwd, '**', '*.m'));
+codeFilePaths = string({dirOut.folder}) + filesep + string({dirOut.name});
+filePathsToExclude = {'randraw.m', 'run_tests.m'};
+codeFilePaths(contains(codeFilePaths, filePathsToExclude)) = [];
+
 % Prepare HTML format output
 reportFileHTML = 'CoverageResults.html';
-pluginHTML = CodeCoveragePlugin.forFolder(pwd,...
-    'Producing', CoverageReport(reportFolder, 'MainFile', reportFileHTML),...
-    'IncludeSubFolders', true);
+pluginHTML = CodeCoveragePlugin.forFile(codeFilePaths,...
+    'Producing', CoverageReport(reportFolder, 'MainFile', reportFileHTML));
+% pluginHTML = CodeCoveragePlugin.forFolder(pwd,...
+%     'Producing', CoverageReport(reportFolder, 'MainFile', reportFileHTML),...
+%     'IncludeSubFolders', true);
 runner.addPlugin(pluginHTML);
 
 % Prepare XML format output
 reportFileXML = strcat(reportFolder, 'CoverageResults.xml');
 reportFormat = CoberturaFormat(reportFileXML);
-pluginXML = CodeCoveragePlugin.forFolder(pwd,...
-    'Producing', reportFormat,...
-    'IncludeSubFolders', true);
+pluginXML = CodeCoveragePlugin.forFile(codeFilePaths,...
+    'Producing', reportFormat);
+% pluginXML = CodeCoveragePlugin.forFolder(pwd,...
+%     'Producing', reportFormat,...
+%     'IncludeSubFolders', true);
 runner.addPlugin(pluginXML);
 
 result = runner.run(suite);

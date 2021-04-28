@@ -1,4 +1,4 @@
-function plot_cdf(CollectData, nMit, T_orig, T_planned, nSim, savefolder, savename)
+function h = plot_cdf(CollectData, nMit, T_orig, T_planned, nSim, savefolder, savename)
 %PLOT_CDF Plots the cumulative distribution function
 %
 % Inputs:
@@ -25,6 +25,8 @@ fitting(y_opt,y_all,y_0,y_0_nouncertainty,T_planned);
 hold off
 
 %--- Export figures
-file = [savefolder savename];
-export_fig(h, file)
+if ~isempty(savename) && ~isempty(savefolder)
+    file = [savefolder savename];
+    export_fig(h, file)
+end
 end
