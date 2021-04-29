@@ -37,7 +37,7 @@ User does not have access to MATLAB:
 * Run the installed application. 
 
 ## User documentation
-[User documentation](https://github.com/mitigation-controller/mitc/tree/main/doc/User_Manual.md)
+For a detailed explanation about installing and using the software, please look at out [user documentation](https://github.com/mitigation-controller/mitc/tree/main/doc/User_Manual.md).
 
 ## Did you find a bug or have a feature request?
 Excellent, please have a look at our contribution [guidelines](https://github.com/mitigation-controller/mitc/blob/dev/CONTRIBUTING.md).
@@ -50,7 +50,7 @@ You are welcome to contribute as developer to the code via pull requests. Please
 * The _Optimization Toolbox_ , _Statistics and Machine Learning Toolbox_, and _Application Compiler_.
 
 #### Installation
-* Download the MitC repository from via the terminal:
+* Download the MitC repository from via a terminal:
 `git clone https://github.com/mitigation-controller/mitc.git`
 * All source code can be found in the mitc directory.
 
