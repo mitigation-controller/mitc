@@ -28,7 +28,7 @@ hLine = plot(XGrid,YPlot1,'Color',[0 0 0],...
     'LineStyle','-', 'LineWidth',2,...
     'Marker','none', 'MarkerSize',6);
 LegHandles(end+1) = hLine;
-LegText{end+1} = 'Tentative cost CDF';
+LegText{end+1} = 'Tentative (MitC) cost CDF';
 
 hold on
 
@@ -53,7 +53,7 @@ XLim = [0.8*min(c2), 1.2*max(c2)];
 XLim = XLim + [0 1] * 0.01 * diff(XLim);
 XGrid = linspace(XLim(1),XLim(2),100);
 
-xlabel('cost (Euros)','FontSize',20)
+xlabel('cost: mitigation+penalty-reward (Euros)','FontSize',20)
 ylabel('Cumulative probability','FontSize',20)
 bx = gca;
 bx.FontSize = 20; 
@@ -65,7 +65,7 @@ hLine = plot(XGrid,YPlot2,'Color',[0.7 0.7 0.7],...
     'LineStyle','-', 'LineWidth',2,...
     'Marker','none', 'MarkerSize',6);
 LegHandles(end+1) = hLine;
-LegText{end+1} = 'Permanent cost CDF';
+LegText{end+1} = 'Permanent (All Mit) cost CDF';
 % Adjust figure
 box on;
 grid on;
