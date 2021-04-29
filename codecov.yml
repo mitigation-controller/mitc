@@ -1,2 +1,3 @@
 ignore:
   - "run_test.m"
+  - "randraw.m"
