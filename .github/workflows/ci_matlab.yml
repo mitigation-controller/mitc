@@ -6,6 +6,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: matlab-actions/setup-matlab@v0
+        with:
+          release: 2020b
       - uses: matlab-actions/run-tests@v0
         with:
           source-folder: mitc
