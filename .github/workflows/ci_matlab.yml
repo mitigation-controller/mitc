@@ -7,7 +7,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: matlab-actions/setup-matlab@v0
         with:
-          release: R2019a, R2020b
+          release: R2019a
       - uses: matlab-actions/run-tests@v0
         with:
           source-folder: mitc
