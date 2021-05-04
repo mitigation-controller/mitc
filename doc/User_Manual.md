@@ -175,7 +175,7 @@ Figure below:
 </p>
 
 ### Additional contents to consider
-* Jounral article on the basic Mitigation controller (in press): to be added
+* Jounral article on the basic Mitigation controller (in press), doi: 10.1061/(ASCE)CO.1943-7862.0002126
 * Journal article on the advanced Mitigation Controller (under review): to be added
 * Recorder tutorial on the use of the basic Mitigation Controller: https://youtu.be/QdsfTpPbovI 
   Please note that more features have been implemented sine then so you could notice some differences. The results, however, should be the same.
