@@ -11,13 +11,11 @@ The source code was developed and tested with MATLAB R2019a.
 
 The following is a step-by-step guide to help users get started with the MitC software. It includes two parts: 1) Installation and 2) Working with the software. 
 
-Note that the MitC comes in two versions, the basic and te advanced versions. The advanced version allows incorporating penalty and reward in the optimiation problem. It also allows accounting for the correlations among the activities' durations. Students are recommended to use the basic version in their work and ignore all steps that are related to the advanced version.
-
 In case you encouteed any issue, please let us know by creating a new issue using the appropriate [templates](https://github.com/mitigation-controller/mitc/issues/new/choose).
 
 ## Installation
 
-* Download the reposity as a zip file. For the latest release, please check [releases page](https://github.com/mitigation-controller/mitc/releases) for available downloads.
+* Download the reposity as a zip file. For the latest release, please check [releases page](https://github.com/mitigation-controller/mitc/releases) for available downloads. Please download the newest release.
 * Extract the zip archive on your computer.
 
 <p align="center">
@@ -57,8 +55,10 @@ User does not have access to MATLAB:
 
 ## Working with the software
 
+Note that the MitC comes in two versions, the basic and te advanced versions. The advanced version allows incorporating penalty and reward in the optimiation problem. It also allows accounting for the correlations among the activities' durations. Students are recommended to use the basic version in their work and ignore all steps that are related to the advanced version.
+
 ### Input data
-Data must be structured following a predefined spreadsheet form (.xlsx). A template is already provided in the package directory.
+Data must be structured following a predefined spreadsheet form (.xlsx). A template is already provided in the package directory. 
 
 * Locate the data file template `Case study`, or other available templates, in the package directory
 * Insert data related to the project activities: activities' descriptions, activities' durations (three estimates for each: optimistic, most likely, and pessimistic), and activities' predecessors. A predecessor is an activity that precedes another activity – not in the chronological sense but according to their dependency to each others. You may insert more than one predecessor by separating them with a `space` or a comma `,`.
@@ -84,7 +84,7 @@ Data must be structured following a predefined spreadsheet form (.xlsx). A templ
   <img width="500" src=figures/Slide8.PNG>
 </p>
 
-* Factors such as site conditions, labor skills, and weather can have an impact on the duration of construction activities. These factors may simultaneously influence multiple activities in a particular project and may cause activity durations to be correlated. The MitC allows including these shared factors 
+* Factors such as site conditions, labor skills, and weather can have an impact on the duration of construction activities. These factors may simultaneously influence multiple activities in a particular project and may cause activity durations to be correlated. The MitC allows including these shared factors to account for the correlations between the activities' durations.
 * Insert data related to activities' correlation: description of the shared uncertainty factors, durations of the shared uncertainties (three estimates for each factor: minimum, most likely, and maximum), where the most likely factor should be set to zero, and the relations with activities (i.e., the activities that share the uncertainty factor).
  
 Note that the correlation section is only necessary for the advanced version. Students should ignore filling this field of the spreadsheet if they intend to use the basic version
@@ -173,3 +173,8 @@ Figure below:
 <p align="center">
   <img width="500" src=figures/Slide18.PNG>
 </p>
+
+### Further reading material
+* Journal paper on the basic version (in press): to be added
+* Journal paper on the advanced version (under review): to be added
+* Recorded tutorial on the use of the Mitigation controller (basic version). Please note that more features have been implemented so you may find some differences. The results, however, should be the same.
