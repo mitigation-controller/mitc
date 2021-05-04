@@ -6,11 +6,14 @@ _The MitC software is currently under development and in a pre-release state._
 
 The Mitigation Controller (MitC) deals with the development of an automated risk-mitigation tool for construction projects. The MitC is a state-of-the-art tool that can assist project managers to have a full grip on the progress of their running construction projects. It takes as input a complete project schedule and returns several outputs that help the project manager take actions to prevent potential delays. 
 
+
 The source code was developed and tested with MATLAB R2019a.
 
 The following is a step-by-step guide to help users get started with the MitC software. It includes two parts: 1) Installation and 2) Working with the software. 
 
-In case you encouteed any issue, please let us know by creating a new issue using the appropriate [templates](https://github.com/mitigation-controller/mitc/issues/new/choose). 
+In case you encouteed any issue, please let us know by creating a new issue using the appropriate [templates](https://github.com/mitigation-controller/mitc/issues/new/choose).
+
+Note that the MitC comes in two versions, the basic and te advanced versions. The advanced version allows incorporation penalty and reward in the optimiation problem. It also allows accounting for the correlations among the activities' durations. Students are recommended to use the basic version in their work and ignore all steps that are related to the advanced version.
 
 ## Installation
 
@@ -81,7 +84,9 @@ Data must be structured following a predefined spreadsheet form (.xlsx). A templ
   <img width="500" src=figures/Slide8.PNG>
 </p>
 
-* ......
+* Insert data related to activities' correlation: description of the shared uncertainties, durations of the shared uncertainties (three estimates for each risk event: minimum, most likely, and maximum), and the relations with activities (i.e., the activities that share the uncertainty factor).
+ 
+This is only necessary for the advanced version. Students should ignore filling this field of the spreadsheet if they intend to use the basic version
 
 <p align="center">
   <img width="500" src=figures/Slide9.PNG>
@@ -102,6 +107,19 @@ The MitC algorithm uses Monte Carlo simulation. Every Monte Carlo iteration is a
 <p align="center">
   <img width="500" src=figures/Slide11.PNG>
 </p>
+
+* Choose between the `basic` and `advanced` versions of the software. The advanced version allows considering the effect of penalty and reward in the optimization problem. It additionally allows considering the correlations between the activities' durations. Students are advised to choose the `basic` version. 
+
+<p align="center">
+  <img width="500" src=figures/Slide12.PNG>
+</p>
+
+* If you select the `advanced` version, you should insert the amount of daily penlaty in case of delay and the amount of daily reward in case of early finish of the project. These will be used in the optimization problem to further tune the optimal completion date of the project so that the net cost is minimum.
+
+<p align="center">
+  <img width="500" src=figures/Slide13.PNG>
+</p>
+
 
 * Select the folder where you want to save the results of the simulation. You may choose the `results` folder that already exists in the package directory
 
