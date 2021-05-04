@@ -81,11 +81,17 @@ Data must be structured following a predefined spreadsheet form (.xlsx). A templ
   <img width="500" src=figures/Slide8.PNG>
 </p>
 
+* ......
+
+<p align="center">
+  <img width="500" src=figures/Slide9.PNG>
+</p>
+
 ### Analysis
 * Import your data using the `Load project data` button.
 
 <p align="center">
-  <img width="500" src=figures/Slide9.PNG>
+  <img width="500" src=figures/Slide10.PNG>
 </p>
 
 The MitC algorithm uses Monte Carlo simulation. Every Monte Carlo iteration is a possible scenario. In every Monte Carlo iteration, the MitC chooses random values for the projects durations, Mitigation measures durations, and risks durations from the defined durations ranges (mminimum, most ikely, and Maximum). In ever iteration, the MitC finds the most effective set of mitigations measures (i.e., mitigation strategy) that is best for that iteration.
@@ -94,13 +100,13 @@ The MitC algorithm uses Monte Carlo simulation. Every Monte Carlo iteration is a
 * Select the taget duration of the project. This is the duration that you would like to finish your project within. 
 
 <p align="center">
-  <img width="500" src=figures/Slide10.PNG>
+  <img width="500" src=figures/Slide11.PNG>
 </p>
 
 * Select the folder where you want to save the results of the simulation. You may choose the `results` folder that already exists in the package directory
 
 <p align="center">
-  <img width="500" src=figures/Slide11.PNG>
+  <img width="500" src=figures/Slide14.PNG>
 </p>
 
 * Run the simulation
@@ -108,7 +114,7 @@ The MitC algorithm uses Monte Carlo simulation. Every Monte Carlo iteration is a
 * You may reset the MitC by clicking on the `Reset` button
 
 <p align="center">
-  <img width="500" src=figures/Slide12.PNG>
+  <img width="500" src=figures/Slide15.PNG>
 </p>
 
 ### Output 
@@ -123,7 +129,7 @@ Figure below:
 3) Tentative: simuation with the OPTIMAL mitigation measures (the MitC).
 
 <p align="center">
-  <img width="500" src=figures/Slide13.PNG>
+  <img width="500" src=figures/Slide16.PNG>
 </p>
 
 Figure below:
@@ -136,7 +142,7 @@ Figure below:
 
 
 <p align="center">
-  <img width="500" src=figures/Slide14.PNG>
+  <img width="500" src=figures/Slide17.PNG>
 </p>
 
 Figure below:
@@ -146,5 +152,5 @@ Figure below:
 * Botton figure: Criticality Index of mitigation measures-the ratio between the number of iterations where a given mitigation measure was included in the mitigation strategy over the total number of iterations.
 
 <p align="center">
-  <img width="500" src=figures/Slide15.PNG>
+  <img width="500" src=figures/Slide18.PNG>
 </p>
