@@ -13,7 +13,7 @@ The following is a step-by-step guide to help users get started with the MitC so
 
 In case you encouteed any issue, please let us know by creating a new issue using the appropriate [templates](https://github.com/mitigation-controller/mitc/issues/new/choose).
 
-Note that the MitC comes in two versions, the basic and te advanced versions. The advanced version allows incorporation penalty and reward in the optimiation problem. It also allows accounting for the correlations among the activities' durations. Students are recommended to use the basic version in their work and ignore all steps that are related to the advanced version.
+Note that the MitC comes in two versions, the basic and te advanced versions. The advanced version allows incorporating penalty and reward in the optimiation problem. It also allows accounting for the correlations among the activities' durations. Students are recommended to use the basic version in their work and ignore all steps that are related to the advanced version.
 
 ## Installation
 
@@ -60,7 +60,7 @@ User does not have access to MATLAB:
 ### Input data
 Data must be structured following a predefined spreadsheet form (.xlsx). A template is already provided in the package directory.
 
-* Locate the data file `Case study` in the package directory
+* Locate the data file template `Case study`, or other available templates, in the package directory
 * Insert data related to the project activities: activities' descriptions, activities' durations (three estimates for each: optimistic, most likely, and pessimistic), and activities' predecessors. A predecessor is an activity that precedes another activity – not in the chronological sense but according to their dependency to each others. You may insert more than one predecessor by separating them with a `space` or a comma `,`.
 
 <p align="center">
@@ -84,9 +84,10 @@ Data must be structured following a predefined spreadsheet form (.xlsx). A templ
   <img width="500" src=figures/Slide8.PNG>
 </p>
 
-* Insert data related to activities' correlation: description of the shared uncertainties, durations of the shared uncertainties (three estimates for each risk event: minimum, most likely, and maximum), and the relations with activities (i.e., the activities that share the uncertainty factor).
+* Factors such as site conditions, labor skills, and weather can have an impact on the duration of construction activities. These factors may simultaneously influence multiple activities in a particular project and may cause activity durations to be correlated. The MitC allows including these shared factors 
+* Insert data related to activities' correlation: description of the shared uncertainty factors, durations of the shared uncertainties (three estimates for each factor: minimum, most likely, and maximum), where the most likely factor should be set to zero, and the relations with activities (i.e., the activities that share the uncertainty factor).
  
-This is only necessary for the advanced version. Students should ignore filling this field of the spreadsheet if they intend to use the basic version
+Note that the correlation section is only necessary for the advanced version. Students should ignore filling this field of the spreadsheet if they intend to use the basic version
 
 <p align="center">
   <img width="500" src=figures/Slide9.PNG>
@@ -136,7 +137,7 @@ The MitC algorithm uses Monte Carlo simulation. Every Monte Carlo iteration is a
 </p>
 
 ### Output 
-The results will be saved in the selected output folder.
+The results will be saved in the selected output folder. The results below have been obtained using the `basic` version.
 
 Figure below:
 * Left figure: project network with nodes being the activities and links being the activities relationships. The number on the link represents the duration of the activity on the start edge of the link and the number on the node represents the activity's ID.
