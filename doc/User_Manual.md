@@ -177,4 +177,4 @@ Figure below:
 ### Further reading material
 * Journal paper on the basic version (in press): to be added
 * Journal paper on the advanced version (under review): to be added
-* Recorded tutorial on the use of the Mitigation controller (basic version). Please note that more features have been implemented so you may find some differences. The results, however, should be the same.
+* Recorded tutorial on the use of the Mitigation controller (basic version). Please note that more features have been implemented so you may find some differences. The results, however, should be the same: https://youtu.be/QdsfTpPbovI
