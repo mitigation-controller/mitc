@@ -11,9 +11,9 @@ The source code was developed and tested with MATLAB R2019a.
 
 The following is a step-by-step guide to help users get started with the MitC software. It includes two parts: 1) Installation and 2) Working with the software. 
 
-In case you encouteed any issue, please let us know by creating a new issue using the appropriate [templates](https://github.com/mitigation-controller/mitc/issues/new/choose).
-
 Note that the MitC comes in two versions, the basic and te advanced versions. The advanced version allows incorporating penalty and reward in the optimiation problem. It also allows accounting for the correlations among the activities' durations. Students are recommended to use the basic version in their work and ignore all steps that are related to the advanced version.
+
+In case you encouteed any issue, please let us know by creating a new issue using the appropriate [templates](https://github.com/mitigation-controller/mitc/issues/new/choose).
 
 ## Installation
 
