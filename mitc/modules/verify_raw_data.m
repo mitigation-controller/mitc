@@ -98,35 +98,22 @@ columns = {[3, 4, 5],...        % Activity duration
             [26, 27, 28]};      % Duration of shared activities
 
 for i = 1 : length(columns)
-    listDouble = dataDouble(:, columns{i});        
-    
-     % Verify ascending order of values
+    listDouble = dataDouble(:, columns{i});          
+       
+    % Verify ascending order of values
     for j = 1 : size(listDouble,1)
         row = j + shift;
         col = columns{i};
         
-        if any(isnan(listDouble(j,:))) && ~all(isnan(listDouble(j,:)))
+        if any(isnan(listDouble(j,:))) && ~all(isnan(listDouble(j,:))) % single missing value
             message{end+1,1} = "Error: Row " + num2str(row) + " in columns [" ...
                                           + num2str(columns{i}) + "] contains missing or invalid data.";        
-        elseif ~issorted(listDouble(j,:), 2, 'ascend')
+        elseif ~issorted(listDouble(j,:), 2, 'ascend') % not ascending order
             message{end+1,1} = "Error: Row " + num2str(row) + " in columns [" ...
                                       + num2str(columns{i}) + "] is descending.";            
         end
-    end  
-        
-    % Check that rows of all NaN values are only present as a terminal sequence
-    [row, ~] = find(isnan(listDouble));
-    listNan = unique(row);
-    if ~isempty(listNan)
-        % Verify that last index is same as length listID and monotonity of
-        % NaN values
-        if listNan(end) ~= length(listDouble) || ~issorted(listNan, 'strictmonotonic')
-            message{end+1,1} = "Error: Encountered missing values in columns [" +...
-                                      num2str(columns{i}) + "].";
-        end        
-    end           
+    end                              
 end
-
 
 %% --- 4) Verify that mitigation max duration < min duration of affected activity
 
