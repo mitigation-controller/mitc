@@ -1,0 +1,3 @@
+ignore:
+  - "mitc/run_tests.m"
+  - "mitc/bin/randraw.m"
