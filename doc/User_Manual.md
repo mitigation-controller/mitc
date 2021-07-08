@@ -6,11 +6,13 @@ _The MitC software is currently under development and in a pre-release state._
 
 The Mitigation Controller (MitC) deals with the development of an automated risk-mitigation tool for construction projects. The MitC is a state-of-the-art tool that can assist project managers to have a full grip on the progress of their running construction projects. It takes as input a complete project schedule and returns several outputs that help the project manager take actions to prevent potential delays. 
 
-The source code was developed and tested with MATLAB R2019a.
+
+The source code was developed and tested with MATLAB R2019a and R2020b.
 
 The following is a step-by-step guide to help users get started with the MitC software. It includes two parts: 1) Installation and 2) Working with the software. 
 
-In case you encouteed any issue, please let us know by creating a new issue using the appropriate [templates](https://github.com/mitigation-controller/mitc/issues/new/choose). 
+In case you encountered any issues, please let us know by creating a new issue using the appropriate [templates](https://github.com/mitigation-controller/mitc/issues/new/choose).
+
 
 ## Installation
 
@@ -53,11 +55,12 @@ User does not have access to MATLAB:
 </p>
 
 ## Working with the software
+The MitC comes in two versions, the basic and the advanced versions. The advanced version allows incorporating penalty and reward in the optimization problem. It also allows accounting for the correlations among the activities' durations. Students are recommended to use the basic version in their work and ignore all steps that are related to the advanced version.
 
 ### Input data
-Data must be structured following a predefined spreadsheet form (.xlsx). A template is already provided in the package directory.
+Data must be structured following a predefined spreadsheet form (.xlsx). A template is already provided in the package data directory.
 
-* Locate the data file `Case study` in the package directory
+* Locate the data file template `Case study`, or other available templates, in the package data directory
 * Insert data related to the project activities: activities' descriptions, activities' durations (three estimates for each: optimistic, most likely, and pessimistic), and activities' predecessors. A predecessor is an activity that precedes another activity – not in the chronological sense but according to their dependency to each others. You may insert more than one predecessor by separating them with a `space` or a comma `,`.
 
 <p align="center">
@@ -66,14 +69,14 @@ Data must be structured following a predefined spreadsheet form (.xlsx). A templ
 
 * Data related to the mitigation measures. Mitigation measures are corrective activities that are implemented to reduce the durations of other activities, and thus the duration of the project. 
 
-* Insert data related to the mitigation measures: measures' descriptions, measures' durations (three estimates for each: minimum, most likely, and maximum), measures' cost (three estimates for each: minimum, most likely, and maximum), and the relationships between the measures and the activities. One Mitigation measure can influence (i.e., reduce the time of) one or more activities. You may insert more than one activity by separating them with a `space` or a comma `,`.
+* Insert data related to the mitigation measures: measures' descriptions, measures' durations (three estimates for each: minimum, most likely, and maximum), measures' cost (three estimates for each: minimum, most likely, and maximum), and the relationships between the measures and the activities. One Mitigation measure can influence (i.e., reduce the time of) one or more activities. You may insert more than one activity by separating them with a `space` or a comma `,`. Some of the data fields in the spreadsheet cannot be modified (locked). These fields are calculated by the spread sheet automatically following predefined formulas.
 
 
 <p align="center">
   <img width="500" src=figures/Slide7.PNG>
 </p>
 
-* Data related to the risk events. Risk events are additional source of delay if they occur. Risk events have a probability of occurance. If they occur, they can negatively affect the durations of project activities.
+* Data related to the risk events. Risk events are an additional source of delay if they occur. Risk events have a probability of occurring. If they occur, they can negatively affect the durations of project activities.
 
 * Insert data related to the risk events: risks' descriptions, risks durations (the delay induced by each risk; three estimates for each risk event: minimum, most likely, and maximum), and the relationships between the risk events and the activities. One risk event can influence (i.e., increase the time of) one or more activities. You may insert more than one activity by separating them with a `space` or a comma `,`.
 
@@ -81,26 +84,48 @@ Data must be structured following a predefined spreadsheet form (.xlsx). A templ
   <img width="500" src=figures/Slide8.PNG>
 </p>
 
-### Analysis
-* Import your data using the `Load project data` button.
+* Factors such as site conditions, labor skills, and weather can have an impact on the duration of construction activities. These factors may simultaneously influence multiple activities in a particular project and may cause activity durations to be correlated. The MitC allows including these shared factors 
+* Insert data related to activities' correlation: description of the shared uncertainty factors, durations of the shared uncertainties (three estimates for each factor: minimum, most likely, and maximum), where the most likely factor should be set to zero, and the relations with activities (i.e., the activities that share the uncertainty factor).
+ 
+Note that the correlation section is only necessary for the advanced version. Students should ignore filling in these fields of the spreadsheet if they intend to use the basic version
 
 <p align="center">
   <img width="500" src=figures/Slide9.PNG>
 </p>
 
-The MitC algorithm uses Monte Carlo simulation. Every Monte Carlo iteration is a possible scenario. In every Monte Carlo iteration, the MitC chooses random values for the projects durations, Mitigation measures durations, and risks durations from the defined durations ranges (mminimum, most ikely, and Maximum). In ever iteration, the MitC finds the most effective set of mitigations measures (i.e., mitigation strategy) that is best for that iteration.
-
-* Select the number of Monte Carlo iterations (The minimum recommended value is 2000).
-* Select the taget duration of the project. This is the duration that you would like to finish your project within. 
+### Analysis
+* Import your data using the `Load project data` button.
 
 <p align="center">
   <img width="500" src=figures/Slide10.PNG>
 </p>
 
-* Select the folder where you want to save the results of the simulation. You may choose the `results` folder that already exists in the package directory
+The MitC algorithm uses a Monte Carlo simulation. Every Monte Carlo iteration is a possible scenario. In every Monte Carlo iteration, the MitC chooses random values for the projects durations, Mitigation measures durations, and risks durations from the defined durations ranges (mminimum, most ikely, and Maximum). In every iteration, the MitC finds the most effective set of mitigations measures (i.e., mitigation strategy) that is best for that iteration.
+
+* Select the number of Monte Carlo iterations (The minimum recommended value is 2000).
+* Select the taget duration of the project. This is the duration that you would like to finish your project within. 
 
 <p align="center">
   <img width="500" src=figures/Slide11.PNG>
+</p>
+
+* Choose between the `basic` and `advanced` versions of the software. The advanced version allows considering the effect of penalty and reward in the optimization problem. It additionally allows considering the correlations between the activities' durations. Students are advised to choose the `basic` version. 
+
+<p align="center">
+  <img width="500" src=figures/Slide12.PNG>
+</p>
+
+* If you select the `advanced` version, you should insert the amount of daily penalty in case of delay and the amount of daily reward in case of early finish of the project. These will be used in the optimization problem to further tune the optimal completion date of the project so that the net cost is minimum.
+
+<p align="center">
+  <img width="500" src=figures/Slide13.PNG>
+</p>
+
+
+* Select the folder where you want to save the results of the simulation. You may choose the `results` folder that already exists in the package directory
+
+<p align="center">
+  <img width="500" src=figures/Slide14.PNG>
 </p>
 
 * Run the simulation
@@ -108,11 +133,11 @@ The MitC algorithm uses Monte Carlo simulation. Every Monte Carlo iteration is a
 * You may reset the MitC by clicking on the `Reset` button
 
 <p align="center">
-  <img width="500" src=figures/Slide12.PNG>
+  <img width="500" src=figures/Slide15.PNG>
 </p>
 
 ### Output 
-The results will be saved in the selected output folder.
+The results will be saved in the selected output folder. The results below have been obtained using the `basic` version.
 
 Figure below:
 * Left figure: project network with nodes being the activities and links being the activities relationships. The number on the link represents the duration of the activity on the start edge of the link and the number on the node represents the activity's ID.
@@ -123,7 +148,7 @@ Figure below:
 3) Tentative: simuation with the OPTIMAL mitigation measures (the MitC).
 
 <p align="center">
-  <img width="500" src=figures/Slide13.PNG>
+  <img width="500" src=figures/Slide16.PNG>
 </p>
 
 Figure below:
@@ -132,19 +157,26 @@ Figure below:
 1) Permanent: the distribution of mitigation cost when ALL mitigtion measures are included;
 2) Tentative: the distribution of mitigation cost when only the OPTIMAL mitigation measures are included (the MitC).
 
-* Right figure: cumulative distribution function (CDF) of the mitigation cost for two cases above.
+* Right figure: cumulative distribution function (CDF) of the mitigation cost for the two cases above.
 
 
 <p align="center">
-  <img width="500" src=figures/Slide14.PNG>
+  <img width="500" src=figures/Slide17.PNG>
 </p>
 
 Figure below:
 
-* Top left figure: Criticality Index of project activities-the criticality index expresses how often a particular activity was on the Critical Path during the Monte Carlo simulation (the ratio between the number of iterations where a given activity was on the critical path over the total number of iterations);
-* Top right figure: Criticality Index of project paths-the ratio between the number of iterations where a given path was a critical path over the total number of iterations;
-* Botton figure: Criticality Index of mitigation measures-the ratio between the number of iterations where a given mitigation measure was included in the mitigation strategy over the total number of iterations.
+* Top left figure: Criticality Index of project activities - the criticality index expresses how often a particular activity was on the Critical Path during the Monte Carlo simulation (the ratio between the number of iterations where a given activity was on the critical path over the total number of iterations);
+* Top right figure: Criticality Index of project paths - the ratio between the number of iterations where a given path was a critical path over the total number of iterations;
+* Botton figure: Criticality Index of mitigation measures - the ratio between the number of iterations where a given mitigation measure was included in the mitigation strategy over the total number of iterations.
 
 <p align="center">
-  <img width="500" src=figures/Slide15.PNG>
+  <img width="500" src=figures/Slide18.PNG>
 </p>
+
+### Additional contents to consider
+* Journal article on the basic Mitigation controller, https://doi.org/10.1061/(ASCE)CO.1943-7862.0002126 or http://bitly.ws/eZBm (open access)
+* Journal article on the advanced Mitigation Controller (under review): to be added
+* Lecture on the theory behind the Mitigation Controller: https://youtu.be/_Qmlm01DPtw
+* Recorded tutorial on the use of the basic Mitigation Controller: https://youtu.be/9EeTCztO3sk
+  Please note that more features have been implemented sine then so you could notice some differences. The results, however, should be the same.
