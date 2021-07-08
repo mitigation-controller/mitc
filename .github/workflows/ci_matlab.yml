@@ -1,0 +1,17 @@
+name: Matlab tests
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: matlab-actions/setup-matlab@v0
+        with:
+          release: R2020b
+      - uses: matlab-actions/run-tests@v0
+        with:
+          source-folder: mitc
+          code-coverage-cobertura: coverage.xml
+      - uses: codecov/codecov-action@v1
+        with:
+          file: coverage.xml

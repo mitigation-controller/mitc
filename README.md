@@ -6,9 +6,8 @@ _The MitC software is currently under development and in a pre-release state._
 
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/mitigation-controller/mitc?include_prereleases)
 ![GitHub](https://img.shields.io/github/license/mitigation-controller/mitc)
-[![DOI](https://zenodo.org/badge/307504138.svg)](https://zenodo.org/badge/latestdoi/307504138)   
-![Travis (.com) branch](https://img.shields.io/travis/com/mitigation-controller/mitc/maurits/add_testing)
-[![codecov](https://codecov.io/gh/mitigation-controller/mitc/branch/maurits/dev/graph/badge.svg?token=9OZ7V9WWY2)](https://codecov.io/gh/mitigation-controller/mitc)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4507337.svg)](https://doi.org/10.5281/zenodo.4507337)
+[![codecov](https://codecov.io/gh/mitigation-controller/mitc/branch/dev/graph/badge.svg?token=9OZ7V9WWY2)](https://codecov.io/gh/mitigation-controller/mitc)
 
 The ongoing research deals with the development of an automated risk-mitigation tool for construction projects, namely the Mitigation Controller (MitC). MitC is a state-of-the-art tool that can assist project managers to have a full grip on the progress of their running construction projects. It takes as input a complete project schedule and returns several outputs that help the project manager take actions to prevent potential delays. 
 

@@ -19,8 +19,15 @@ authors:
     orcid: "https://orcid.org/0000-0002-0564-2614"
 
 cff-version: "1.1.0"
-keywords:
-  - risk-mitigation
+keywords:  
+  - risk event
+  - uncertainty
+  - corrective measures
+  - control measures
+  - project scheduling
+  - mitigation
+  - time-cost optimization
+  - Monte Carlo simulation
 license: "Apache-2.0"
 repository-code: "https://github.com/mitigation-controller/mitc"
 title: mitc
