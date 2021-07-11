@@ -12,7 +12,7 @@
     <param.authnamewatermark />
     <param.email />
     <param.company>Technische Universiteit Delft</param.company>
-    <param.summary />
+    <param.summary>Mitigation Controller (MitC): an automated risk-mitigation tool for construction projects</param.summary>
     <param.description />
     <param.screenshot>C:\Users\Maurits\_projects\MitC\doc\MitC_icon.png</param.screenshot>
     <param.guid />
@@ -50,7 +50,6 @@
     <unset>
       <param.authnamewatermark />
       <param.email />
-      <param.summary />
       <param.description />
       <param.guid />
       <param.installpath.string />
