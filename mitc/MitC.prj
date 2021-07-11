@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="2119991824" file="C:\Users\Maurits\_projects\MitC\mitc\MitC.prj" location="C:\Users\Maurits\_projects\MitC\mitc" name="MitC" preferred-package-location="C:\Users\Maurits\_projects\MitC\mitc\MitC\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration file="C:\Users\Maurits\_projects\MitC\mitc\MitC.prj" location="C:\Users\Maurits\_projects\MitC\mitc" name="MitC" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>MitC</param.appname>
     <param.icon>${PROJECT_ROOT}\MitC_resources\icon.ico</param.icon>
     <param.icons>
@@ -8,15 +8,15 @@
       <file>${PROJECT_ROOT}\MitC_resources\icon_24.png</file>
       <file>${PROJECT_ROOT}\MitC_resources\icon_16.png</file>
     </param.icons>
-    <param.version>0.1</param.version>
+    <param.version>0.2</param.version>
     <param.authnamewatermark />
     <param.email />
-    <param.company>TU Delft</param.company>
+    <param.company>Technische Universiteit Delft</param.company>
     <param.summary />
     <param.description />
     <param.screenshot>C:\Users\Maurits\_projects\MitC\doc\MitC_icon.png</param.screenshot>
     <param.guid />
-    <param.installpath.string>\TU Delft\MitC\</param.installpath.string>
+    <param.installpath.string>\Technische Universiteit Delft\MitC\</param.installpath.string>
     <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
     <param.logo />
     <param.install.notes />
@@ -82,13 +82,42 @@
     <fileset.main>
       <file>${PROJECT_ROOT}\MitC_app.mlapp</file>
     </fileset.main>
-    <fileset.resources>
-      <file>${PROJECT_ROOT}\bin</file>
-      <file>${PROJECT_ROOT}\modules</file>
-      <file>${PROJECT_ROOT}\plotting</file>
-    </fileset.resources>
+    <fileset.resources />
     <fileset.package />
-    <fileset.depfun />
+    <fileset.depfun>
+      <file>${PROJECT_ROOT}\bin\allpaths.m</file>
+      <file>${PROJECT_ROOT}\bin\calculate_no_correlation.m</file>
+      <file>${PROJECT_ROOT}\bin\cost_cdfdist.m</file>
+      <file>${PROJECT_ROOT}\bin\cost_pdfdist.m</file>
+      <file>${PROJECT_ROOT}\bin\draw_random_numbers.m</file>
+      <file>${PROJECT_ROOT}\bin\find_dependencies.m</file>
+      <file>${PROJECT_ROOT}\bin\find_missing_predecessors.m</file>
+      <file>${PROJECT_ROOT}\bin\fitting.m</file>
+      <file>${PROJECT_ROOT}\bin\rand_pert.m</file>
+      <file>${PROJECT_ROOT}\bin\randraw.m</file>
+      <file>${PROJECT_ROOT}\bin\remove_missing.m</file>
+      <file>${PROJECT_ROOT}\bin\remove_nan.m</file>
+      <file>${PROJECT_ROOT}\bin\type_error.m</file>
+      <file>${PROJECT_ROOT}\bin\unique_doubles_from_cell.m</file>
+      <file>${PROJECT_ROOT}\bin\verify_fieldnames.m</file>
+      <file>${PROJECT_ROOT}\MitC_logo.png</file>
+      <file>${PROJECT_ROOT}\modules\export_results.m</file>
+      <file>${PROJECT_ROOT}\modules\find_critical_path.m</file>
+      <file>${PROJECT_ROOT}\modules\generate_paths.m</file>
+      <file>${PROJECT_ROOT}\modules\import_project.m</file>
+      <file>${PROJECT_ROOT}\modules\mitc_simulation.m</file>
+      <file>${PROJECT_ROOT}\modules\opt_mit_lin.m</file>
+      <file>${PROJECT_ROOT}\modules\parse_data.m</file>
+      <file>${PROJECT_ROOT}\modules\verify_filepath.m</file>
+      <file>${PROJECT_ROOT}\modules\verify_raw_data.m</file>
+      <file>${PROJECT_ROOT}\plotting\export_fig.m</file>
+      <file>${PROJECT_ROOT}\plotting\plot_cdf.m</file>
+      <file>${PROJECT_ROOT}\plotting\plot_cost_distribution.m</file>
+      <file>${PROJECT_ROOT}\plotting\plot_freq_activity.m</file>
+      <file>${PROJECT_ROOT}\plotting\plot_freq_mitigation.m</file>
+      <file>${PROJECT_ROOT}\plotting\plot_freq_paths.m</file>
+      <file>${PROJECT_ROOT}\plotting\plot_network.m</file>
+    </fileset.depfun>
     <build-deliverables>
       <file location="${PROJECT_ROOT}\MitC\for_testing" name="splash.png" optional="false">C:\Users\Maurits\_projects\MitC\mitc\MitC\for_testing\splash.png</file>
       <file location="${PROJECT_ROOT}\MitC\for_testing" name="MitC.exe" optional="false">C:\Users\Maurits\_projects\MitC\mitc\MitC\for_testing\MitC.exe</file>
@@ -96,15 +125,8 @@
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2019a</root>
-      <toolboxes>
-        <toolbox name="matlabcoder" />
-      </toolboxes>
-      <toolbox>
-        <matlabcoder>
-          <enabled>true</enabled>
-        </matlabcoder>
-      </toolbox>
+      <root>C:\Program Files\MATLAB\R2020b</root>
+      <toolboxes />
     </matlab>
     <platform>
       <unix>false</unix>
