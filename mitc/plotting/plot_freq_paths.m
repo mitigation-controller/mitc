@@ -1,4 +1,4 @@
-function plot_freq_paths(CP_0, CP_opt, K, savefolder, savename)
+function h = plot_freq_paths(CP_0, CP_opt, K, savefolder, savename)
 
 
 %--- frequency of critical paths with no mitigation measures
@@ -17,7 +17,7 @@ b(1).CData = [0 0 0];
 b(2).CData = [0.7 0.7 0.7];
 xlabel('Project path ID','FontSize',20);
 ylabel('Percentage','FontSize',20);
-legend('No Mit','Tentative');
+legend('Original (No Mit)','Tentative (MitC)');
 bx = gca;
 bx.FontSize = 16;
 bx.YGrid = 'on';
@@ -26,7 +26,8 @@ set(bx,'TickLength',[0, 0])
 hold off
 
 %--- Export figures
-file = [savefolder savename];
-saveas(h, file, 'png');
-saveas(h, file, 'fig');
-saveas(h, file, 'eps');
+if ~isempty(savename) && ~isempty(savefolder)
+    file = [savefolder savename];
+    export_fig(h, file)
+end
+end

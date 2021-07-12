@@ -2,15 +2,14 @@
   <img width="500" src=doc/MitC_logo.png>
 </p>
 
-_The MitC software is currently under development and in a pre-release state._
-
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/mitigation-controller/mitc?include_prereleases)
 ![GitHub](https://img.shields.io/github/license/mitigation-controller/mitc)
-[![DOI](https://zenodo.org/badge/307504138.svg)](https://zenodo.org/badge/latestdoi/307504138)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4507337.svg)](https://doi.org/10.5281/zenodo.4507337)
+[![codecov](https://codecov.io/gh/mitigation-controller/mitc/branch/main/graph/badge.svg?token=9OZ7V9WWY2)](https://codecov.io/gh/mitigation-controller/mitc)
 
 The ongoing research deals with the development of an automated risk-mitigation tool for construction projects, namely the Mitigation Controller (MitC). MitC is a state-of-the-art tool that can assist project managers to have a full grip on the progress of their running construction projects. It takes as input a complete project schedule and returns several outputs that help the project manager take actions to prevent potential delays. 
 
-The source code was developed and tested with MATLAB R2019a.
+The source code was developed and tested with MATLAB R2019a and R2020b.
 
 Work done by:
 
@@ -21,7 +20,6 @@ Work done by:
 * Ruud Binnekamp: Concept development and supervision
 
 ## Installation
-
 * Download the reposity as a zip file. For the latest release, please check [releases page](https://github.com/mitigation-controller/mitc/releases) for available downloads.
 * Extract the zip archive on your computer.
 
@@ -39,19 +37,20 @@ User does not have access to MATLAB:
 * Run the installed application. 
 
 ## User documentation
-[User documentation](https://github.com/mitigation-controller/mitc/tree/main/doc/User_Manual.md)
+For a detailed explanation about installing and using the software, please look at out [user documentation](https://github.com/mitigation-controller/mitc/tree/main/doc/User_Manual.md).
 
 ## Did you find a bug or have a feature request?
-Excellent, please let us know by creating a new issue using the appropriate [templates](https://github.com/mitigation-controller/mitc/issues/new/choose). 
+Excellent, please have a look at our contribution [guidelines](https://github.com/mitigation-controller/mitc/blob/main/CONTRIBUTING.md).
 
 ## Contributing
-You are welcome to contribute as developer to the code via pull requests. 
+You are welcome to contribute as developer to the code via pull requests. Please look at the contribution [guidelines](https://github.com/mitigation-controller/mitc/blob/main/CONTRIBUTING.md).
+
 #### Prerequisites:
 * MATLAB 2019a or higher.
 * The _Optimization Toolbox_ , _Statistics and Machine Learning Toolbox_, and _Application Compiler_.
 
 #### Installation
-* Download the MitC repository from via the terminal:
+* Download the MitC repository from via a terminal:
 `git clone https://github.com/mitigation-controller/mitc.git`
 * All source code can be found in the mitc directory.
 

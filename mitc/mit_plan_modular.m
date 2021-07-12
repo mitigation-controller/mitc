@@ -1,20 +1,36 @@
 % Temporary file to test modular approach to mit_plan
-clear all
+clear
+close all
+rng('default') % To ensure reproducibility
 
-tic
 addpath('bin', 'plotting', 'modules')
 
 
 %--- User input
-Config.nsimulations = 500;
-Config.T_pl = 75;
+Config.nSimulations = 3000;
+Config.T_target = 1466;
+Config.parameterMode = 'Advanced';
 
-[filename, pathname] = uigetfile('..\data\*.xlsx', 'Select project data file');
-Config.filename = [pathname filename];
+switch Config.parameterMode
+    case 'Basic'
+        Config.penalty = 9999999; % Penalty per day of delay
+        Config.incentive = 0; % Incentive per day of finishing early
+    case 'Advanced'
+        Config.penalty = 3000; %Penalty per day of delay
+        Config.incentive = 3000; %Incentive per day of finishing early
+end
+
+% --- Get data file
+% [filename, pathname] = uigetfile('..\data\*.xlsx', 'Select project data file');
+% Config.filename = [pathname filename];
+[filepath,~,~] = fileparts(mfilename('fullpath'));
+mainDir = fileparts(filepath);
+Config.filename = fullfile(mainDir, 'data','Case study 1.xlsx');
+
 ID = datestr(now, 'yyyy-mm-dd__HH-MM-SS');
 Config.savefolder = strcat('..\results\', ID, '\');
 
-% Create export directory
+%--- Create export directory
 if ~exist(Config.savefolder,'dir')
     mkdir(Config.savefolder);
 end
@@ -22,49 +38,44 @@ end
 %--- 1) Import project data
 [dataDouble, dataCell] = import_project(Config.filename);
 
+% Verify raw data
+[status, message] = verify_raw_data(dataDouble, dataCell);
+
 %--- 2) Parse data
-Data = parse_data(dataDouble, dataCell);
+[Data, dataDouble, dataCell] = parse_data(dataDouble, dataCell);
 
-%--- 3) Prepare data for simulation
+%--- 3) Generate matrix with all paths
+Data = generate_paths(Data);
 
-% 3a) Generate matrix with all paths
-[Data.P_ki, Data.linkedActivities] = fill_path_matrix(Data.R_ii, Data.nActivities);
+%--- 4) Find the critical path
+Data = find_critical_path(Data);                                            
+                        
+%--- 5) Run simulation
+[Results, CP_0, CP_opt, Corr_ii, cancelSimulation] = mitc_simulation(Data, Config);
 
-% 3b) Select critical paths to reduce the simulation time
-[Data.T_orig, Data.P_cr_0, Data.K, Data.P_ki] = ...
-                         select_critical_paths(...                         
-                            Data.P_ki,...
-                            Data.durationActivities,...
-                            Data.riskEventsDuration,...
-                            Data.E_ie,...
-                            Config.T_pl);
+%--- 6) Generate and export plots
+if cancelSimulation == 0
+    fig_1 = plot_network(Data.linkedActivities, dataCell,...
+                 Config.savefolder, 'fig_1');
 
-%--- 4) Run simulation
-[Results, CP_0, CP_opt] = mitc_simulation(Data, Config.nsimulations, Config.T_pl);
+    fig_2 = plot_freq_mitigation(Results, Data, Config.nSimulations,...
+                         Config.savefolder, 'fig_2');
 
-%--- 5) Generate and export plots
-plot_network(Data.linkedActivities, dataCell,...
-             Config.savefolder, 'fig_1');
-         
-plot_freq_mitigation(Results, Data, Config.nsimulations,...
-                     Config.savefolder, 'fig_2');
-                 
-plot_freq_paths(CP_0, CP_opt, Data.K,...
-                Config.savefolder, 'fig_3');
-            
-plot_freq_activity(CP_0, CP_opt, Data.K, Data.P_ki, Data.nActivities,...
-                   Config.savefolder, 'fig_4');
-               
-plot_cdf(Results, Data.nMitigations, Data.T_orig, Config.T_pl, Config.nsimulations,...
-         Config.savefolder, 'fig_5');
-     
-plot_cdf_cost(Results, Data.nMitigations,...
-              Config.savefolder, 'fig_6');
-          
-plot_pdf_cost(Results, Data.nMitigations,...
-              Config.savefolder, 'fig_7');
+    fig_3 = plot_freq_paths(CP_0, CP_opt, Data.nPaths,...
+                    Config.savefolder, 'fig_3');
 
-%--- 6) Save Config, Data, and Results structures in a single data file
-export_results(Config, Data, Results);
+    fig_4 =  plot_freq_activity(CP_0, CP_opt, Data.nPaths, Data.nodesInPath, Data.nActivities,...
+                       Config.savefolder, 'fig_4');
 
-toc
+    fig_5 = plot_cdf(Results, Data.nMitigations,Data.T_orig,...
+                Config.T_target, Config.nSimulations,...
+                 Config.savefolder, 'fig_5');
+              
+    fig_6 = plot_cost_distribution('cdf', Results, Data, Config, 'fig_6');
+    fig_7 = plot_cost_distribution('pdf', Results, Data, Config, 'fig_7');
+end
+
+%--- 7) Save Config, Data, and Results structures in a single data file
+if cancelSimulation == 0
+    export_results(Config, Data, Results);
+end
