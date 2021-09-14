@@ -4,8 +4,8 @@
 
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/mitigation-controller/mitc?include_prereleases)
 ![GitHub](https://img.shields.io/github/license/mitigation-controller/mitc)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4507337.svg)](https://doi.org/10.5281/zenodo.4507337)
-[![codecov](https://codecov.io/gh/mitigation-controller/mitc/branch/dev/graph/badge.svg?token=9OZ7V9WWY2)](https://codecov.io/gh/mitigation-controller/mitc)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4507336.svg)](https://doi.org/10.5281/zenodo.4507336)
+[![codecov](https://codecov.io/gh/mitigation-controller/mitc/branch/main/graph/badge.svg?token=9OZ7V9WWY2)](https://codecov.io/gh/mitigation-controller/mitc)
 
 The ongoing research deals with the development of an automated risk-mitigation tool for construction projects, namely the Mitigation Controller (MitC). MitC is a state-of-the-art tool that can assist project managers to have a full grip on the progress of their running construction projects. It takes as input a complete project schedule and returns several outputs that help the project manager take actions to prevent potential delays. 
 
@@ -40,10 +40,10 @@ User does not have access to MATLAB:
 For a detailed explanation about installing and using the software, please look at out [user documentation](https://github.com/mitigation-controller/mitc/tree/main/doc/User_Manual.md).
 
 ## Did you find a bug or have a feature request?
-Excellent, please have a look at our contribution [guidelines](https://github.com/mitigation-controller/mitc/blob/dev/CONTRIBUTING.md).
+Excellent, please have a look at our contribution [guidelines](https://github.com/mitigation-controller/mitc/blob/main/CONTRIBUTING.md).
 
 ## Contributing
-You are welcome to contribute as developer to the code via pull requests. Please look at the contribution [guidelines](https://github.com/mitigation-controller/mitc/blob/dev/CONTRIBUTING.md).
+You are welcome to contribute as developer to the code via pull requests. Please look at the contribution [guidelines](https://github.com/mitigation-controller/mitc/blob/main/CONTRIBUTING.md).
 
 #### Prerequisites:
 * MATLAB 2019a or higher.
