@@ -176,8 +176,8 @@ Figure below:
 
 ### Additional contents to consider
 * Journal article on the basic Mitigation controller, https://doi.org/10.1061/(ASCE)CO.1943-7862.0002126 or http://bitly.ws/eZBm (open access)
-* Journal article on the advanced Mitigation Controller (under review): to be added
-* Journal article on the Mitigation controller Software, https://doi.org/10.1016/j.softx.2022.101023 (open access)
+* Journal article on the advanced Mitigation Controller, https://doi.org/10.1016/j.autcon.2022.104450 (open access)
+* Journal article on the Mitigation Controller Software, https://doi.org/10.1016/j.softx.2022.101023 (open access)
 * Lecture on the theory behind the Mitigation Controller: https://youtu.be/_Qmlm01DPtw
 * Recorded tutorial on the use of the basic Mitigation Controller: https://youtu.be/9EeTCztO3sk
   Please note that more features have been implemented sine then so you could notice some differences. The results, however, should be the same.
